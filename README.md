@@ -7,31 +7,65 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## How to Install necessary resources before running
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+   Laravel Guide : https://laravel.com/docs/11.x/installation  
+   Youtube Guide for laravel installation : https://www.youtube.com/watch?v=2qgS_MCvDfk  
+   Youtube Guide for Laravel/breeze installation : https://www.youtube.com/watch?v=Et068bVFstY  
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1. Make sure to install PHP, XAMPP, Composer, Node.js :  
+   installation links :  
+   XAMPP - https://www.apachefriends.org/download.html  
+   PHP - https://www.php.net/downloads.php  
+   Composer - https://getcomposer.org/download/  
+   Node.js - https://nodejs.org/en  
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+   - in XAMPP, php.ini file un-comment or remove ';' symbol in the following :  
+     extension=pdo_mysql  
+     extension=mbstring  
+     extension=gettext  
+     extension=fileinfo  
+     extension=exif  
+     *DO note that extension=mongodb is an addition and not available in the normal php.ini ; don't mind it!  
 
-## Learning Laravel
+   - after running and installing composer go to your PATH and add the bin file path to it, it may look like this  
+            C:\Users\user\AppData\Roaming\Composer\vendor\bin  
+     *If you installed Node.js first, there is an option to automatically add it to the path. If not added, manually add it!
+  
+   - to check if PHP is successfully installed, type in the CMD "php -v"*  
+   - to check if Node or npm is installed, type in the CMD "node -v" and "npm -v"*  
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## How to clone this project on VS Code
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. to clone this repository, open Visual Studio Code (VS Code) and type git clone <repository-link>
+2. open/navigate to the cloned repository
+3. open the terminal and run the following commands:
+   ```
+   composer install
+   npm install
+   ```
+   this will take a while just wait.
+   
+   ```
+   cp .env.example .env
+   (make sure to uncomment the database configurations in the .env file)
+   ```
+   ```
+   php artisan key:generate
+   ```
+   ```
+   php artisan migrate
+   php artisan db:seed
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+   run both of these command in different terminal:
+   ```
+   php artisan serve
+   npm run dev
+   ```
 
-## Laravel Sponsors
+   you will be able to access the application at `http://localhost:8000`.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
 ### Premium Partners
 
@@ -64,3 +98,5 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
