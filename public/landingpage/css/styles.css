@@ -11006,32 +11006,59 @@ footer {
     }
   
 
+#mainNav .navbar-nav .dropdown-menu {
+    position: absolute !important; 
+    z-index: 1000;
+    display: none;
+    float: none; /* Adjust alignment for mobile view */
+    min-width: 100%; /* Full width dropdown on mobile */
+    padding: 0.5rem 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: none; /* Remove border for mobile uniformity */
+    border-radius: 0; /* Flat borders for mobile dropdown */
+    box-shadow: none; /* Remove shadow on mobile */
+    margin: 0; /* No margin for a flush design */
+}
+
+/* Show dropdown when active */
+#mainNav .navbar-nav .dropdown-menu.show {
+    display: block !important;
+}
+
+/* Dropdown item styles */
+.navbar-nav .dropdown-menu .dropdown-item {
+    font-family: 'Merriweather Sans', Arial, sans-serif; /* Match the site's font */
+    font-size: 1rem; /* Use consistent font size */
+    padding: 0.75rem 1rem; /* Spacing for better tap targets */
+    color: #212529; /* Ensure readability */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Add subtle separator */
+}
+
+/* Remove border for last item */
+.navbar-nav .dropdown-menu .dropdown-item:last-child {
+    border-bottom: none;
+}
+
+/* Add hover effect for both views */
+.navbar-nav .dropdown-menu .dropdown-item:hover {
+    background-color: #f8f9fa; /* Light gray background for hover */
+    color: #0056b3; /* Use primary link color for hover text */
+}
+
+/* Mobile-specific styling */
+@media (max-width: 992px) {
     #mainNav .navbar-nav .dropdown-menu {
-      position: absolute !important;
-      top: 100% !important;
-      right: 0 !important;
-      z-index: 1000;
-      display: none;
-      float: left;
-      min-width: 10rem;
-      padding: 0.5rem 0;
-      margin: 0.125rem 0 0;
-      font-size: 1rem;
-      color: #212529;
-      text-align: left;
-      list-style: none;
-      background-color: #fff;
-      background-clip: padding-box;
-      border: 1px solid rgba(0, 0, 0, 0.15);
-      border-radius: 0.375rem;
-      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-      margin-top: 0.125rem;
-    }
-    #mainNav .navbar-nav .dropdown-menu.show {
-          display: block !important;
+        text-align: left; /* Align text to left */
+        min-width: 100%; /* Ensure dropdown spans full width */
     }
 
-    .navbar-nav .dropdown-menu .dropdown-item {
-      font-family: 'Arial', sans-serif; /* Specify font-family name here*/
-      font-size: 1.1rem;/* adjust font size as you need */
-  }
+    #mainNav .navbar-nav .dropdown-menu .dropdown-item {
+        padding: 0.5rem 1rem; /* Adjust spacing for better usability */
+        font-size: 1rem; /* Consistent font size */
+    }
+}

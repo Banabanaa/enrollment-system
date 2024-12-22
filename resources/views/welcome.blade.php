@@ -22,38 +22,46 @@
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="https://cvsu.edu.ph/bacoor/">CvSU - Bacoor City Campus</a>
-                
-                <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                    <li class="nav-item dropdown d-lg-none d-block">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Login
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ url('student/login') }}">Student</a></li>
-                            <li><a class="dropdown-item" href="{{ url('registrar/login') }}">Registrar</a></li>
-                            <li><a class="dropdown-item" href="{{ url('department/login') }}">Department</a></li>
-                            <li><a class="dropdown-item" href="{{ url('admin/login') }}">Admin</a></li>
-                        </ul>
-                    </li>
-                </ul>
-
-                    <div class="collapse navbar-collapse" id="navbarResponsive">
-                        <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                           <li class="nav-item dropdown d-none d-lg-block">
-                              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Login
-                              </a>
-                              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                        <!-- Hidden dropdown for desktop view -->
+                        <li class="nav-item dropdown d-none d-lg-block">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Log  in
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ url('student/login') }}">Student</a></li>
                                 <li><a class="dropdown-item" href="{{ url('registrar/login') }}">Registrar</a></li>
                                 <li><a class="dropdown-item" href="{{ url('department/login') }}">Department</a></li>
                                 <li><a class="dropdown-item" href="{{ url('admin/login') }}">Admin</a></li>
                             </ul>
-                            </li>
-                        </ul>
-                    </div>
+                        </li>
+                        
+                        <!-- List items directly displayed for mobile view -->
+                        <li class="nav-item d-lg-none">
+                            <span class="nav-link fw-bold">Log in:</span> <!-- Title -->
+                        </li>
+                        <li class="nav-item d-lg-none ms-3"> <!-- Indented list items -->
+                            <a class="nav-link" href="{{ url('student/login') }}">Student</a>
+                        </li>
+                        <li class="nav-item d-lg-none ms-3">
+                            <a class="nav-link" href="{{ url('registrar/login') }}">Registrar</a>
+                        </li>
+                        <li class="nav-item d-lg-none ms-3">
+                            <a class="nav-link" href="{{ url('department/login') }}">Department</a>
+                        </li>
+                        <li class="nav-item d-lg-none ms-3">
+                            <a class="nav-link" href="{{ url('admin/login') }}">Admin</a>
+                        </li>
+                    </ul>
+                </div>
+                
             </div>
-        </nav>       
+        </nav>
+            
         <!-- Masthead-->
         <header class="masthead">
             <div class="container px-4 px-lg-5 h-100">
@@ -132,7 +140,7 @@
                     </div>
                     <div class="col-lg-4 col-sm-6">
                         <a class="portfolio-box" href="https://www.facebook.com/societashumanaresource.ph" title="Project Name">
-                            <img class="img-fluid" src="{{ asset('landingpage/assets/img/portfolio/thumbnails/3.png') }}" alt="..." />
+                            <img class="img-fluid" src="{{ asset('landingpage/assets/img/portfolio/thumbnails/3.jpg') }}" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">Category</div>
                                 <div class="project-name">Societas Humana Resource</div>
@@ -149,7 +157,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="#" title="Project Name">
+                        <a class="portfolio-box" href="https://www.facebook.com/lms.jma2011" title="Project Name">
                             <img class="img-fluid" src="{{ asset('landingpage/assets/img/portfolio/thumbnails/5.png') }}" alt="..." />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">Category</div>
@@ -158,7 +166,7 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="#" title="Project Name">
+                        <a class="portfolio-box" href="https://www.facebook.com/bshmsocietycvsubacoor" title="Project Name">
                             <img class="img-fluid" src="{{ asset('landingpage/assets/img/portfolio/thumbnails/6.png') }}" alt="..." />
                             <div class="portfolio-box-caption p-3">
                                 <div class="project-category text-white-50">Category</div>
