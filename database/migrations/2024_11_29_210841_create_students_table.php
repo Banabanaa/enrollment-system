@@ -33,8 +33,8 @@ return new class extends Migration {
             ]);
 
             
-            $table->varchar("year")->nullable();
-            $table->varchar("section")->nullable();
+            $table->string("year")->nullable();
+            $table->string("section")->nullable();
             $table->string("house_number")->nullable();
             $table->string("street")->nullable();
             $table->string("barangay")->nullable();
