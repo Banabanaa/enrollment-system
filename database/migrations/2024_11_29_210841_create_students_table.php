@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('middle_name');
             $table->string('extension_name')->nullable();
             $table->string('contact_number')->nullable();
-            
+
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -28,11 +28,11 @@ return new class extends Migration {
             $table->enum('classification', ['regular', 'irregular', 'transferee', 'returnee']);
 
             $table->enum('program_id', [
-                'Bachelor of Science in Computer Science',
-                'Bachelor of Science in Information Technology'
+                'Computer Science',
+                'Information Technology'
             ]);
 
-            
+
             $table->string("year")->nullable();
             $table->string("section")->nullable();
             $table->string("house_number")->nullable();
