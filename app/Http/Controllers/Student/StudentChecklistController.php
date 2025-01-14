@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Student;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\StudentCourseChecklist; // Make sure to use the correct model
 
 class StudentChecklistController extends Controller

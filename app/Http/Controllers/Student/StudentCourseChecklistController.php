@@ -1,24 +1,24 @@
 <?php
-// app/Http/Controllers/StudentCourseChecklistController.php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Student;
 
 use App\Models\StudentCourseChecklist;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class StudentCourseChecklistController extends Controller
 {
-    // Method to show a specific checklist with its course
-    public function show($id)
+    public function index()
     {
-        // Retrieve a checklist by its ID
-        $checklist = StudentCourseChecklist::find($id); // Replace $id with your route parameter
+        // Get the logged-in student's ID
+        $studentId = auth()->guard('student')->id();
 
-        if ($checklist) {
-            $course = $checklist->course; // Eager load the course data
-            return view('checklists.show', compact('checklist', 'course')); // Pass data to a view
-        } else {
-            return redirect()->route('checklists.index')->with('error', 'Checklist not found.');
-        }
+        // Fetch the checklist for the logged-in student using the correct column
+        $studentCourseChecklist = StudentCourseChecklist::where('id', $studentId)
+            ->with('course') // Eager load related course data
+            ->get();
+
+        // Pass the checklist data to the view
+        return view('student.view.checklist', compact('studentCourseChecklist'));
     }
 }
+

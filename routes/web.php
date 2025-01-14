@@ -13,7 +13,7 @@ use App\Http\Controllers\Registrar\EnrollmentController;
 use App\Http\Controllers\Department\DDepartmentController;
 use App\Http\Controllers\Department\DEnrollmentController;
 use App\Http\Controllers\PhotoUploadController;
-use App\Http\Controllers\StudentChecklistController;
+use App\Http\Controllers\Student\StudentCourseChecklistController;
 
 
 Route::get('/', function () {
@@ -134,8 +134,8 @@ Route::prefix('department')->middleware('auth:department')->group(function () {
 // Student Routes
 Route::prefix('student')->middleware('auth:student')->group(function () {
     Route::name('student.view.')->group(function () {
+        Route::get('view/checklist', [StudentCourseChecklistController::class, 'index'])->name('checklist');
         Route::view('view/enrollment', 'student.view.enrollment')->name('enrollment');
-        Route::view('view/checklist', 'student.view.checklist')->name('checklist');
     });
 
     Route::name('student.addons.')->group(function () {

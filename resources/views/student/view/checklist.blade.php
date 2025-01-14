@@ -114,23 +114,22 @@
                         </tr>
                     </thead>
                     <tbody style="font-size: 0.8rem;">
-                        @isset($student_course_checklist)
-                        @foreach($student_course_checklist as $course)
-                        <tr>
-                            <td>{{ $course->course->course_code }}</td>
-                            <td>{{ $course->course->course_title }}</td>
-                            <td>{{ $course->course->pre_requisite ?? 'N/A' }}</td>
-                            <td>{{ $course->sy_taken }}</td>
-                            <td>{{ $course->final_grade }}</td>
-                            <td>{{ $course->instructor }}</td>
-                        </tr>
-                        @endforeach
-
+                        @if($studentCourseChecklist->isNotEmpty())
+                            @foreach($studentCourseChecklist as $course)
+                            <tr>
+                                <td>{{ $course->course->course_code }}</td>
+                                <td>{{ $course->course->course_title }}</td>
+                                <td>{{ $course->course->pre_requisite ?? 'N/A' }}</td>
+                                <td>{{ $course->sy_taken }}</td>
+                                <td>{{ $course->final_grade }}</td>
+                                <td>{{ $course->instructor }}</td>
+                            </tr>
+                            @endforeach
                         @else
                             <tr>
                                 <td colspan="6">No courses found.</td>
                             </tr>
-                        @endisset
+                        @endif
                     </tbody>
                 </table>
             </div>
