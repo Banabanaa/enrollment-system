@@ -32,6 +32,7 @@
                 </a>
                 <div class="collapse" id="collapseEnrollment" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{ route('department.enrollment.regular') }}">Regular</a>
                         <a class="nav-link" href="{{ route('department.enrollment.irregular') }}">Irregular</a>
                         <a class="nav-link" href="{{ route('department.enrollment.transferee') }}">Transferee</a>
                         <a class="nav-link" href="{{ route('department.enrollment.returnee') }}">Returnee</a>
