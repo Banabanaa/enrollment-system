@@ -3,277 +3,140 @@
 @section('content')
 
 <div class="container-fluid px-4">
-<h1 class="mt-4">Student Grades</h1>
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item active">View</li>
-</ol>
+    <h1 class="mt-4">Student Grades</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">COG</li>
+    </ol>
 
-{{-- BSCS Checklist --}}
-    <div id="bscs-checklist" class="checklist">
-        <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-table me-1"></i>
-                First Year - First Semester (BSCS)
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="bg-success text-white" style="font-size: 0.9rem;">
-                            <tr>
-                                <th>Course Code</th>
-                                <th>Course Title</th>
-                                <th>Credit Units Lecture</th>
-                                <th>Credit Units Laboratory</th>
-                                <th>Contact Hours Lecture</th>
-                                <th>Contact Hours Laboratory</th>
-                                <th>Pre-requisites</th>
-                                <th>SY/Semester Taken</th>
-                                <th>Final Grade</th>
-                                <th>Instructor</th>
-                            </tr>
-                        </thead>
-                        <tbody style="font-size: 0.8rem;">
-                            <tr>
-                                <td>GNED 02</td>
-                                <td>Ethics</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>None</td>
-                                <td>2021/First</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>GNED 05</td>
-                                <td>Purposive Communication</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>None</td>
-                                <td>2021/First</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>GNED 11</td>
-                                <td>Kontektwaliasadong Komunikasyon sa Filipino</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>None</td>
-                                <td>2021/First</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>COSC 50</td>
-                                <td>Discrete Structures I</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>None</td>
-                                <td>2021/First</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>DCIT 21</td>
-                                <td>Introduction to Computing</td>
-                                <td>2</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>6</td>
-                                <td>None</td>
-                                <td>2021/First</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>DCIT 22</td>
-                                <td>Computer Programming I</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>1</td>
-                                <td>3</td>
-                                <td>None</td>
-                                <td>2021/First</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>FITT 1</td>
-                                <td>Movement Enhancement</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>None</td>
-                                <td>2021/First</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>NSTP 1</td>
-                                <td>National Service Training Program 1</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>None</td>
-                                <td>2021/First</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>CvSU 101</td>
-                                <td>Institutional Orientation</td>
-                                <td>(1)</td>
-                                <td>0</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>None</td>
-                                <td>2023/First</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
-        <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-table me-1"></i>
-                First Year - Second Semester (BSCS)
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead class="bg-success text-white" style="font-size: 0.9rem;">
-                            <tr>
-                                <th>Course Code</th>
-                                <th>Course Title</th>
-                                <th>Credit Units Lecture</th>
-                                <th>Credit Units Laboratory</th>
-                                <th>Contact Hours Lecture</th>
-                                <th>Contact Hours Laboratory</th>
-                                <th>Pre-requisites</th>
-                                <th>SY/Semester Taken</th>
-                                <th>Final Grade</th>
-                                <th>Instructor</th>
-                            </tr>
-                        </thead>
-                        <tbody style="font-size: 0.8rem;">
-                            <tr>
-                                <td>GNED 01</td>
-                                <td>Art Appreciation</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>None</td>
-                                <td>2021/Second</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>GNED 03</td>
-                                <td>Mathematics in the Modern World</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>None</td>
-                                <td>2021/Second</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>GNED 06</td>
-                                <td>Science, Technology and Society</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>None</td>
-                                <td>2021/Second</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>GNED 12</td>
-                                <td>Dalumat Ng/Sa Filipino</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>GNED 11</td>
-                                <td>2021/Second</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>DCIT 23</td>
-                                <td>Computer Programming II</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>1</td>
-                                <td>6</td>
-                                <td>DCIT 22</td>
-                                <td>2021/Second</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>ITEC 50</td>
-                                <td>Web Systems and Technologies</td>
-                                <td>2</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>DCIT 21</td>
-                                <td>2021/Second</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>FITT 2</td>
-                                <td>Fitness Exercises</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>2</td>
-                                <td>0</td>
-                                <td>FITT 1</td>
-                                <td>2021/Second</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>NSTP 2</td>
-                                <td>National Service Training Program 2</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>3</td>
-                                <td>0</td>
-                                <td>NSTP 1</td>
-                                <td>2021/Second</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
+    {{-- File Upload Container --}}
+<div class="upload-container" style="border: 2px solid green; border-radius: 10px; padding: 20px; margin: 20px;">
+    <div class="my-4 text-center">
+        <form method="post" action="{{ route('upload.photo') }}" enctype="multipart/form-data">
+            @csrf
+            <label for="photoInput" class="custom-file-upload">
+                <input type="file" name="photo" id="photoInput" accept="image/*" required onchange="previewImage(event)">
+                Browse Files
+            </label>
+        </form>
+    </div>
+
+    <div id="imagePreview" class="my-4 text-center" style="display: none;">
+        <img id="preview" src="#" alt="Selected Image" style="max-width: 100%; max-height: 400px;">
+        <button id="replaceButton" onclick="replaceImage(event)">Replace Image</button>
     </div>
 </div>
 
-@endsection
+<style>
+    .upload-container {
+        border: 2px solid green; /* Green border */
+        border-radius: 10px; /* Rounded corners */
+        padding: 20px; /* Inner padding */
+        margin: 20px; /* Outer margin for spacing */
+        background-color: #f9f9f9; /* Light background color for contrast */
+    }
 
+    .custom-file-upload {
+        cursor: pointer;
+        display: inline-block;
+        padding: 10px 20px;
+        background:rgb(21, 102, 4);
+        color: #fff;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+    }
+
+    .custom-file-upload input {
+        display: none;
+    }
+
+    #replaceButton {
+        display: block;
+        margin-top: 10px;
+        padding: 5px 10px;
+        background:rgba(165, 163, 163, 0.9);
+        color: #fff;
+        border: 1px solidrgb(27, 173, 7);
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #preview {
+        max-width: 100%; /* Set maximum width to 100% of the container */
+        max-height: 400px; /* Limit the maximum height to 400px */
+    }
+</style>
+
+<script>
+    function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('preview');
+        const imagePreview = document.getElementById('imagePreview');
+
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            preview.src = reader.result;
+            imagePreview.style.display = 'block';
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function replaceImage(event) {
+        const input = document.getElementById('photoInput');
+        input.value = ''; // Reset input value to allow selecting the same file again
+        document.getElementById('imagePreview').style.display = 'none'; // Hide the image preview
+    }
+</script>
+
+
+{{-- BSCS Checklist --}}
+<div id="bscs-checklist" class="checklist">
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <i class="fas fa-table me-1"></i>
+            Second Semester
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered text-center">
+                    <thead class="bg-success text-white" style="font-size: 0.9rem;">
+                        <tr>
+                            <th>COURSE CODE</th>
+                            <th>TITLE</th>
+                            <th>PRE-REQUISITE</th>
+                            <th>SY TAKEN</th>
+                            <th>FINAL GRADE</th>
+                            <th>INSTRUCTOR</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 0.8rem;">
+                        @isset($student_course_checklist)
+                        @foreach($student_course_checklist as $course)
+                        <tr>
+                            <td>{{ $course->course->course_code }}</td>
+                            <td>{{ $course->course->course_title }}</td>
+                            <td>{{ $course->course->pre_requisite ?? 'N/A' }}</td>
+                            <td>{{ $course->sy_taken }}</td>
+                            <td>{{ $course->final_grade }}</td>
+                            <td>{{ $course->instructor }}</td>
+                        </tr>
+                        @endforeach
+
+                        @else
+                            <tr>
+                                <td colspan="6">No courses found.</td>
+                            </tr>
+                        @endisset
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+@endsection

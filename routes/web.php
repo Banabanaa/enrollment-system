@@ -12,10 +12,14 @@ use App\Http\Controllers\Department\DStudentController;
 use App\Http\Controllers\Registrar\EnrollmentController;
 use App\Http\Controllers\Department\DDepartmentController;
 use App\Http\Controllers\Department\DEnrollmentController;
+use App\Http\Controllers\PhotoUploadController;
+use App\Http\Controllers\StudentChecklistController;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -147,6 +151,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//Photo Upload
+Route::post('/upload/photo', [PhotoUploadController::class, 'upload'])->name('upload.photo');
+
+Route::get('/grades', [StudentController::class, 'showGrades'])->name('grades.show');
 // Include Auth Routes
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin-auth.php';
