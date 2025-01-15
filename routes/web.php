@@ -128,6 +128,7 @@ Route::prefix('department')->middleware('auth:department')->group(function () {
     Route::name('department.addons.')->group(function () {
         Route::view('addons/checklist', 'department.addons.checklist')->name('checklist');
         Route::view('addons/masterlist', 'department.addons.masterlist')->name('masterlist');
+        Route::view('addons/advising', 'department.addons.advising')->name('advising');
     });
 });
 

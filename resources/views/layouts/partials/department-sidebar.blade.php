@@ -49,6 +49,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
                     Masterlist
                 </a>
+                <a class="nav-link" href="{{ route('department.addons.advising') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
+                    Advising
+                </a>
             </div>
         </div>
         <div class="sb-sidenav-footer" style="background-color: transparent;">
