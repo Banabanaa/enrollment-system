@@ -27,6 +27,12 @@
 </div>
 
 <style>
+    input.form-control:focus {
+        border-color: green;
+        outline: none; /* Optional: Removes the default outline for a cleaner look */
+        box-shadow: 0 0 5px rgba(0, 128, 0, 0.5); /* Optional: Adds a subtle green glow */
+    }
+
     .upload-container {
         border: 2px solid green; /* Green border */
         border-radius: 10px; /* Rounded corners */
@@ -119,9 +125,35 @@
                                         <td>{{ $course->course_code }}</td>
                                         <td>{{ $course->course_title }}</td>
                                         <td>{{ $course->pre_requisite }}</td>
-                                        <td>{{ $course->sy_taken }}</td>
-                                        <td>{{ $course->final_grade }}</td>
-                                        <td>{{ $course->instructor }}</td>
+                                        <td>
+                                            <select name="sy_taken" class="form-control">
+                                                <option value="{{ $course->sy_taken }}">{{ $course->sy_taken }}</option>
+                                                <option value="2020-2021">2020-2021</option>
+                                                <option value="2021-2022">2021-2022</option>
+                                                <option value="2022-2023">2022-2023</option>
+                                                <!-- Add other years as needed -->
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select name="final_grade" class="form-control">
+                                                <option value="{{ $course->final_grade }}">{{ $course->final_grade }}</option>
+                                                <option value="A">A</option>
+                                                <option value="B">B</option>
+                                                <option value="C">C</option>
+                                                <option value="D">D</option>
+                                                <option value="F">F</option>
+                                                <!-- Add other grades as needed -->
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select name="instructor" class="form-control">
+                                                <option value="{{ $course->instructor }}">{{ $course->instructor }}</option>
+                                                <option value="Dr. Smith">Dr. Smith</option>
+                                                <option value="Prof. Johnson">Prof. Johnson</option>
+                                                <option value="Dr. Lee">Dr. Lee</option>
+                                                <!-- Add other instructors as needed -->
+                                            </select>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -129,9 +161,12 @@
                     </div>
                 </div>
             </div>
+            
         @endforeach
 </div>
-
+<div class="text-center my-4">
+    <button type="submit" class="btn btn-primary btn-lg custom-button" style="width: 200px; background:rgb(21, 102, 4); border: none;">Save</button>
+</div>
 </div>
 
 @endsection
