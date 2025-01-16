@@ -92,50 +92,46 @@
     }
 </script>
 
-
 {{-- BSCS Checklist --}}
-<div id="bscs-checklist" class="checklist">
-    <div class="card mb-4">
-        <div class="card-header bg-success text-white">
-            <i class="fas fa-table me-1"></i>
-            Second Semester
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered text-center">
-                    <thead class="bg-success text-white" style="font-size: 0.9rem;">
-                        <tr>
-                            <th>COURSE CODE</th>
-                            <th>TITLE</th>
-                            <th>PRE-REQUISITE</th>
-                            <th>SY TAKEN</th>
-                            <th>FINAL GRADE</th>
-                            <th>INSTRUCTOR</th>
-                        </tr>
-                    </thead>
-                    <tbody style="font-size: 0.8rem;">
-                        @if($studentCourseChecklist->isNotEmpty())
-                            @foreach($studentCourseChecklist as $course)
-                            <tr>
-                                <td>{{ $course->course->course_code }}</td>
-                                <td>{{ $course->course->course_title }}</td>
-                                <td>{{ $course->course->pre_requisite ?? 'N/A' }}</td>
-                                <td>{{ $course->sy_taken }}</td>
-                                <td>{{ $course->final_grade }}</td>
-                                <td>{{ $course->instructor }}</td>
-                            </tr>
-                            @endforeach
-                        @else
-                            <tr>
-                                <td colspan="6">No courses found.</td>
-                            </tr>
-                        @endif
-                    </tbody>
-                </table>
+    <div id="bscs-checklist" class="checklist">
+        @foreach ($studentCourseChecklist as $semester => $courses)
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <i class="fas fa-table me-1"></i>
+                    {{ $semester }}
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center">
+                            <thead class="bg-success text-white" style="font-size: 0.9rem;">
+                                <tr>
+                                    <th>COURSE CODE</th>
+                                    <th>TITLE</th>
+                                    <th>PRE-REQUISITE</th>
+                                    <th>SY TAKEN</th>
+                                    <th>FINAL GRADE</th>
+                                    <th>INSTRUCTOR</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($courses as $course)
+                                    <tr>
+                                        <td>{{ $course->course_code }}</td>
+                                        <td>{{ $course->course_title }}</td>
+                                        <td>{{ $course->pre_requisite }}</td>
+                                        <td>{{ $course->sy_taken }}</td>
+                                        <td>{{ $course->final_grade }}</td>
+                                        <td>{{ $course->instructor }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+        @endforeach
 </div>
+
 </div>
 
 @endsection
