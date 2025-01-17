@@ -13,6 +13,25 @@ use App\Http\Controllers\Registrar\EnrollmentController;
 use App\Http\Controllers\Department\DDepartmentController;
 use App\Http\Controllers\Department\DEnrollmentController;
 
+//ENROLLMENT OF STUDENT
+Route::prefix('registrar/enrollment')->group(function () {
+    Route::get('/regular', [EnrollmentController::class, 'regular'])->name('enrollment.regular');
+    Route::get('/irregular', [EnrollmentController::class, 'irregular'])->name('enrollment.irregular');
+    Route::get('/transferee', [EnrollmentController::class, 'transferee'])->name('enrollment.transferee');
+    Route::get('/returnee', [EnrollmentController::class, 'returnee'])->name('enrollment.returnee');
+});
+Route::post('/enroll-student/{id}', [EnrollmentController::class, 'enrollStudent'])->name('enrollment.enrollStudent');
+
+//CONSULT STUDENT(button for changing status of student to consult in Registrar Panel for Enrollment)
+Route::post('/consult-student/{id}', [EnrollmentController::class, 'consultStudent'])->name('consult.student');
+
+//ADVISE STUDENT(button for changing status of student to advise and give available courses to students in Department Panel for Enrollment)
+Route::get('/department/enrollment/irregular', [DEnrollmentController::class, 'irregular'])->name('department.irregular');
+
+Route::post('/enrollment/advise-student', [DEnrollmentController::class, 'adviseStudent']);
+
+
+
 Route::get('/', function () {
     return view('welcome');
 });

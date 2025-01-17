@@ -45,7 +45,7 @@
                                 <td>{{ $student->year }}</td>
                                 <td>{{ $student->section }}</td>
                                 <td>
-                                    <a href="" class="btn btn-primary btn-sm">Enroll</a>
+                                <button class="btn btn-primary btn-sm enroll-btn" data-student-id="{{ $student->id }}">Enroll</button>
                                 </td>
                             </tr>
                         @endforeach
