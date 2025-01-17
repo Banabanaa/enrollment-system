@@ -14,6 +14,7 @@ use App\Http\Controllers\Department\DDepartmentController;
 use App\Http\Controllers\Department\DEnrollmentController;
 use App\Http\Controllers\PhotoUploadController;
 use App\Http\Controllers\Student\StudentCourseChecklistController;
+use App\Http\Controllers\InstructorController;
 
 
 Route::get('/', function () {
@@ -142,7 +143,11 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
     Route::name('student.addons.')->group(function () {
         Route::view('addons/cor', 'student.addons.cor')->name('cor');
     });
+    // Instructor Routes
+    Route::get('/instructors', [InstructorController::class, 'showInstructor'])->name('instructors.show');
 });
+Route::get('/student-grades', [StudentGradesController::class, 'showStudentGrades'])->name('student.grades');
+
 
 
 // Profile Management

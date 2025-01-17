@@ -17,8 +17,16 @@ class StudentCourseChecklist extends Model
     {
         return $this->belongsTo(Course::class, 'course_code', 'course_code');
     }
+
     public function student()
     {
         return $this->belongsTo(Student::class, 'student_id', 'id');
     }
+
+    public function instructor()
+{
+    return $this->belongsTo(Instructor::class, 'instructor', 'id');
+}
+
+
 }
