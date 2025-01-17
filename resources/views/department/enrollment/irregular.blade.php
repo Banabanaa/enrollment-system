@@ -116,7 +116,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const adviseModal = document.getElementById('adviseModal');
     let availableCourses = [];
-    let addedCourses = []; // Array to keep track of added courses
+    let addedCourses = []; // Array to keep track of added courses by their unique IDs
 
     adviseModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
@@ -139,12 +139,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         availableCourses.forEach(course => {
             const option = document.createElement('option');
-            option.value = course.id;
+            option.value = course.id; // Use unique ID
             option.textContent = `${course.course_code} - ${course.course_title}`;
             dropdown.appendChild(option);
         });
 
         // Clear the added courses list
+        addedCourses = []; // Reset addedCourses array
         const addedCoursesList = document.getElementById('addedCourses');
         addedCoursesList.innerHTML = '';
     });
@@ -154,15 +155,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedOption = dropdown.options[dropdown.selectedIndex];
 
         if (selectedOption) {
-            const courseId = selectedOption.value;
+            const courseId = selectedOption.value; // Unique course ID
             const courseTitle = selectedOption.textContent;
             const addedCoursesList = document.getElementById('addedCourses');
 
-            console.log('Selected Course ID:', courseId);
-            console.log('Added Courses:', addedCourses);
+            console.log('Attempting to add Course ID:', courseId);
+            console.log('Currently Added Courses:', addedCourses);
 
-            // Check if the course is already added by looking into the addedCourses array
-            if (addedCourses.indexOf(courseId) !== -1) {
+            // Check if the course is already added using its unique ID
+            if (addedCourses.includes(courseId)) {
                 alert('This course is already added.');
             } else {
                 // Add course to the addedCourses array
@@ -188,40 +189,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 listItem.appendChild(removeBtn);
                 addedCoursesList.appendChild(listItem);
+
+                console.log('Added Courses after addition:', addedCourses);
             }
         } else {
             alert('Please select a course to add.');
         }
     });
-});
-document.getElementById('saveAdvise').addEventListener('click', function () {
-    const studentNumber = document.getElementById('studentNumber').value;
-    const coursesList = Array.from(document.querySelectorAll('#addedCourses li'));
-    const advisingNotes = document.getElementById('advisingNotes').value;
 
-    const courses = coursesList.map(course => course.getAttribute('data-course-id'));
+    document.getElementById('saveAdvise').addEventListener('click', function () {
+        const studentNumber = document.getElementById('studentNumber').value;
+        const coursesList = Array.from(document.querySelectorAll('#addedCourses li'));
+        const advisingNotes = document.getElementById('advisingNotes').value;
 
-    // Prepare data to send in the request
-    const data = {
-        student_number: studentNumber,
-        courses: courses,
-        advising_notes: advisingNotes
-    };
+        const courses = coursesList.map(course => course.getAttribute('data-course-id'));
 
-    // Send AJAX request to backend
-    fetch('/enrollment/advise-student', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify(data)
+        console.log('Saving advising data for:', studentNumber);
+        console.log('Selected courses:', courses);
+        console.log('Advising Notes:', advisingNotes);
+
+        // Prepare data to send in the request
+        const data = {
+            student_number: studentNumber,
+            courses: courses,
+            advising_notes: advisingNotes
+        };
+
+        // Send AJAX request to backend
+        fetch('/enrollment/advise-student', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    },
+    body: JSON.stringify(data)
+})
+    .then(response => {
+        if (!response.ok) {
+            return response.text().then(html => {
+                console.error('Non-JSON response received:', html);
+                throw new Error(`Server returned an error: ${response.status}`);
+            });
+        }
+        return response.json();
     })
-    .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Student status updated to Pending and email sent.');
-            // Close the modal
+            alert('Student advised successfully!');
             const modal = new bootstrap.Modal(document.getElementById('adviseModal'));
             modal.hide();
         } else {
@@ -230,8 +244,9 @@ document.getElementById('saveAdvise').addEventListener('click', function () {
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('An error occurred while processing the request.');
+        alert(`An error occurred: ${error.message}`);
+    });
+
     });
 });
-
 </script>

@@ -27,8 +27,8 @@ Route::post('/consult-student/{id}', [EnrollmentController::class, 'consultStude
 
 //ADVISE STUDENT(button for changing status of student to advise and give available courses to students in Department Panel for Enrollment)
 Route::get('/department/enrollment/irregular', [DEnrollmentController::class, 'irregular'])->name('department.irregular');
+Route::post('department/enrollment/advise-student', [DEnrollmentController::class, 'adviseStudent'])->name('department.adviseStudent');
 
-Route::post('/enrollment/advise-student', [DEnrollmentController::class, 'adviseStudent']);
 
 
 
