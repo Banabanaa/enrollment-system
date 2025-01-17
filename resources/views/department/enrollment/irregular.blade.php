@@ -1,5 +1,6 @@
 @extends('layouts.department')
 
+@section('title', 'Irregular Enrollment')
 @section('content')
 
 <div class="container-fluid px-4">

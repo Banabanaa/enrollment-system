@@ -1,5 +1,6 @@
 @extends('layouts.registrar')
 
+@section('title', 'Transferee Enrollment')
 @section('content')
 
 <div class="container-fluid px-4">
