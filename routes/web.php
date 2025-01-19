@@ -97,6 +97,7 @@ Route::prefix('registrar')->middleware('auth:registrar')->group(function () {
     Route::name('registrar.addons.')->group(function () {
         Route::view('addons/checklist', 'registrar.addons.checklist')->name('checklist');
         Route::view('addons/masterlist', 'registrar.addons.masterlist')->name('masterlist');
+        Route::view('addons/issue-cor', 'registrar.addons.issue-cor')->name('issue-cor');
     });
 });
 
