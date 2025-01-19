@@ -29,7 +29,7 @@ class Student extends Authenticatable
         'birthday',
         'sex',
         'classification',
-        'program_id', 
+        'program_id',
         'year',
         'section',
         'house_number',

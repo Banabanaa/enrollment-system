@@ -34,6 +34,8 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
         'update' => 'admin.manage.update',
         'destroy' => 'admin.manage.destroy',
     ]);
+    Route::post('/admin/manage/student/store', [AdminController::class, 'store'])->name('admin.manage.student.store');
+
 
     // Registrar Management Routes
     Route::resource('manage/registrar', RegistrarController::class)->except(['create', 'show'])->names([
@@ -67,7 +69,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 });
 
 // Registrar Routes
-Route::prefix('registrar')->middleware('auth:registrar')->group(function () { 
+Route::prefix('registrar')->middleware('auth:registrar')->group(function () {
     // Registrar Management Routes
      Route::resource('manage/registrar', RRegistrarController::class)->except(['create', 'show'])->names([
         'index' => 'registrar.manage.registrar',
