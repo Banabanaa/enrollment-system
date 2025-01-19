@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 
+@section('title', 'Student Account Management')
 @section('content')
 <div class="container-fluid px-4">
     <h1 class="mt-4">Student Accounts Management</h1>

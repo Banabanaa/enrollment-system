@@ -1,5 +1,6 @@
 @extends('layouts.department')
 
+@section('title', 'Student Advising')
 @section('content')
 <h1 class="mt-4">Student Advising</h1>
 <ol class="breadcrumb mb-4">

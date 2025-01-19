@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 
+@section('title', 'Checklist')
 @section('content')
 <div class="container-fluid px-4">
     <h1 class="mt-4" id="checklist-title">Checklist: Computer Science</h1>

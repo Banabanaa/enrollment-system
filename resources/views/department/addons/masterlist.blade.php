@@ -1,5 +1,6 @@
 @extends('layouts.department')
 
+@section('title', 'Masterlist')
 @section('content')
 
 <h1 class="mt-4">Student Masterlist</h1>

@@ -1,5 +1,6 @@
 @extends('layouts.student')
 
+@section('title', 'Certificate of Registration')
 @section('content')
 
 <h1 class="mt-4">Registration Form</h1>
