@@ -6,7 +6,7 @@
             <!-- Logo -->
             <div class="mb-12 text-center">
                 <img src="{{ asset('assets/cvsu.svg') }}" alt="Bacoor Logo" class="h-logo w-logo mx-auto">
-                <p class="text-md mt-2 font-semibold font-poppins">Cavite State University Bacoor Campus</p>
+                <p class="text-md mt-2 font-semibold font-poppins">Cavite State University<br>Bacoor Campus</p>
             </div>
 
             <!-- Navbar Links -->
@@ -67,8 +67,10 @@
                 <form id="logoutForm" method="POST" action="{{ route('admin.logout') }}">
                     @csrf
                     <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-red-600">Yes</button>
-                </form>
                 <button onclick="closeModal()" class="bg-red text-white px-4 py-2 rounded-lg hover:bg-gray-400">No</button>
+
+                </form>
+
             </div>
         </div>
     </div>

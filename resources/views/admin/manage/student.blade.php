@@ -2,6 +2,8 @@
 
 @section('content')
 @include('admin.modals.add-student-modal')
+@include('admin.modals.edit-student-modal')
+@include('admin.modals.delete-student-modal')
 
 <!-- Filter Buttons and Search Bar -->
 <div class="flex justify-between items-center mb-4 pt-4">
@@ -63,15 +65,12 @@
                         <td class="px-6 py-4 text-sm text-gray-600">{{ $student->last_name }}</td>
                         <td class="px-6 py-4 text-sm text-gray-600">{{ $student->email }}</td>
                         <td class="px-6 py-4 text-sm text-gray-600 text-center">
-                            <div class="flex justify-center space-x-4">
-                                <a href="#" class="text-lime-green hover:text-blue-500">
-                                    <span class="material-icons text-lg">visibility</span>
-                                </a>
+                            <div class="flex justify-left space-x-4">
                                 <a href="#" class="text-lime-green hover:text-green-500">
-                                    <span class="material-icons text-lg" data-bs-toggle="modal" data-bs-target="#editStudentModal-{{ $student->id }}"">edit</span>
+                                    <span class="material-icons text-xl" onclick="toggleModal('editStudentModal-{{ $student->id }}')">edit</span>
                                 </a>
                                 <a href="#" class="text-lime-green hover:text-red-500">
-                                    <span class="material-icons text-lg">delete</span>
+                                    <span class="material-icons text-xl" onclick="toggleModal('deleteStudentModal-{{ $student->id }}')">delete</span>
                                 </a>
                             </div>
                         </td>
