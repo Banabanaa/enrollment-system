@@ -126,32 +126,43 @@
                                         <td>{{ $course->course_title }}</td>
                                         <td>{{ $course->pre_requisite }}</td>
                                         <td>
-                                            <select name="sy_taken" class="form-control">
-                                                <option value="{{ $course->sy_taken }}">{{ $course->sy_taken }}</option>
-                                                <option value="2020-2021">2020-2021</option>
-                                                <option value="2021-2022">2021-2022</option>
-                                                <option value="2022-2023">2022-2023</option>
-                                                <!-- Add other years as needed -->
-                                            </select>
-                                        </td>
+    <input type="text" name="sy_taken" class="form-control" value="{{ $course->sy_taken }}" placeholder="Enter SY Taken" />
+</td>
+                                       <!-- Add this in your Blade view (resources/views/student/grades.blade.php) -->
+
+                                        <!-- Below this, you can still use $instructors as needed if it's correctly passed -->
+                                        
+
                                         <td>
                                             <select name="final_grade" class="form-control">
+                                                <option value="">Select Grade</option>
                                                 <option value="{{ $course->final_grade }}">{{ $course->final_grade }}</option>
-                                                <option value="A">A</option>
-                                                <option value="B">B</option>
-                                                <option value="C">C</option>
-                                                <option value="D">D</option>
-                                                <option value="F">F</option>
-                                                <!-- Add other grades as needed -->
+                                                <option value="A">1.00</option>
+                                                <option value="B">1.25</option>
+                                                <option value="C">1.50</option>
+                                                <option value="D">1.75</option>
+                                                <option value="F">2.00</option>
+                                                <option value="A">2.25</option>
+                                                <option value="B">2.50</option>
+                                                <option value="C">2.75</option>
+                                                <option value="D">3</option>
+                                                <option value="F">4</option>
+                                                <option value="F">5</option>
+                                                <option value="F">INC</option>
+                                                <option value="F">S</option>
                                             </select>
                                         </td>
+
                                         <td>
-                                            <select name="instructor" class="form-control">
-                                                <option value="{{ $course->instructor }}">{{ $course->instructor }}</option>
-                                                <option value="Dr. Smith">Dr. Smith</option>
-                                                <option value="Prof. Johnson">Prof. Johnson</option>
-                                                <option value="Dr. Lee">Dr. Lee</option>
-                                                <!-- Add other instructors as needed -->
+                                            <select name="instructor_id" class="form-control">
+                                                <option value="">Select Instructor</option>
+                                                @foreach ($instructors as $instructor)
+                                                <option value="{{ $instructor->id }}" 
+                                                    @if(optional($course->instructor)->id == $instructor->id) selected @endif>
+                                                    {{ $instructor->first_name }} {{ $instructor->last_name }}
+                                                </option>
+
+                                                @endforeach
                                             </select>
                                         </td>
                                     </tr>

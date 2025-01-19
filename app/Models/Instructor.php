@@ -10,3 +10,4 @@ class Instructor extends Model
 
     protected $table = 'instructors'; // Ensure this matches your database table name
 }
+

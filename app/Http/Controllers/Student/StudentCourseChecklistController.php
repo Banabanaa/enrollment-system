@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-
+use App\Models\Instructor;
 class StudentCourseChecklistController extends Controller
 {
     public function index()
@@ -33,9 +33,11 @@ class StudentCourseChecklistController extends Controller
             ->groupBy(function ($courses) {
                 return $courses->year . ' - ' . $courses->semester;
             });
-
+            $instructors = Instructor::all(['id', 'first_name', 'last_name']);
         // Pass the grouped checklist data to the view
-        return view('student.view.checklist', ['studentCourseChecklist' => $studentCourseChecklist]);
+        return view('student.view.checklist', ['studentCourseChecklist' => $studentCourseChecklist,'instructors' => $instructors,]);
+
+
     }
 
     
