@@ -304,82 +304,83 @@
     }
 </script>
 
-    {{-- BSCS Checklist --}}
-    <div id="bscs-checklist" class="checklist">
-        <form method="POST" action="{{ route('student.manage.student-course-checklist.store') }}">
-            @csrf
-            @foreach ($studentCourseChecklist as $semester => $courses)
-                <div class="card mb-4">
-                    <div class="card-header bg-success text-white">
-                        <i class="fas fa-table me-1"></i>
-                        {{ $semester }}
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered text-center">
-                                <thead class="bg-success text-white" style="font-size: 0.9rem;">
+{{-- BSCS Checklist --}}
+<div id="bscs-checklist" class="checklist">
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    <form method="POST" action="{{ route('student.manage.student-course-checklist.store') }}">
+        @csrf
+        @foreach ($studentCourseChecklist as $semester => $courses)
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <i class="fas fa-table me-1"></i>
+                    {{ $semester }}
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center">
+                            <thead class="bg-success text-white" style="font-size: 0.9rem;">
+                                <tr>
+                                    <th>COURSE CODE</th>
+                                    <th>TITLE</th>
+                                    <th>PRE-REQUISITE</th>
+                                    <th>SY TAKEN</th>
+                                    <th>FINAL GRADE</th>
+                                    <th>INSTRUCTOR</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($courses as $course)
                                     <tr>
-                                        <th>COURSE CODE</th>
-                                        <th>TITLE</th>
-                                        <th>PRE-REQUISITE</th>
-                                        <th>SY TAKEN</th>
-                                        <th>FINAL GRADE</th>
-                                        <th>INSTRUCTOR</th>
+                                        <td>{{ $course->course_code }}</td>
+                                        <td>{{ $course->course_title }}</td>
+                                        <td>{{ $course->pre_requisite }}</td>
+                                        <td>
+                                            <input type="text" name="courses[{{ $course->course_code }}][sy_taken]" class="form-control" value="{{ $course->sy_taken }}" placeholder="Enter SY Taken" />
+                                        </td>
+                                        <td>
+                                            <select name="courses[{{ $course->course_code }}][final_grade]" class="form-control">
+                                                <option value="">Select Grade</option>
+                                                <option value="1.00" @if($course->final_grade == "1.00") selected @endif>1.00</option>
+                                                <option value="1.25" @if($course->final_grade == "1.25") selected @endif>1.25</option>
+                                                <option value="1.50" @if($course->final_grade == "1.50") selected @endif>1.50</option>
+                                                <option value="1.75" @if($course->final_grade == "1.75") selected @endif>1.75</option>
+                                                <option value="2.00" @if($course->final_grade == "2.00") selected @endif>2.00</option>
+                                                <option value="2.25" @if($course->final_grade == "2.25") selected @endif>2.25</option>
+                                                <option value="2.50" @if($course->final_grade == "2.50") selected @endif>2.50</option>
+                                                <option value="2.75" @if($course->final_grade == "2.75") selected @endif>2.75</option>
+                                                <option value="3.00" @if($course->final_grade == "3.00") selected @endif>3.00</option>
+                                                <option value="4.00" @if($course->final_grade == "4.00") selected @endif>4.00</option>
+                                                <option value="5.00" @if($course->final_grade == "5.00") selected @endif>5.00</option>
+                                                <option value="INC" @if($course->final_grade == "INC") selected @endif>INC</option>
+                                                <option value="S" @if($course->final_grade == "S") selected @endif>S</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select name="courses[{{ $course->course_code }}][instructor_id]" class="form-control">
+                                                <option value="">Select Instructor</option>
+                                                @foreach ($instructors as $instructor)
+                                                    <option value="{{ $instructor->id }}" 
+                                                        @if($course->instructor_id == $instructor->id) selected @endif>
+                                                        {{ $instructor->first_name }} {{ $instructor->last_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($courses as $course)
-                                        <tr>
-                                            <td>{{ $course->course_code }}</td>
-                                            <td>{{ $course->course_title }}</td>
-                                            <td>{{ $course->pre_requisite }}</td>
-                                            <td>
-                                                <input type="text" name="courses[{{ $course->course_code }}][sy_taken]" class="form-control" value="{{ $course->sy_taken }}" placeholder="Enter SY Taken" />
-                                            </td>
-                                            <td>
-                                                <select name="courses[{{ $course->course_code }}][final_grade]" class="form-control">
-                                                    <option value="">Select Grade</option>
-                                                    <option value="{{ $course->final_grade }}" selected>{{ $course->final_grade }}</option>
-                                                    <option value="A">1.00</option>
-                                                    <option value="B">1.25</option>
-                                                    <option value="C">1.50</option>
-                                                    <option value="D">1.75</option>
-                                                    <option value="F">2.00</option>
-                                                    <option value="A">2.25</option>
-                                                    <option value="B">2.50</option>
-                                                    <option value="C">2.75</option>
-                                                    <option value="D">3</option>
-                                                    <option value="F">4</option>
-                                                    <option value="F">5</option>
-                                                    <option value="F">INC</option>
-                                                    <option value="F">S</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select name="courses[{{ $course->course_code }}][instructor_id]" class="form-control">
-                                                    <option value="">Select Instructor</option>
-                                                    @foreach ($instructors as $instructor)
-                                                        <option value="{{ $instructor->id }}" 
-                                                            @if(optional($course->instructor)->id == $instructor->id) selected @endif>
-                                                            {{ $instructor->first_name }} {{ $instructor->last_name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            @endforeach
-            <div class="text-center my-4">
-                <button type="submit" class="btn btn-primary btn-lg custom-button" style="width: 200px; background:rgb(21, 102, 4); border: none;">Save</button>
             </div>
-        </form>
-    </div>
+        @endforeach
+        <div class="text-center my-4">
+            <button type="submit" class="btn btn-primary btn-lg custom-button" style="width: 200px; background:rgb(21, 102, 4); border: none;">Save</button>
+        </div>
+    </form>
 </div>
-
-
 @endsection

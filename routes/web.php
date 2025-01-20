@@ -151,6 +151,7 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
         'index' => 'student.manage.student-course-checklist',
         'store' => 'student.manage.student-course-checklist.store',
         'update' => 'student.manage.student-course-checklist.update',
+
     ]);
 
     Route::name('student.addons.')->group(function () {
