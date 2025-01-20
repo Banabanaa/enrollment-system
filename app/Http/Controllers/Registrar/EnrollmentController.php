@@ -42,4 +42,13 @@ class EnrollmentController extends Controller
         // Passing data to the view
         return view('registrar.enrollment.returnee', compact('students'));
     }
+
+    public function undereval()
+    {
+        // Fetching students with 'undereval' classification
+        $students = Student::where('classification', 'under evaluation')->get();
+        
+        // Passing data to the view
+        return view('registrar.enrollment.undereval', compact('students'));
+    }
 }

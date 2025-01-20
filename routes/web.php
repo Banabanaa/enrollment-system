@@ -93,6 +93,7 @@ Route::prefix('registrar')->middleware('auth:registrar')->group(function () {
         Route::get('irregular', [EnrollmentController::class, 'irregular'])->name('irregular');
         Route::get('transferee', [EnrollmentController::class, 'transferee'])->name('transferee');
         Route::get('returnee', [EnrollmentController::class, 'returnee'])->name('returnee');
+        Route::get('undereval', [EnrollmentController::class, 'undereval'])->name('undereval');
     });
 
     Route::name('registrar.addons.')->group(function () {
@@ -124,16 +125,15 @@ Route::prefix('department')->middleware('auth:department')->group(function () {
 
     // Enrollment Management Routes
     Route::prefix('enrollment')->name('department.enrollment.')->group(function () {
-        Route::get('regular', [DEnrollmentController::class, 'regular'])->name('regular');
-        Route::get('irregular', [DEnrollmentController::class, 'irregular'])->name('irregular');
-        Route::get('transferee', [DEnrollmentController::class, 'transferee'])->name('transferee');
-        Route::get('returnee', [DEnrollmentController::class, 'returnee'])->name('returnee');
+        Route::get('pending', [DEnrollmentController::class, 'pending'])->name('pending');
+        Route::get('undereval', [DEnrollmentController::class, 'undereval'])->name('undereval');
+        Route::post('/advise/{student}', [DEnrollmentController::class, 'adviseStudent'])->name('advise.student');
+        Route::post('/{studentId}/add-course/{courseId}', [DEnrollmentController::class, 'addCourseToStudent'])->name('addCourseToStudent');
     });
 
     Route::name('department.addons.')->group(function () {
         Route::view('addons/checklist', 'department.addons.checklist')->name('checklist');
         Route::view('addons/masterlist', 'department.addons.masterlist')->name('masterlist');
-        Route::view('addons/advising', 'department.addons.advising')->name('advising');
         Route::view('addons/privacy-policy', 'department.addons.privacy-policy')->name('privacy-policy');
         Route::view('addons/terms', 'deoartment.addons.terms')->name('terms');
     });

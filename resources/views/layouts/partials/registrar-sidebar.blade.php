@@ -25,12 +25,24 @@
 
                 <!-- Enrollment Section -->
                 <div class="sb-sidenav-menu-heading">Enrollment</div>
+
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseEnrollment" aria-expanded="false" aria-controls="collapseEnrollment">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                    Enrollment
+                    Under Evaluation
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseEnrollment" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{ route('registrar.enrollment.undereval') }}">Under Evaluation</a>
+                    </nav>
+                </div>
+
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUnderEvalEnrollment" aria-expanded="false" aria-controls="collapseEnrollment">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Finished Enrollment
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseUnderEvalEnrollment" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{{ route('registrar.enrollment.regular') }}">Regular</a>
                         <a class="nav-link" href="{{ route('registrar.enrollment.irregular') }}">Irregular</a>

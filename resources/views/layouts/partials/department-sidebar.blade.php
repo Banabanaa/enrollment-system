@@ -24,18 +24,16 @@
                 </div>
 
                 <!-- Enrollment Section -->
-                <div class="sb-sidenav-menu-heading">Enrollment</div>
+                <div class="sb-sidenav-menu-heading">Advising</div>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseEnrollment" aria-expanded="false" aria-controls="collapseEnrollment">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                    Enrollment
+                    For Advising
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseEnrollment" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="{{ route('department.enrollment.regular') }}">Regular</a>
-                        <a class="nav-link" href="{{ route('department.enrollment.irregular') }}">Irregular</a>
-                        <a class="nav-link" href="{{ route('department.enrollment.transferee') }}">Transferee</a>
-                        <a class="nav-link" href="{{ route('department.enrollment.returnee') }}">Returnee</a>
+                        <a class="nav-link" href="{{ route('department.enrollment.pending') }}">Pending</a>
+                        <a class="nav-link" href="{{ route('department.enrollment.undereval') }}">Under Evaluation</a>
                     </nav>
                 </div>
 
@@ -48,10 +46,6 @@
                 <a class="nav-link" href="{{ route('department.addons.masterlist') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
                     Masterlist
-                </a>
-                <a class="nav-link" href="{{ route('department.addons.advising') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
-                    Advising
                 </a>
             </div>
         </div>

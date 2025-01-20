@@ -68,4 +68,14 @@ class Student extends Authenticatable
         return $this->photo ? asset('storage/' . $this->photo) : asset('images/default-avatar.png');
     }
 
+    public function getCoursesAttribute($value)
+    {
+        return $value ? json_decode($value, true) : [];
+    }
+
+    protected $casts = [
+        'courses' => 'array',
+    ];
+    
+
 }

@@ -1,19 +1,19 @@
 @extends('layouts.department')
 
-@section('title', 'Returnee Enrollment')
+@section('title', 'Under Evaluation for Enrollment')
 @section('content')
 
 <div class="container-fluid px-4">
     <h1 class="mt-4">Enrollment Module</h1>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">RETURNEE STUDENTS</li>
+        <li class="breadcrumb-item active">UNDER EVALUATION STUDENTS</li>
     </ol>
 
-    {{-- Returnee Students Table --}}
+    {{-- Under Evaluation Students Table --}}
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Returnee Students
+            Under Evaluation Students
         </div>
         <div class="card-body">
             <table id="datatablesSimple">
@@ -22,9 +22,7 @@
                         <th>Student Number</th>
                         <th>Name</th>
                         <th>Program</th>
-                        <th>Year</th>
-                        <th>Section</th>
-                        <th>Action</th>
+                        <th>Classification</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -32,9 +30,7 @@
                         <th>Student Number</th>
                         <th>Name</th>
                         <th>Program</th>
-                        <th>Year</th>
-                        <th>Section</th>
-                        <th>Action</th>
+                        <th>Classification</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -43,11 +39,7 @@
                             <td>{{ $student->student_number }}</td>
                             <td>{{ $student->first_name }} {{ $student->last_name }}</td>
                             <td>{{ $student->program_id }}</td>
-                            <td>{{ $student->year }}</td>
-                            <td>{{ $student->section }}</td>
-                            <td>
-                                <a href="" class="btn btn-primary btn-sm">Advise</a>
-                            </td>
+                            <td>{{ ucfirst($student->classification) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -55,5 +47,7 @@
         </div>
     </div>
 </div>
+
+
 
 @endsection

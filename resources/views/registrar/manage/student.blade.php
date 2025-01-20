@@ -121,6 +121,8 @@
                                                 <div class="col-md-6 mb-3">
                                                     <label for="classification" class="form-label">Classification</label>
                                                     <select class="form-select" name="classification">
+                                                        <option value="under evaluation" {{ old('classification', $student->classification) == 'under evaluation' ? 'selected' : '' }}>Under Evaluation</option>
+                                                        <option value="pending" {{ old('classification', $student->classification) == 'pending' ? 'selected' : '' }}>Pending</option>
                                                         <option value="regular" {{ old('classification', $student->classification) === 'regular' ? 'selected' : '' }}>Regular</option>
                                                         <option value="irregular" {{ old('classification', $student->classification) === 'irregular' ? 'selected' : '' }}>Irregular</option>
                                                         <option value="transferee" {{ old('classification', $student->classification) === 'transferee' ? 'selected' : '' }}>Transferee</option>
@@ -285,6 +287,8 @@
                         <div class="col-md-6 mb-3">
                             <label for="classification" class="form-label">Classification</label>
                             <select class="form-select" name="classification">
+                                <option value="under evaluation" {{ old('classification', $student->classification) == 'under evaluation' ? 'selected' : '' }}>Under Evaluation</option>
+                                <option value="pending" {{ old('classification', $student->classification) == 'pending' ? 'selected' : '' }}>Pending</option>
                                 <option value="regular" {{ old('classification') === 'regular' ? 'selected' : '' }}>Regular</option>
                                 <option value="irregular" {{ old('classification') === 'irregular' ? 'selected' : '' }}>Irregular</option>
                                 <option value="transferee" {{ old('classification') === 'transferee' ? 'selected' : '' }}>Transferee</option>

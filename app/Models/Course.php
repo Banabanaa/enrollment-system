@@ -9,6 +9,13 @@ class Course extends Model
 {
     use HasFactory;
 
-    protected $table = 'courses'; // Ensure this matches your actual table name
-    protected $fillable = ['course_code', 'course_name']; // Example fields
-}
+    protected $table = 'courses'; // Ensure this matches your database table
+    protected $fillable = ['course_code', 'course_title', 'program_id','credit_unit_lecture','credit_unit_laboratory','contact_hours_lecture','contact_hours_laboratory','pre_requisite']; // Include all necessary fields
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class, 'student_course', 'course_id', 'student_id');
+    }
+
+} 
+

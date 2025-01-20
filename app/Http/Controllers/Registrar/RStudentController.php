@@ -35,11 +35,11 @@ class RStudentController extends Controller
             'province' => 'nullable|string|max:255',
             'zip_code' => 'nullable|string|max:10',
             'sex' => 'required|in:male,female,other',
-            'classification' => 'required|in:regular,irregular,transferee,returnee', 
+            'classification' => 'required|in:under evaluation,pending,regular,irregular,transferee,returnee', 
             'program_id' => 'required|in:Bachelor of Science in Computer Science,Bachelor of Science in Information Technology',
-            'birthday' => 'required|date',  // Validation for birthday (ensure it's a valid date)
-            'year' => 'required|string|max:20',
-            'section' => 'required|string|max:20', 
+            'birthday' => 'nullable|date',  // Validation for birthday (ensure it's a valid date)
+            'year' => 'nullable|string|max:20',
+            'section' => 'nullable|string|max:20', 
         ]);
 
         Student::create([
@@ -89,11 +89,11 @@ class RStudentController extends Controller
             'province' => 'nullable|string|max:255',
             'zip_code' => 'nullable|string|max:10',
             'sex' => 'required|in:male,female,other',  
-            'classification' => 'required|in:regular,irregular,transferee,returnee',
+            'classification' => 'required|in:under evaluation,pending,regular,irregular,transferee,returnee',
             'program_id' => 'required|in:Bachelor of Science in Computer Science,Bachelor of Science in Information Technology', 
-            'birthday' => 'required|date',
-            'year' => 'required|string|max:20',
-            'section' => 'required|string|max:20', 
+            'birthday' => 'nullable|date',
+            'year' => 'nullable|string|max:20',
+            'section' => 'nullable|string|max:20', 
         ]);
 
         $student->student_number = $request->student_number;

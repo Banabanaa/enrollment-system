@@ -49,7 +49,7 @@
                             <td>{{ $student->last_name }}</td>
                             <td>{{ $student->first_name }}</td>
                             <td>{{ $student->email }}</td>
-                            <td>{{ $student->classification }}</td>
+                            <td>{{ ucfirst($student->classification) }}</td>
                             <td>{{ $student->program_id }}</td>
                             <td>{{ $student->created_at->format('Y-m-d') }}</td>
                             <td>
@@ -120,6 +120,8 @@
                                                 <div class="col-md-6 mb-3">
                                                     <label for="classification" class="form-label">Classification</label>
                                                     <select class="form-select" name="classification">
+                                                        <option value="under evaluation" {{ old('classification', $student->classification) == 'under evaluation' ? 'selected' : '' }}>Under Evaluation</option>
+                                                        <option value="pending" {{ old('classification', $student->classification) == 'pending' ? 'selected' : '' }}>Pending</option>
                                                         <option value="regular" {{ old('classification', $student->classification) === 'regular' ? 'selected' : '' }}>Regular</option>
                                                         <option value="irregular" {{ old('classification', $student->classification) === 'irregular' ? 'selected' : '' }}>Irregular</option>
                                                         <option value="transferee" {{ old('classification', $student->classification) === 'transferee' ? 'selected' : '' }}>Transferee</option>
@@ -142,7 +144,7 @@
                                                 <h5 class="col-12 mb-3 text-center">-------- Year & Section --------</h5>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="year" class="form-label">Year</label>
-                                                    <select class="form-select" name="year" required>
+                                                    <select class="form-select" name="year">
                                                         <option value="1st Year" {{ old('year', $student->year) === '1st Year' ? 'selected' : '' }}>1st Year</option>
                                                         <option value="2nd Year" {{ old('year', $student->year) === '2nd Year' ? 'selected' : '' }}>2nd Year</option>
                                                         <option value="3rd Year" {{ old('year', $student->year) === '3rd Year' ? 'selected' : '' }}>3rd Year</option>
@@ -152,7 +154,7 @@
                                                 </div>
                                                 <div class="col-md-6 mb-3">
                                                     <label for="section" class="form-label">Section</label>
-                                                    <input type="text" class="form-control" name="section" value="{{ old('section', $student->section) }}" required>
+                                                    <input type="text" class="form-control" name="section" value="{{ old('section', $student->section) }}">
                                                 </div>
 
                                                 {{-- ADDRESS --}}
@@ -284,6 +286,8 @@
                         <div class="col-md-6 mb-3">
                             <label for="classification" class="form-label">Classification</label>
                             <select class="form-select" name="classification">
+                                <option value="under evaluation" {{ old('classification', $student->classification) == 'under evaluation' ? 'selected' : '' }}>Under Evaluation</option>
+                                <option value="pending" {{ old('classification', $student->classification) == 'pending' ? 'selected' : '' }}>Pending</option>
                                 <option value="regular" {{ old('classification') === 'regular' ? 'selected' : '' }}>Regular</option>
                                 <option value="irregular" {{ old('classification') === 'irregular' ? 'selected' : '' }}>Irregular</option>
                                 <option value="transferee" {{ old('classification') === 'transferee' ? 'selected' : '' }}>Transferee</option>
