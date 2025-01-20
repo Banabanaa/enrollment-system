@@ -2,59 +2,100 @@
 
 @section('content')
 
-<div class="container-fluid px-4">
-    <h1 class="mt-4">Enrollment Module</h1>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">IRREGULAR STUDENTS</li>
-    </ol>
 
-    {{-- Irregular Students Table --}}
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Irregular Students
+<!-- Filter Buttons and Search Bar -->
+<div class="flex justify-between items-center mb-4 pt-4">
+    <!-- Search Bar Section -->
+    <div class="relative">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+            <img src="{{ asset('assets/search-icon.svg') }}" alt="Search Icon"
+                class="h-6 w-6 group-hover:scale-110 transition-transform duration-200 ease-in-out">
+            <span
+                class="ml-2 text-xs text-gray-600 font-semibold font-poppins group-hover:scale-125 transition-all duration-200 ease-in-out"></span>
         </div>
-        <div class="card-body">
-            <table id="datatablesSimple">
-                <thead>
-                    <tr>
-                        <th>Student Number</th>
-                        <th>Name</th>
-                        <th>Program</th>
-                        <th>Year</th>
-                        <th>Section</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>Student Number</th>
-                        <th>Name</th>
-                        <th>Program</th>
-                        <th>Year</th>
-                        <th>Section</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    @foreach($students as $student)
-                        <tr>
-                            <td>{{ $student->student_number }}</td>
-                            <td>{{ $student->first_name }} {{ $student->last_name }}</td>
-                            <td>{{ $student->program_id }}</td>
-                            <td>{{ $student->year }}</td>
-                            <td>{{ $student->section }}</td>
-                            <td>
-                                <a href="" class="btn btn-primary btn-sm">Advise</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+        <input type="text"
+            class="text-sm border-hidden px-4 py-2 rounded-lg focus:outline-none focus:ring-0 focus:ring-light focus:border-transparent pl-12 shadow-lg"
+            placeholder="Search users..." />
     </div>
+
 </div>
 
+<!-- Table Section -->
+<div class="p-5 bg-light rounded-2xl shadow-big w-full mx-auto mb-8">
+
+    <!-- Title, Filter Dropdowns, and View All Button -->
+    <div class="flex justify-between items-center mb-4">
+        <div class="flex items-center space-x-4">
+            <h2 class="font-table-header text-xl font-bold text-primary">Students - Irregular Table</h2>
+        </div>
+        <div class="flex space-x-2">
+            <button
+                class="text-sm text-light bg-primary font-semibold px-4 py-2 rounded-lg hover:bg-primary hover:text-white">Export
+                as Excel</button>
+                <button class="text-sm text-light bg-primary font-semibold px-4 py-2 rounded-lg hover:bg-primary hover:text-white"
+                onclick="toggleModal('addStudentModal')">
+                <img src="{{ asset('assets/plus.svg') }}" alt="Plus Icon" class="h-5 w-5 inline-block mr-2">
+                Add Student
+            </button>
+
+        </div>
+    </div>
+
+
+
+    <!-- Table Container with limited width to the screen -->
+    <div class="overflow-x-auto w-full">
+        <table class="min-w-full bg-white shadow-sm rounded-lg">
+            <thead>
+                <tr class="bg-primary">
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Student Number</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">First Name</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Last Name</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Email</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Program</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Year</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($students as $student)
+                    <tr class="hover:bg-gray-100 border-b border-border-color">
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->student_number }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->first_name }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->last_name }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->email }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->program_id }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->year }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600 text-center">
+                            <div class="flex justify-left space-x-4">
+                                <a href="" class="btn btn-primary btn-sm">Advise</a>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <!-- Pagination Section -->
+        <div class="flex items-center justify-center space-x-6 mt-4">
+            <button class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-primary hover:text-white">Previous</button>
+            <span class="text-gray-600 hover:bg-primary hover:text-white hover:rounded-full p-2 cursor-pointer">1</span>
+            <span class="text-gray-600 hover:bg-primary hover:text-white hover:rounded-full p-2 cursor-pointer">2</span>
+            <span class="text-gray-600 hover:bg-primary hover:text-white hover:rounded-full p-2 cursor-pointer">3</span>
+            <span class="text-gray-600 hover:bg-primary hover:text-white hover:rounded-full p-2 cursor-pointer">4</span>
+            <span class="text-gray-600 hover:bg-primary hover:text-white hover:rounded-full p-2 cursor-pointer">5</span>
+            <button class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-primary hover:text-light">Next</button>
+        </div>
+    </div>
 
 
 @endsection
+
+
+<script>
+    function toggleModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.toggle('hidden');
+        modal.classList.toggle('flex');
+    }
+</script>
