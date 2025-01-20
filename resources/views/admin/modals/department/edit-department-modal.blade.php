@@ -1,5 +1,4 @@
 {{-- Edit Modal --}}
-@foreach($departments as $department)
 <div id="editDepartmentModal-{{ $department->id }}" class="modal-overlay hidden scrollbar-thin scrollbar-thumb-green-500 scrollbar-track-gray-100">
     <div class="modal-container">
         <!-- Modal Header -->
@@ -61,4 +60,3 @@
         </div>
     </div>
 </div>
-@endforeach
