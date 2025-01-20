@@ -54,7 +54,6 @@
     <!-- Title and View All Button -->
     <div class="flex justify-between items-center mb-4">
         <h2 class="font-header text-xl">Recently Added Users</h2>
-        <button class="text-sm text-light bg-primary font-semibold border px-4 py-2 rounded-lg hover:scale-105 transition-transform duration-200 ease-in-out">View All</button>
 
     </div>
 

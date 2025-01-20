@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-@include('admin.modals.add-student-modal')
-@include('admin.modals.edit-student-modal')
-@include('admin.modals.delete-student-modal')
+@include('admin.modals.student.add-student-modal')
+@include('admin.modals.student.edit-student-modal')
+@include('admin.modals.student.delete-student-modal')
 
 <!-- Filter Buttons and Search Bar -->
 <div class="flex justify-between items-center mb-4 pt-4">
@@ -28,7 +28,7 @@
     <!-- Title, Filter Dropdowns, and View All Button -->
     <div class="flex justify-between items-center mb-4">
         <div class="flex items-center space-x-4">
-            <h2 class="font-table-header text-xl font-bold text-primary">Students Table</h2>
+            <h2 class="font-table-header text-xl font-semibold text-primary">Students Table</h2>
         </div>
         <div class="flex space-x-2">
             <button

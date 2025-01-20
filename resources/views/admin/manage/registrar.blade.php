@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-@include('admin.modals.add-registrar-modal')
-@include('admin.modals.edit-registrar-modal')
-@include('admin.modals.delete-registrar-modal')
+@include('admin.modals.registrar.add-registrar-modal')
+@include('admin.modals.registrar.edit-registrar-modal')
+@include('admin.modals.registrar.delete-registrar-modal')
 
 <!-- Filter Buttons and Search Bar -->
 <div class="flex justify-between items-center mb-4 pt-4">
@@ -28,7 +28,7 @@
     <!-- Title, Filter Dropdowns, and View All Button -->
     <div class="flex justify-between items-center mb-4">
         <div class="flex items-center space-x-4">
-            <h2 class="font-table-header text-xl font-bold text-primary">Students Table</h2>
+            <h2 class="font-table-header text-xl font-semibold text-primary">Registrar Table</h2>
         </div>
         <div class="flex space-x-2">
             <button

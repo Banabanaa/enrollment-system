@@ -1,7 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
-
+@include('admin.modals.admin.edit-admin-modal')
+@include('admin.modals.admin.delete-admin-modal')
+@include('admin.modals.admin.add-admin-modal')
 <!-- Filter Buttons and Search Bar -->
 <div class="flex justify-end items-center mb-4 pt-4">
     <!-- Search Bar Section -->
@@ -25,12 +27,12 @@
 
     <!-- Title and View All Button -->
     <div class="flex justify-between items-center mb-4">
-        <h2 class="font-table-header text-xl text-primary">Admin Accounts</h2>
+    <h2 class="font-table-header text-xl font-semibold text-primary">Admin Table</h2>
         <div class="flex space-x-2">
             <button
                 class="text-sm text-light bg-primary  font-semibold px-4 py-2 rounded-lg hover:bg-primary hover:text-white">Export
                 as Excel</button>
-                <button onclick="openModal()" class="bg-primary text-white px-4 py-2 rounded-lg">
+                <button onclick="toggleModal('addAdminModal')" class="bg-primary text-white px-4 py-2 rounded-lg">
                 <img src="{{ asset('assets/plus.svg') }}" alt="Plus Icon" class="h-5 w-5 inline-block mr-2">
                 Add New Admin</button>
 
@@ -40,30 +42,27 @@
     <div class="overflow-x-auto w-full">
         <table class="min-w-full bg-white shadow-sm rounded-lg">
             <thead>
-                <tr class="bg-light-gray">
-                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-600">Admin Id</th>
-                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-600">Name</th>
-                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-600">Email</th>
-                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-600">User Type</th>
-                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-600">Actions</th>
+                <tr class="bg-primary">
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Admin Id</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Name</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Email</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Created At</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Actions</th>
                 </tr>
             </thead>
             <tbody>
+            @foreach($admins as $admin)
                 <tr class="hover:bg-gray-100 border-b border-border-color ">
-                    <td class="px-6 py-4 text-sm text-gray-600">202401</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Joana Garcia</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">joana272@example.com</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Admin</td>
+                <td class="px-6 py-4 text-sm text-gray-600">{{ $admin->id }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $admin->name }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $admin->email }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $admin->email_verified_at }}</td>
                     <td class="px-6 py-4 text-sm text-gray-600 text-center">
                         <div class="flex justify-center space-x-4">
-                            <!-- View Icon -->
-                            <a href="#" class="text-lime-green  hover:text-blue-500">
-                                <span class="material-icons text-lg">visibility</span>
-                            </a>
                             <!-- Edit Icon -->
                             <a href="#" class="text-lime-green hover:text-green-500">
-                                <span class="material-icons text-lg">edit</span>
-                            </a>
+                                    <span class="material-icons text-xl" onclick="toggleModal('editAdminModal-{{ $admin->id }}')">edit</span>
+                                </a>
                             <!-- Delete Icon -->
                             <a href="#" class="text-lime-green hover:text-red-500">
                                 <span class="material-icons text-lg">delete</span>
@@ -71,204 +70,8 @@
                         </div>
                     </td>
                 </tr>
-                <tr class="hover:bg-gray-100 border-b border-border-color ">
-                    <td class="px-6 py-4 text-sm text-gray-600">202401</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Joana Garcia</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">joana272@example.com</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Admin</td>
-                    <td class="px-6 py-4 text-sm text-gray-600 text-center">
-                        <div class="flex justify-center space-x-4">
-                            <!-- View Icon -->
-                            <a href="#" class="text-lime-green  hover:text-blue-500">
-                                <span class="material-icons text-lg">visibility</span>
-                            </a>
-                            <!-- Edit Icon -->
-                            <a href="#" class="text-lime-green hover:text-green-500">
-                                <span class="material-icons text-lg">edit</span>
-                            </a>
-                            <!-- Delete Icon -->
-                            <a href="#" class="text-lime-green hover:text-red-500">
-                                <span class="material-icons text-lg">delete</span>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="hover:bg-gray-100 border-b border-border-color ">
-                    <td class="px-6 py-4 text-sm text-gray-600">202401</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Joana Garcia</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">joana272@example.com</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Admin</td>
-                    <td class="px-6 py-4 text-sm text-gray-600 text-center">
-                        <div class="flex justify-center space-x-4">
-                            <!-- View Icon -->
-                            <a href="#" class="text-lime-green  hover:text-blue-500">
-                                <span class="material-icons text-lg">visibility</span>
-                            </a>
-                            <!-- Edit Icon -->
-                            <a href="#" class="text-lime-green hover:text-green-500">
-                                <span class="material-icons text-lg">edit</span>
-                            </a>
-                            <!-- Delete Icon -->
-                            <a href="#" class="text-lime-green hover:text-red-500">
-                                <span class="material-icons text-lg">delete</span>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="hover:bg-gray-100 border-b border-border-color ">
-                    <td class="px-6 py-4 text-sm text-gray-600">202401</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Joana Garcia</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">joana272@example.com</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Admin</td>
-                    <td class="px-6 py-4 text-sm text-gray-600 text-center">
-                        <div class="flex justify-center space-x-4">
-                            <!-- View Icon -->
-                            <a href="#" class="text-lime-green  hover:text-blue-500">
-                                <span class="material-icons text-lg">visibility</span>
-                            </a>
-                            <!-- Edit Icon -->
-                            <a href="#" class="text-lime-green hover:text-green-500">
-                                <span class="material-icons text-lg">edit</span>
-                            </a>
-                            <!-- Delete Icon -->
-                            <a href="#" class="text-lime-green hover:text-red-500">
-                                <span class="material-icons text-lg">delete</span>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="hover:bg-gray-100 border-b border-border-color ">
-                    <td class="px-6 py-4 text-sm text-gray-600">202401</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Joana Garcia</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">joana272@example.com</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Admin</td>
-                    <td class="px-6 py-4 text-sm text-gray-600 text-center">
-                        <div class="flex justify-center space-x-4">
-                            <!-- View Icon -->
-                            <a href="#" class="text-lime-green  hover:text-blue-500">
-                                <span class="material-icons text-lg">visibility</span>
-                            </a>
-                            <!-- Edit Icon -->
-                            <a href="#" class="text-lime-green hover:text-green-500">
-                                <span class="material-icons text-lg">edit</span>
-                            </a>
-                            <!-- Delete Icon -->
-                            <a href="#" class="text-lime-green hover:text-red-500">
-                                <span class="material-icons text-lg">delete</span>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="hover:bg-gray-100 border-b border-border-color ">
-                    <td class="px-6 py-4 text-sm text-gray-600">202401</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Joana Garcia</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">joana272@example.com</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Admin</td>
-                    <td class="px-6 py-4 text-sm text-gray-600 text-center">
-                        <div class="flex justify-center space-x-4">
-                            <!-- View Icon -->
-                            <a href="#" class="text-lime-green  hover:text-blue-500">
-                                <span class="material-icons text-lg">visibility</span>
-                            </a>
-                            <!-- Edit Icon -->
-                            <a href="#" class="text-lime-green hover:text-green-500">
-                                <span class="material-icons text-lg">edit</span>
-                            </a>
-                            <!-- Delete Icon -->
-                            <a href="#" class="text-lime-green hover:text-red-500">
-                                <span class="material-icons text-lg">delete</span>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="hover:bg-gray-100 border-b border-border-color ">
-                    <td class="px-6 py-4 text-sm text-gray-600">202401</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Joana Garcia</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">joana272@example.com</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Admin</td>
-                    <td class="px-6 py-4 text-sm text-gray-600 text-center">
-                        <div class="flex justify-center space-x-4">
-                            <!-- View Icon -->
-                            <a href="#" class="text-lime-green  hover:text-blue-500">
-                                <span class="material-icons text-lg">visibility</span>
-                            </a>
-                            <!-- Edit Icon -->
-                            <a href="#" class="text-lime-green hover:text-green-500">
-                                <span class="material-icons text-lg">edit</span>
-                            </a>
-                            <!-- Delete Icon -->
-                            <a href="#" class="text-lime-green hover:text-red-500">
-                                <span class="material-icons text-lg">delete</span>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="hover:bg-gray-100 border-b border-border-color ">
-                    <td class="px-6 py-4 text-sm text-gray-600">202401</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Joana Garcia</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">joana272@example.com</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Admin</td>
-                    <td class="px-6 py-4 text-sm text-gray-600 text-center">
-                        <div class="flex justify-center space-x-4">
-                            <!-- View Icon -->
-                            <a href="#" class="text-lime-green  hover:text-blue-500">
-                                <span class="material-icons text-lg">visibility</span>
-                            </a>
-                            <!-- Edit Icon -->
-                            <a href="#" class="text-lime-green hover:text-green-500">
-                                <span class="material-icons text-lg">edit</span>
-                            </a>
-                            <!-- Delete Icon -->
-                            <a href="#" class="text-lime-green hover:text-red-500">
-                                <span class="material-icons text-lg">delete</span>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="hover:bg-gray-100 border-b border-border-color ">
-                    <td class="px-6 py-4 text-sm text-gray-600">202401</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Joana Garcia</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">joana272@example.com</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Admin</td>
-                    <td class="px-6 py-4 text-sm text-gray-600 text-center">
-                        <div class="flex justify-center space-x-4">
-                            <!-- View Icon -->
-                            <a href="#" class="text-lime-green  hover:text-blue-500">
-                                <span class="material-icons text-lg">visibility</span>
-                            </a>
-                            <!-- Edit Icon -->
-                            <a href="#" class="text-lime-green hover:text-green-500">
-                                <span class="material-icons text-lg">edit</span>
-                            </a>
-                            <!-- Delete Icon -->
-                            <a href="#" class="text-lime-green hover:text-red-500">
-                                <span class="material-icons text-lg">delete</span>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="hover:bg-gray-100 border-b border-border-color ">
-                    <td class="px-6 py-4 text-sm text-gray-600">202401</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Joana Garcia</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">joana272@example.com</td>
-                    <td class="px-6 py-4 text-sm text-gray-600">Admin</td>
-                    <td class="px-6 py-4 text-sm text-gray-600 text-center">
-                        <div class="flex justify-center space-x-4">
-                            <!-- View Icon -->
-                            <a href="#" class="text-lime-green  hover:text-blue-500">
-                                <span class="material-icons text-lg">visibility</span>
-                            </a>
-                            <!-- Edit Icon -->
-                            <a href="#" class="text-lime-green hover:text-green-500">
-                                <span class="material-icons text-lg">edit</span>
-                            </a>
-                            <!-- Delete Icon -->
-                            <a href="#" class="text-lime-green hover:text-red-500">
-                                <span class="material-icons text-lg">delete</span>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
+
+                @endforeach
             </tbody>
         </table>
 
@@ -289,7 +92,7 @@
                       <!-- Header -->
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-lg font-semibold text-primary text-left">Add New User</h2>
-                <button type="button" class="modal-close text-gray-600 hover:text-gray-900" onclick="toggleModal('addStudentModal')">
+                <button type="button" class="modal-close text-gray-600 hover:text-gray-900" onclick="toggleModal('addAdminModal')">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -377,7 +180,13 @@
         </div>
 
 
-
+        <script>
+    function toggleModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.toggle('hidden');
+        modal.classList.toggle('flex');
+    }
+</script>
         <script>
 
 function clearAllInputs() {
