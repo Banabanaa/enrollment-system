@@ -35,7 +35,7 @@ class DStudentController extends Controller
              'province' => 'nullable|string|max:255',
              'zip_code' => 'nullable|string|max:10',
              'sex' => 'required|in:male,female,other',
-             'classification' => 'required|in:under evaluation,pending,regular,irregular,transferee,returnee', 
+             'classification' => 'required|in:incomplete,under evaluation,pending,regular,irregular,transferee,returnee', 
              'program_id' => 'required|in:Bachelor of Science in Computer Science,Bachelor of Science in Information Technology',
              'birthday' => 'nullable|date',  // Validation for birthday (ensure it's a valid date)
              'year' => 'nullable|string|max:20',
@@ -89,7 +89,7 @@ class DStudentController extends Controller
              'province' => 'nullable|string|max:255',
              'zip_code' => 'nullable|string|max:10',
              'sex' => 'required|in:male,female,other',  
-             'classification' => 'required|in:under evaluation,pending,regular,irregular,transferee,returnee',
+             'classification' => 'required|in:incomplete,under evaluation,pending,regular,irregular,transferee,returnee',
              'program_id' => 'required|in:Bachelor of Science in Computer Science,Bachelor of Science in Information Technology', 
              'birthday' => 'nullable|date',
              'year' => 'nullable|string|max:20',

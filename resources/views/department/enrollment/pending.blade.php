@@ -74,15 +74,24 @@
                                             <form method="POST" action="{{ route('department.enrollment.advise.student', $student->id) }}">
                                                 @csrf <!-- Add CSRF token for security -->
                                                 <div class="modal-body ">
-
-                                                    <!-- Student Photo -->
+                                                    <!-- First Photo -->
                                                     <div class="text-center mb-4">
                                                         <img 
-                                                            src="{{ $student->photo_url ?? asset('default-student-photo.jpg') }}" 
-                                                            alt="Student Photo" 
+                                                            src="{{ $student->photo ? asset('storage/' . $student->photo) : asset('default-student-photo.jpg') }}" 
+                                                            alt="Student Photo 1" 
                                                             class="img-thumbnail" 
-                                                            style="width: 80%; height: 80%; object-fit: cover;">
+                                                            style="max-width: 100%; height: auto; object-fit: cover;">
                                                     </div>
+
+                                                    <!-- Second Photo -->
+                                                    <div class="text-center mb-4">
+                                                        <img 
+                                                            src="{{ $student->photo2 ? asset('storage/' . $student->photo2) : asset('default-student-photo2.jpg') }}" 
+                                                            alt="No Second Photo Upload" 
+                                                            class="img-thumbnail" 
+                                                            style="max-width: 100%; height: auto; object-fit: cover;">
+                                                    </div>
+
                                                     <div class="mb-2">
                                                         <label for="studentNumber" class="form-label fs-5 fw-bold">Student Number</label>
                                                         <input type="text" class="form-control" id="studentNumber" value="{{ $student->student_number }}" readonly>
@@ -92,13 +101,18 @@
                                                         <input type="text" class="form-control" id="program" value="{{ $student->program_id }}" readonly>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="studentNumber" class="form-label fs-5 fw-bold">Select Courses</label>
+                                                        <label for="studentNumber" class="form-label fs-5 fw-bold">Select Courses <small> (Select multiple courses using Ctrl/Command key.)</small></label>
                                                         <select id="courses" name="courses[]" class="form-select" multiple>
                                                             @foreach ($courses as $course)
-                                                                <option value="{{ $course->course_code }}">{{ $course->course_code }} - {{ $course->course_title }}</option>
+                                                                @if ($course->program_id == $student->program_id || $course->program_id == 3)
+                                                                    <option value="{{ $course->course_code }}">
+                                                                        {{ $course->year }} Year, {{ $course->semester }} Semester - 
+                                                                        {{ $course->course_code }} - {{ $course->course_title }}
+                                                                    </option>
+                                                                @endif
                                                             @endforeach
                                                         </select>                                                        
-                                                        <small class="text-muted">Select multiple courses using Ctrl/Command key.</small>
+                                                        
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="studentNumber" class="form-label fs-5 fw-bold">Classification</label>

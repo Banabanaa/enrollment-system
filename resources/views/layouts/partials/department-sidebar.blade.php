@@ -39,10 +39,6 @@
 
                 <!-- Addons Section -->
                 <div class="sb-sidenav-menu-heading">Addons</div>
-                <a class="nav-link" href="{{ route('department.addons.checklist') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                    Checklist
-                </a>
                 <a class="nav-link" href="{{ route('department.addons.masterlist') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
                     Masterlist

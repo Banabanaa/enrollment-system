@@ -39,7 +39,6 @@
                         <th>Email</th>
                         <th>Classification</th>
                         <th>Program</th>
-                        <th>Created At</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -52,7 +51,6 @@
                             <td>{{ $student->email }}</td>
                             <td>{{ $student->classification }}</td>
                             <td>{{ $student->program_id }}</td>
-                            <td>{{ $student->created_at->format('Y-m-d') }}</td>
                             <td>
                                 <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editStudentModal-{{ $student->id }}">Edit</button>
                                 <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteStudentModal-{{ $student->id }}">Delete</button>

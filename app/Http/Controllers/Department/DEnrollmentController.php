@@ -23,48 +23,49 @@ class DEnrollmentController extends Controller
     
         $student = Student::findOrFail($id);
     
-        // Decode existing courses if it's a string
-        $existingCourses = $student->courses ?? [];
-        if (is_string($existingCourses)) {
-            $existingCourses = json_decode($existingCourses, true) ?? [];
-        }
+        // Filter courses by the student's program ID
+        $courses = Course::where('program_id', $student->program_id)->get();
     
-        // Filter null or invalid course codes
+        // Get the selected courses from the request and filter out empty values
         $filteredCourses = array_filter($request->input('courses', []), function ($courseCode) {
             return !is_null($courseCode) && $courseCode !== '';
         });
     
-        // Fetch course details
+        // Fetch the full course information to store, not just course code/title
         $coursesToSave = Course::whereIn('course_code', $filteredCourses)
-        ->get(['course_code', 'course_title'])
-        ->map(function ($course) {
-            return [
-                'course_code' => $course->course_code,
-                'course_title' => $course->course_title,
-            ];
-        })->toArray();
-
+            ->get()
+            ->map(function ($course) {
+                return [
+                    'course_code' => $course->course_code,
+                    'course_title' => $course->course_title,
+                    'program_id' => $course->program_id,
+                    'year' => $course->year,
+                    'semester' => $course->semester,
+                    'credit_unit_lecture' => $course->credit_unit_lecture,
+                    'credit_unit_laboratory' => $course->credit_unit_laboratory,
+                    'pre_requisite' => $course->pre_requisite,
+                ];
+            })->toArray();
     
-        // Merge existing and new courses, ensuring no duplicates
-        $mergedCourses = array_unique(array_merge($existingCourses, $coursesToSave), SORT_REGULAR);
-    
-        // Save merged courses as JSON
-        $student->courses = json_encode($mergedCourses);
+        // Overwrite the existing courses with the newly selected ones
+        $student->courses = json_encode($coursesToSave);
         $student->advising_notes = $request->input('advising_notes');
         $student->classification = $request->input('classification');
         $student->save();
     
         // Send email to the student
-        Mail::to($student->email)->send(new AdvisingMail($student, $request->input('advising_notes'), $mergedCourses));
+        Mail::to($student->email)->send(new AdvisingMail($student, $request->input('advising_notes'), $coursesToSave));
     
         return redirect()->back()->with('success', 'Student advised successfully!');
-    }    
+    }
     
 
     public function pending()
     {
         $students = Student::where('classification', 'pending')->get();
-        $courses = Course::all();
+        $courses = Course::orderBy('year')
+        ->orderBy('semester')
+        ->get();
         return view('department.enrollment.pending', compact('students', 'courses'));
     }
 

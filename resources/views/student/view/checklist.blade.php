@@ -5,7 +5,8 @@
 <div class="container-fluid px-4">
     <h1 class="mt-4">Student Grades</h1>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">COG</li>
+        <li class="breadcrumb-item active">Upload a Copy of your Checklist</li>
+        <li class="breadcrumb-item active">Fill out the Checklist Form Below</li>
     </ol>
 
     @if (session('success'))
@@ -18,14 +19,28 @@
         <div class="text-center">
             <form method="post" action="{{ route('upload.photo') }}" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="student_id" value="{{ $student->id }}">
-                
+                <!-- First Set: File Input with Label -->
                 <label for="photoInput" class="custom-file-upload">
-                    <input type="file" name="photo" id="photoInput" accept="image/*" required onchange="previewImage(event)">
-                    Browse Files
+                    <input type="file" name="photo" id="photoInput" accept="image/*" required onchange="previewImage(event, 'preview1')">
+                    Browse Photo 1
                 </label>
-                <button type="submit" class="btn-upload">Upload Photo</button>
-            </form>
+
+                <!-- Second Set: File Inputs Styled Like the First One -->
+                <label for="photoInput2" class="custom-file-upload">
+                    <input type="file" name="photo2" id="photoInput2" accept="image/*" onchange="previewImage(event, 'preview2')">
+                    Browse Photo 2
+                </label>
+
+                <!-- Preview Containers -->
+                <div id="imagePreview1" class="my-4 text-center" style="display: none;">
+                    <img id="preview1" src="#" alt="Selected Image 1" style="max-width: 100%; max-height: 400px;">
+                </div>
+
+                <div id="imagePreview2" class="my-4 text-center" style="display: none;">
+                    <img id="preview2" src="#" alt="Selected Image 2" style="max-width: 100%; max-height: 400px;">
+                </div>
+                <button type="submit" class="btn-upload">Upload Photos</button>
+            </form>            
         </div>
         
         <div id="imagePreview" class="my-4 text-center" style="display: none;">
@@ -33,8 +48,14 @@
         </div>
     
         <div class="student-photo-container">
-            <img src="{{ $student->photo_url }}" alt="No Uploads Yet" class="student-photo" onclick="openModal();">
+            @if ($student->photo)
+                     <img src="{{ asset('storage/' . $student->photo) }}" alt="First Photo" class="student-photo" onclick="openModal('{{ asset('storage/' . $student->photo) }}')">
+            @endif
+            @if ($student->photo2)
+                    <img src="{{ asset('storage/' . $student->photo2) }}" alt="Second Photo" class="student-photo" onclick="openModal('{{ asset('storage/' . $student->photo2) }}')">
+            @endif
         </div>
+        
     
         <!-- Modal for Viewing Larger Photo -->
         <div id="photoModal" class="modal" style="display: none;">
@@ -52,7 +73,7 @@
             @csrf
             @method('DELETE') <!-- Use DELETE method -->
             <div class="text-center mt-3">
-                <button type="submit" class="btn-upload btn-danger">Delete Photo</button>
+                <button type="submit" class="btn-upload btn-danger">Delete Photos</button>
             </div>
         </form>
         @endif
@@ -270,12 +291,13 @@
     
     <script>
     // Function to open modal
-    function openModal() {
-        var modal = document.getElementById('photoModal');
-        modal.style.display = "flex"; // Use flexbox for centering modal
-        var modalImage = document.getElementById('modalImage');
-        modalImage.src = "{{ $student->photo_url }}"; // Set image source in modal
+    function openModal(imageUrl) {
+        const modal = document.getElementById('photoModal');
+        const modalImage = document.getElementById('modalImage');
+        modalImage.src = imageUrl;
+        modal.style.display = "flex";
     }
+
 
     // Function to close modal
     function closeModal() {
@@ -292,21 +314,21 @@
     }
 
     // Function to preview selected image before upload
-    function previewImage(event) {
+    function previewImage(event, previewId) {
         const input = event.target;
-        const preview = document.getElementById('preview');
-        const imagePreview = document.getElementById('imagePreview');
+        const preview = document.getElementById(previewId); // Get the specific preview container
+        const imagePreview = document.getElementById('imagePreview' + previewId.charAt(previewId.length - 1)); // Dynamically choose the preview container by ID
 
         const file = input.files[0];
         const reader = new FileReader();
 
         reader.onload = function() {
             preview.src = reader.result;
-            imagePreview.style.display = 'block';
+            imagePreview.style.display = 'block'; // Show the preview
         }
 
         if (file) {
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(file); // Read the file as data URL for preview
         }
     }
 
@@ -337,10 +359,11 @@
     }
 </script>
 
-{{-- BSCS Checklist --}}
+{{-- Student Checklist --}}
 <div id="bscs-checklist" class="checklist">
     <form method="POST" action="{{ route('student.manage.student-course-checklist.store') }}">
         @csrf
+        <input type="hidden" name="student_id" value="{{ $student->id }}">
         @foreach ($studentCourseChecklist as $semester => $courses)
             <div class="card mb-4">
                 <div class="card-header bg-success text-white">

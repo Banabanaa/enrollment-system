@@ -101,8 +101,10 @@ class StudentCourseChecklistController extends Controller
                 ]
             );
         }
-
+        $student = Student::findOrFail($request->student_id);
+        $student->update(['classification' => 'pending']);
+    
         // Redirect back with success message
-        return redirect()->back()->with('success', 'Checklist updated successfully!');
+        return redirect()->back()->with('success', 'Checklist saved and classification updated to pending.');
     }
 }

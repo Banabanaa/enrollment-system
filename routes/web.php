@@ -13,6 +13,7 @@ use App\Http\Controllers\Registrar\EnrollmentController;
 use App\Http\Controllers\Department\DDepartmentController;
 use App\Http\Controllers\Department\DEnrollmentController;
 use App\Http\Controllers\Student\PhotoUploadController;
+use App\Http\Controllers\Student\PreEnrollmentController;
 use App\Http\Controllers\Student\StudentCourseChecklistController;
 use App\Http\Controllers\InstructorController;
 
@@ -129,13 +130,13 @@ Route::prefix('department')->middleware('auth:department')->group(function () {
         Route::get('undereval', [DEnrollmentController::class, 'undereval'])->name('undereval');
         Route::post('/advise/{student}', [DEnrollmentController::class, 'adviseStudent'])->name('advise.student');
         Route::post('/{studentId}/add-course/{courseId}', [DEnrollmentController::class, 'addCourseToStudent'])->name('addCourseToStudent');
+        Route::get('/student/{id}/checklist', [DEnrollmentController::class, 'getChecklist'])->name('student.checklist');
     });
 
     Route::name('department.addons.')->group(function () {
-        Route::view('addons/checklist', 'department.addons.checklist')->name('checklist');
         Route::view('addons/masterlist', 'department.addons.masterlist')->name('masterlist');
         Route::view('addons/privacy-policy', 'department.addons.privacy-policy')->name('privacy-policy');
-        Route::view('addons/terms', 'deoartment.addons.terms')->name('terms');
+        Route::view('addons/terms', 'department.addons.terms')->name('terms');
     });
 });
 
@@ -154,16 +155,21 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
 
     ]);
     
-
     Route::name('student.addons.')->group(function () {
         Route::view('addons/cor', 'student.addons.cor')->name('cor');
+        Route::middleware('auth')->get('addons/preenrollment', [PreEnrollmentController::class, 'showPreEnrollmentForm'])->name('preenrollment');
+        
+        // This should use the controller method for showing preenrollment form
+        Route::get('addons/showPreEnrollmentForm', [PreEnrollmentController::class, 'showPreEnrollmentForm'])->name('showPreEnrollmentForm');
+        
         Route::view('addons/privacy-policy', 'student.addons.privacy-policy')->name('privacy-policy');
         Route::view('addons/terms', 'student.addons.terms')->name('terms');
     });
+    Route::post('/student/remove-course', [PreEnrollmentController::class, 'removeCourse'])->name('student.addons.remove_course');
+    Route::post('/student/preenrollment/confirm-action', [PreEnrollmentController::class, 'confirmAction'])->name('student.addons.confirm_action');
     // Instructor Routes
     Route::get('/instructors', [InstructorController::class, 'showInstructor'])->name('instructors.show');
 });
-// Route::get('/student-grades', [StudentGradesController::class, 'showStudentGrades'])->name('student.grades');
 
 
 

@@ -9,62 +9,71 @@ use App\Models\Student;
 
 class PhotoUploadController extends Controller
 {
+
     public function upload(Request $request)
     {
         // Validate the incoming request
         $request->validate([
             'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Second photo
         ]);
-
+    
         // Get the currently logged-in student
         $student = Student::find(auth()->guard('student')->id());
-
-        // Check if a file is uploaded
+    
+        // Handle the first photo
         if ($request->file('photo')) {
-            // Store the uploaded photo in the public/photos directory
             $file = $request->file('photo');
             $path = $file->store('photos', 'public');
-
+    
             // Remove the old photo if it exists
             if ($student->photo) {
                 Storage::disk('public')->delete($student->photo);
             }
-
-            // Save the new photo path in the database
+    
             $student->photo = $path;
-            $student->save();
-
-            // Redirect to checklist or another view with success message
-            return redirect()->route('student.view.checklist')->with('success', 'Photo uploaded successfully!');
-            
         }
-
-        // Return back with an error if the photo wasn't uploaded
-        return back()->withErrors(['photo' => 'Photo upload failed.']);
+    
+        // Handle the second photo
+        if ($request->file('photo2')) {
+            $file2 = $request->file('photo2');
+            $path2 = $file2->store('photos', 'public');
+    
+            // Remove the old second photo if it exists
+            if ($student->photo2) {
+                Storage::disk('public')->delete($student->photo2);
+            }
+    
+            $student->photo2 = $path2;
+        }
+    
+        $student->save();
+    
+        return redirect()->route('student.view.checklist')->with('success', 'Photos uploaded successfully!');
     }
+    
 
     public function deletePhoto()
     {
-        // Get the currently logged-in student
         $student = Student::find(auth()->guard('student')->id());
 
-        // Check if a photo exists
-        if ($student && $student->photo) {
-            // Delete the photo from storage
-            Storage::disk('public')->delete($student->photo);
+        if ($student) {
+            if ($student->photo) {
+                Storage::disk('public')->delete($student->photo);
+                $student->photo = null;
+            }
 
-            // Remove the photo reference from the database
-            $student->photo = null;
+            if ($student->photo2) {
+                Storage::disk('public')->delete($student->photo2);
+                $student->photo2 = null;
+            }
+
             $student->save();
-
-            // Redirect back with success message
-            return redirect()->route('student.view.checklist')->with('success', 'Photo deleted successfully!');
+            return redirect()->route('student.view.checklist')->with('success', 'Photos deleted successfully!');
         }
 
-        // Redirect back with error message if no photo exists
-        return redirect()->route('student.view.checklist')->withErrors(['photo' => 'No photo found to delete.']);
+        return redirect()->route('student.view.checklist')->withErrors(['photo' => 'No photos found to delete.']);
     }
-
 
 }
 
