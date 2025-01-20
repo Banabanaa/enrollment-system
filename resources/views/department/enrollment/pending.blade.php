@@ -83,16 +83,16 @@
                                                             class="img-thumbnail" 
                                                             style="width: 80%; height: 80%; object-fit: cover;">
                                                     </div>
-                                                    <div class="mb-4">
-                                                        <label for="studentNumber" class="form-label fw-bold">Student Number</label>
+                                                    <div class="mb-2">
+                                                        <label for="studentNumber" class="form-label fs-5 fw-bold">Student Number</label>
                                                         <input type="text" class="form-control" id="studentNumber" value="{{ $student->student_number }}" readonly>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="program" class="form-label">Program</label>
+                                                        <label for="studentNumber" class="form-label fs-5 fw-bold">Program</label>
                                                         <input type="text" class="form-control" id="program" value="{{ $student->program_id }}" readonly>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="courses" class="form-label">Select Courses</label>
+                                                        <label for="studentNumber" class="form-label fs-5 fw-bold">Select Courses</label>
                                                         <select id="courses" name="courses[]" class="form-select" multiple>
                                                             @foreach ($courses as $course)
                                                                 <option value="{{ $course->course_code }}">{{ $course->course_code }} - {{ $course->course_title }}</option>
@@ -101,18 +101,14 @@
                                                         <small class="text-muted">Select multiple courses using Ctrl/Command key.</small>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="classification" class="form-label">Classification</label>
+                                                        <label for="studentNumber" class="form-label fs-5 fw-bold">Classification</label>
                                                         <select class="form-select" name="classification">
                                                             <option value="under evaluation" {{ old('classification', $student->classification) == 'under evaluation' ? 'selected' : '' }}>Under Evaluation</option>
                                                             <option value="pending" {{ old('classification', $student->classification) == 'pending' ? 'selected' : '' }}>Pending</option>
-                                                            <option value="regular" {{ old('classification', $student->classification) == 'regular' ? 'selected' : '' }}>Regular</option>
-                                                            <option value="irregular" {{ old('classification', $student->classification) == 'irregular' ? 'selected' : '' }}>Irregular</option>
-                                                            <option value="transferee" {{ old('classification', $student->classification) == 'transferee' ? 'selected' : '' }}>Transferee</option>
-                                                            <option value="returnee" {{ old('classification', $student->classification) == 'returnee' ? 'selected' : '' }}>Returnee</option>
                                                         </select>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="advisingNotes" class="form-label">Advising Notes</label>
+                                                        <label for="studentNumber" class="form-label fs-5 fw-bold">Advising Notes</label>
                                                         <textarea name="advising_notes" id="advisingNotes" class="form-control">{{ old('advising_notes', $student->advising_notes) }}</textarea>
                                                     </div>
                                                 </div>
