@@ -12,8 +12,6 @@
     </ol>
     
     <div class="mt-4 text-justify">
-        <p><strong>Last Updated: January 20, 2025</strong></p>
-        
         <h2 class="mt-4">1. Acceptance of Terms</h2>
         <p>By accessing and using the Cavite State University - Bacoor Campus' Enrollment System for Computer Science and Information Technology Courses (hereinafter referred to as “the System”), you, the student (“you” or “Student”), agree to be bound by these Terms and Conditions (hereinafter referred to as “Terms”). If you do not agree to these Terms, you are not authorized to use the System. Your continued use of the System constitutes your acceptance of these Terms, as they may be amended from time to time.</p>
 
