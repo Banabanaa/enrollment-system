@@ -29,7 +29,7 @@
                         @yield('content')
                     </div>
                 </main>
-                @include('layouts.partials.footer')
+                @include('layouts.partials.registrar-footer')
             </div>
         </div>
 

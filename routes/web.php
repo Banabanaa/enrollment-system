@@ -64,6 +64,8 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::name('admin.addons.')->group(function () {
         Route::view('addons/checklist', 'admin.addons.checklist')->name('checklist');
         Route::view('addons/masterlist', 'admin.addons.masterlist')->name('masterlist');
+        Route::view('addons/privacy-policy', 'admin.addons.privacy-policy')->name('privacy-policy');
+        Route::view('addons/terms', 'admin.addons.terms')->name('terms');
     });
 });
 
@@ -96,6 +98,8 @@ Route::prefix('registrar')->middleware('auth:registrar')->group(function () {
     Route::name('registrar.addons.')->group(function () {
         Route::view('addons/checklist', 'registrar.addons.checklist')->name('checklist');
         Route::view('addons/masterlist', 'registrar.addons.masterlist')->name('masterlist');
+        Route::view('addons/privacy-policy', 'registrar.addons.privacy-policy')->name('privacy-policy');
+        Route::view('addons/terms', 'registrar.addons.terms')->name('terms');
     });
 });
 
@@ -130,6 +134,8 @@ Route::prefix('department')->middleware('auth:department')->group(function () {
         Route::view('addons/checklist', 'department.addons.checklist')->name('checklist');
         Route::view('addons/masterlist', 'department.addons.masterlist')->name('masterlist');
         Route::view('addons/advising', 'department.addons.advising')->name('advising');
+        Route::view('addons/privacy-policy', 'department.addons.privacy-policy')->name('privacy-policy');
+        Route::view('addons/terms', 'deoartment.addons.terms')->name('terms');
     });
 });
 
@@ -142,6 +148,8 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
 
     Route::name('student.addons.')->group(function () {
         Route::view('addons/cor', 'student.addons.cor')->name('cor');
+        Route::view('addons/privacy-policy', 'student.addons.privacy-policy')->name('privacy-policy');
+        Route::view('addons/terms', 'student.addons.terms')->name('terms');
     });
     // Instructor Routes
     Route::get('/instructors', [InstructorController::class, 'showInstructor'])->name('instructors.show');
