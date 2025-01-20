@@ -153,6 +153,7 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
         'update' => 'student.manage.student-course-checklist.update',
 
     ]);
+    
 
     Route::name('student.addons.')->group(function () {
         Route::view('addons/cor', 'student.addons.cor')->name('cor');
@@ -176,6 +177,9 @@ Route::middleware('auth')->group(function () {
 //Photo Upload
 Route::get('/upload-photo/{studentId}', [PhotoUploadController::class, 'showUploadForm'])->name('upload.photo.form');
 Route::post('/upload-photo', [PhotoUploadController::class, 'upload'])->name('upload.photo');
+Route::delete('/student/photo/delete', [PhotoUploadController::class, 'deletePhoto'])
+    ->name('student.photo.delete')
+    ->middleware('auth:student'); 
 
 
 Route::get('/grades', [StudentController::class, 'showGrades'])->name('grades.show');

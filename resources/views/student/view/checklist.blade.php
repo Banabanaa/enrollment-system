@@ -8,6 +8,12 @@
         <li class="breadcrumb-item active">COG</li>
     </ol>
 
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="upload-container">
         <div class="text-center">
             <form method="post" action="{{ route('upload.photo') }}" enctype="multipart/form-data">
@@ -39,6 +45,17 @@
                 </div>
             </div>
         </div>
+
+        <!-- Delete Photo Button -->
+        @if($student->photo)
+        <form method="POST" action="{{ route('student.photo.delete') }}">
+            @csrf
+            @method('DELETE') <!-- Use DELETE method -->
+            <div class="text-center mt-3">
+                <button type="submit" class="btn-upload btn-danger">Delete Photo</button>
+            </div>
+        </form>
+        @endif
     </div>
     
     <style>
@@ -100,6 +117,22 @@
             max-width: 100%;
             max-height: 400px;
             object-fit: cover;
+        }
+
+        .btn-danger {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
         }
     
         /* Styles for Centered and Smaller Student Photo */
@@ -306,11 +339,6 @@
 
 {{-- BSCS Checklist --}}
 <div id="bscs-checklist" class="checklist">
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
     <form method="POST" action="{{ route('student.manage.student-course-checklist.store') }}">
         @csrf
         @foreach ($studentCourseChecklist as $semester => $courses)
