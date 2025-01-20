@@ -8,95 +8,301 @@
         <li class="breadcrumb-item active">COG</li>
     </ol>
 
-    {{-- File Upload Container --}}
-<div class="upload-container" style="border: 2px solid green; border-radius: 10px; padding: 20px; margin: 20px;">
-    <div class="my-4 text-center">
-        <form method="post" action="{{ route('upload.photo') }}" enctype="multipart/form-data">
-            @csrf
-            <label for="photoInput" class="custom-file-upload">
-                <input type="file" name="photo" id="photoInput" accept="image/*" required onchange="previewImage(event)">
-                Browse Files
-            </label>
-        </form>
+    <div class="upload-container">
+        <div class="text-center">
+            <form method="post" action="{{ route('upload.photo') }}" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="student_id" value="{{ $student->id }}">
+                
+                <label for="photoInput" class="custom-file-upload">
+                    <input type="file" name="photo" id="photoInput" accept="image/*" required onchange="previewImage(event)">
+                    Browse Files
+                </label>
+                <button type="submit" class="btn-upload">Upload Photo</button>
+            </form>
+        </div>
+        
+        <div id="imagePreview" class="my-4 text-center" style="display: none;">
+            <img id="preview" src="#" alt="Selected Image">
+        </div>
+    
+        <div class="student-photo-container">
+            <img src="{{ $student->photo_url }}" alt="No Uploads Yet" class="student-photo" onclick="openModal();">
+        </div>
+    
+        <!-- Modal for Viewing Larger Photo -->
+        <div id="photoModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div class="zoom-wrapper" onmousemove="zoomImage(event)" onmouseleave="resetZoom()">
+                    <img id="modalImage" src="{{ $student->photo_url }}" alt="No Uploads Yet" class="zoom-image">
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div id="imagePreview" class="my-4 text-center" style="display: none;">
-        <img id="preview" src="#" alt="Selected Image" style="max-width: 100%; max-height: 400px;">
-        <button id="replaceButton" onclick="replaceImage(event)">Replace Image</button>
-    </div>
-</div>
-
-<style>
-    input.form-control:focus {
-        border-color: green;
-        outline: none; /* Optional: Removes the default outline for a cleaner look */
-        box-shadow: 0 0 5px rgba(0, 128, 0, 0.5); /* Optional: Adds a subtle green glow */
-    }
-
-    .upload-container {
-        border: 2px solid green; /* Green border */
-        border-radius: 10px; /* Rounded corners */
-        padding: 20px; /* Inner padding */
-        margin: 20px; /* Outer margin for spacing */
-        background-color: #f9f9f9; /* Light background color for contrast */
-    }
-
-    .custom-file-upload {
-        cursor: pointer;
-        display: inline-block;
-        padding: 10px 20px;
-        background:rgb(21, 102, 4);
-        color: #fff;
-        border: 1px solid #007bff;
-        border-radius: 5px;
-    }
-
-    .custom-file-upload input {
-        display: none;
-    }
-
-    #replaceButton {
-        display: block;
-        margin-top: 10px;
-        padding: 5px 10px;
-        background:rgba(165, 163, 163, 0.9);
-        color: #fff;
-        border: 1px solidrgb(27, 173, 7);
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    #preview {
-        max-width: 100%; /* Set maximum width to 100% of the container */
-        max-height: 400px; /* Limit the maximum height to 400px */
-    }
-</style>
-
-<script>
-    function previewImage(event) {
-        const input = event.target;
-        const preview = document.getElementById('preview');
-        const imagePreview = document.getElementById('imagePreview');
-
-        const file = input.files[0];
-        const reader = new FileReader();
-
-        reader.onload = function() {
-            preview.src = reader.result;
-            imagePreview.style.display = 'block';
+    
+    <style>
+        .upload-container {
+            border: 2px solid #218838; /* Green border */
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px; /* Inner padding */
+            margin: 20px; /* Outer margin for spacing */
+            background-color: #f9f9f9; /* Light background color for contrast */
+            box-sizing: border-box; /* Ensures padding does not affect element size */
+        }
+    
+        .text-center {
+            text-align: center;
+        }
+    
+        .custom-file-upload {
+            cursor: pointer;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #218838;
+            color: white;
+            border: 1px solid #218838;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+    
+        .custom-file-upload:hover {
+            background-color: #145a32;
+            border-color: #145a32;
+        }
+    
+        .custom-file-upload input {
+            display: none;
+        }
+    
+        .btn-upload {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #ac0330;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    
+        .btn-upload:hover {
+            background-color: #6b0303;
+        }
+    
+        #imagePreview {
+            margin-top: 20px;
+        }
+    
+        #preview {
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+        }
+    
+        /* Styles for Centered and Smaller Student Photo */
+        .student-photo-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .student-photo {
+            width: 350px; /* Image size for larger screens */
+            height: 450px;
+            border-radius: 5%; 
+            object-fit: cover;
+            cursor: pointer; /* Make it clickable */
+            transition: transform 0.3s ease;
+        }
+    
+        .student-photo:hover {
+            transform: scale(1.05); /* Slight zoom effect on hover */
+        }
+    
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+            display: flex;
+            margin-top: 5px;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .zoom-wrapper {
+            position: relative;
+            width: 100%;
+            height: 90%;
+            overflow: hidden; /* Hide the overflowing part of the zoomed image */
+            cursor: zoom-in; /* Cursor style to indicate zoom-in action */
+        }
+        
+        .zoom-image {
+            transition: transform 0.2s ease; /* Smooth zoom transition */
+            width: 100%; /* Make sure the image scales well */
+            height: auto; 
+            object-fit: cover;
         }
 
-        if (file) {
-            reader.readAsDataURL(file);
+        .modal-content {
+            position: relative;
+            width: 80%;  /* Adjust size based on your requirement */
+            max-width: 500px; /* Maximum width */
+            background-color: #fff;
+            margin-top: 40px;
         }
-    }
+        
+    
+        /* The Close Button (X) */
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #fff;
+            font-size: 36px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    
+        /* Media Queries for Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .student-photo {
+                width: 250px; /* Smaller student photo for mobile */
+                height: 250px;
+            }
+    
+            .modal-content {
+                width: 80%; /* Increase modal width on smaller screens */
+                max-width: 300px; /* Max width for modal */
+            }
+    
+            .btn-upload {
+                width:50%; /* Make the upload button full width */
+                padding: 10px; /* Larger padding for touch devices */
+            }
+    
+            .upload-container {
+                padding: 10px; /* Adjust inner padding for small screens */
+                margin: 10px;  /* Adjust margin for small screens */
+            }
+    
+            .student-photo-container {
+                margin-top: 15px; /* Adjust spacing between elements for smaller screens */
+            }
+        }
+    
+        @media (max-width: 480px) {
+            .student-photo {
+                width: 200px; /* Even smaller student photo */
+                height: 200px;
+            }
+    
+            .btn-upload {
+                padding: 8px 0px; /* Adjust upload button padding on very small screens */
+            }
+    
+            .modal-content {
+                width: 90%; /* Even larger modal on very small screens */
+                max-width: 250px;
+            }
+    
+            #imagePreview {
+                margin-top: 15px; /* Adjust margin for smaller viewports */
+            }
+    
+            .custom-file-upload {
+                padding: 8px 15px; /* Smaller file upload button */
+                font-size: 14px; /* Smaller font size */
+            }
+        }
+    </style>
+    
+    <script>
+        // Function to open modal
+        function openModal() {
+            var modal = document.getElementById('photoModal');
+            modal.style.display = "flex"; // Use flexbox for centering modal
+            var modalImage = document.getElementById('modalImage');
+            modalImage.src = "{{ $student->photo_url }}"; // Set image source in modal
+        }
 
-    function replaceImage(event) {
-        const input = document.getElementById('photoInput');
-        input.value = ''; // Reset input value to allow selecting the same file again
-        document.getElementById('imagePreview').style.display = 'none'; // Hide the image preview
-    }
-</script>
+        // Function to close modal
+        function closeModal() {
+            var modal = document.getElementById('photoModal');
+            modal.style.display = "none"; // Hide the modal
+        }
+
+        // Close modal when clicking anywhere outside of the modal content
+        window.onclick = function(event) {
+            var modal = document.getElementById('photoModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Function to preview selected image before upload
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('preview');
+            const imagePreview = document.getElementById('imagePreview');
+
+            const file = input.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function() {
+                preview.src = reader.result;
+                imagePreview.style.display = 'block';
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Zoom Functionality
+        function zoomImage(event) {
+            const img = document.getElementById('modalImage');
+            const zoomWrapper = document.querySelector('.zoom-wrapper');
+            
+            const rect = zoomWrapper.getBoundingClientRect();
+            
+            const x = event.clientX - rect.left;  // X position within the wrapper
+            const y = event.clientY - rect.top;   // Y position within the wrapper
+            const zoomFactor = 2;  // Factor by which the image zooms
+            
+            // Change background position to zoom into the right place
+            const backgroundX = (x / rect.width) * 100;
+            const backgroundY = (y / rect.height) * 100;
+            
+            img.style.transform = `scale(${zoomFactor})`; // Zoom in on the image
+            img.style.transformOrigin = `${backgroundX}% ${backgroundY}%`; // Set where to zoom (focus point)
+        }
+        
+        // Reset zoom when leaving the image area
+        function resetZoom() {
+            const img = document.getElementById('modalImage');
+            img.style.transform = "scale(1)";  // Reset zoom
+            img.style.transformOrigin = "center";  // Center the image
+        }
+    </script>
 
 {{-- BSCS Checklist --}}
     <div id="bscs-checklist" class="checklist">
@@ -179,5 +385,6 @@
     <button type="submit" class="btn btn-primary btn-lg custom-button" style="width: 200px; background:rgb(21, 102, 4); border: none;">Save</button>
 </div>
 </div>
+
 
 @endsection

@@ -12,7 +12,7 @@ use App\Http\Controllers\Department\DStudentController;
 use App\Http\Controllers\Registrar\EnrollmentController;
 use App\Http\Controllers\Department\DDepartmentController;
 use App\Http\Controllers\Department\DEnrollmentController;
-use App\Http\Controllers\PhotoUploadController;
+use App\Http\Controllers\Student\PhotoUploadController;
 use App\Http\Controllers\Student\StudentCourseChecklistController;
 use App\Http\Controllers\InstructorController;
 
@@ -154,7 +154,7 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
     // Instructor Routes
     Route::get('/instructors', [InstructorController::class, 'showInstructor'])->name('instructors.show');
 });
-Route::get('/student-grades', [StudentGradesController::class, 'showStudentGrades'])->name('student.grades');
+// Route::get('/student-grades', [StudentGradesController::class, 'showStudentGrades'])->name('student.grades');
 
 
 
@@ -166,7 +166,9 @@ Route::middleware('auth')->group(function () {
 });
 
 //Photo Upload
-Route::post('/upload/photo', [PhotoUploadController::class, 'upload'])->name('upload.photo');
+Route::get('/upload-photo/{studentId}', [PhotoUploadController::class, 'showUploadForm'])->name('upload.photo.form');
+Route::post('/upload-photo', [PhotoUploadController::class, 'upload'])->name('upload.photo');
+
 
 Route::get('/grades', [StudentController::class, 'showGrades'])->name('grades.show');
 // Include Auth Routes

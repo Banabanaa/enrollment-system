@@ -63,4 +63,9 @@ class Student extends Authenticatable
         ];
     }
 
+    public function getPhotoUrlAttribute()
+    {
+        return $this->photo ? asset('storage/' . $this->photo) : asset('images/default-avatar.png');
+    }
+
 }
