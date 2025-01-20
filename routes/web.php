@@ -141,7 +141,7 @@ Route::prefix('department')->middleware('auth:department')->group(function () {
 Route::prefix('student')->middleware('auth:student')->group(function () {
     Route::name('student.view.')->group(function () {
         Route::view('view/enrollment', 'student.view.enrollment')->name('enrollment');
-        Route::view('view/checklist', 'student.view.checklist')->name('checklist');
+        Route::view('view/information', 'student.view.information')->name('information');
     });
 
     Route::name('student.addons.')->group(function () {

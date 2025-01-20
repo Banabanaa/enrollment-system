@@ -2,16 +2,20 @@
     <!-- Header Part -->
     <header class="bg-light-gray shadow-big p-4 flex items-center justify-between">
     <!-- Greeting -->
-    <h1 class="text-lg font-semibold text-primary ">Good day,  <span id="username">Student</span>!</h1>
+    <h1 class="text-lg font-semibold text-primary ">Good day,  <span id="username">{{ Auth::user()->first_name }}</span>!</h1>
 
     <!-- Dropdown Menu -->
     <div class="relative inline-block">
         <!-- Dropdown Trigger -->
         <button
     id="dropdownButton"
-    class="flex items-center bg-light-gray text-black border-2 border-black px-2 py-1 rounded-xl text-sm hover:bg-gray-300">
-    <span class="mr-1 text-black font-medium text-sm">Linus Aurin</span>
-    <i class="material-icons text-black text-base">arrow_drop_down</i>
+    class="flex items-center bg-light-gray text-black px-2 py-1 rounded-xl text-sm hover:bg-gray-300">
+    <!-- Hamburger Icon -->
+    <span class="mr-1 text-black font-medium text-sm">
+        <span class="block w-6 h-1 bg-black mb-1"></span>
+        <span class="block w-6 h-1 bg-black mb-1"></span>
+        <span class="block w-6 h-1 bg-black"></span>
+    </span>
 </button>
 
 
