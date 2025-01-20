@@ -253,46 +253,4 @@
 
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    // Event listener for the Issue COR button
-    $('#issueCorButton').on('click', function () {
-        // Gather all input values into an object
-        const studentDetails = {
-            studentNumber: $('#studentNumber').val(),
-            studentName: $('#studentName').val(),
-            semester: $('#semester').val(),
-            course: $('#course').val(),
-            year: $('#year').val(),
-            schoolYear: $('#schoolYear').val(),
-            encoder: $('#encoder').val(),
-            address: $('#address').val(),
-            section: $('#section').val(),
-        };
-
-        // Make an AJAX request to update the student details
-        $.ajax({
-            url: '{{ route("updateStudentDetails") }}', // Laravel route to handle the update
-            method: 'POST',
-            data: studentDetails,
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Include CSRF token for security
-            },
-            success: function (response) {
-                // Display a success message
-                alert(response.message || 'Student details updated successfully!');
-
-                // Optionally, reload or update the page dynamically
-                location.reload();
-            },
-            error: function (xhr) {
-                // Handle errors
-                console.error(xhr.responseText);
-                alert('An error occurred while updating the student details.');
-            }
-        });
-    });
-</script>
-
-
 @endsection

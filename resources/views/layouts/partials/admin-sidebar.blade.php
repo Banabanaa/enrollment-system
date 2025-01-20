@@ -28,22 +28,22 @@
                     <ul id="accounts-links" class="ml-4 space-y-2 mt-2 hidden">
                         <a href="{{ route('admin.manage.admin') }}">
                             <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
-                                <span class="text-sm font-semibold font-poppins">Admin Accounts</span>
+                                <span class="text-sm font-semibold font-poppins">Admin</span>
                             </li>
                         </a>
                         <a href="{{ route('admin.manage.student') }}">
                             <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
-                                <span class="text-sm font-semibold font-poppins">Student Accounts</span>
+                                <span class="text-sm font-semibold font-poppins">Student</span>
                             </li>
                         </a>
                         <a href="{{ route('admin.manage.registrar') }}">
                             <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
-                                <span class="text-sm font-semibold font-poppins">Registrar Accounts</span>
+                                <span class="text-sm font-semibold font-poppins">Registrar</span>
                             </li>
                         </a>
                         <a href="{{ route('admin.manage.department') }}">
                             <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
-                                <span class="text-sm font-semibold font-poppins">Department Accounts</span>
+                                <span class="text-sm font-semibold font-poppins">Department</span>
                             </li>
                         </a>
                     </ul>
@@ -66,11 +66,9 @@
                 <!-- Form for logout -->
                 <form id="logoutForm" method="POST" action="{{ route('admin.logout') }}">
                     @csrf
-                    <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-red-600">Yes</button>
-                <button onclick="closeModal()" class="bg-red text-white px-4 py-2 rounded-lg hover:bg-gray-400">No</button>
-
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Yes</button>
                 </form>
-
+                <button onclick="closeModal()" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-gray-600">No</button>
             </div>
         </div>
     </div>
@@ -81,18 +79,15 @@
             event.preventDefault(); // Prevent immediate navigation
             document.getElementById('logoutModal').classList.remove('hidden');
         }
-
         // Close modal
         function closeModal() {
             document.getElementById('logoutModal').classList.add('hidden');
         }
-
         // Confirm logout action
         function confirmLogout() {
             // Trigger the logout form submission
             document.getElementById('logoutForm').submit();
         }
-
         function toggleAccounts() {
             const accountsLinks = document.getElementById('accounts-links');
             accountsLinks.classList.toggle('hidden');
