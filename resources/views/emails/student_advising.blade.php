@@ -1,22 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Advising Details</title>
 </head>
 <body>
-    <h3>Dear {{ $studentName }},</h3>
-    <p>Here are the details for your advising session:</p>
+    <h1>Hello {{ $studentName }},</h1>
+    <p>Your advising details are as follows:</p>
 
-    <h4>Courses Added:</h4>
+    <h3>Advised Courses:</h3>
     <ul>
         @foreach($courses as $course)
             <li>{{ $course }}</li>
         @endforeach
     </ul>
 
-    <h4>Advising Notes:</h4>
+    <h3>Advising Notes:</h3>
     <p>{{ $advisingNotes }}</p>
 
-    <p>Thank you for using the advising system.</p>
+    <p>Best regards,<br>
+    {{ $departmentName }}<br>
+    Department</p>
 </body>
 </html>

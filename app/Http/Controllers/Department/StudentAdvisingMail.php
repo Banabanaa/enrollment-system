@@ -1,7 +1,7 @@
-<?php
+<?php 
 namespace App\Mail;
 
-use App\Models\Student;
+use App\Models\Advising;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -10,25 +10,22 @@ class StudentAdvisingMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $student;
-    public $courses;
-    public $advisingNotes;
+    public $advising;
 
-    public function __construct(Student $student, $courses, $advisingNotes)
+    public function __construct(Advising $advising)
     {
-        $this->student = $student;
-        $this->courses = $courses;
-        $this->advisingNotes = $advisingNotes;
+        $this->advising = $advising;
     }
 
     public function build()
     {
-        return $this->subject('Advising Information')
+        return $this->subject('Advising Details')
                     ->view('emails.student_advising')
                     ->with([
-                        'student' => $this->student,
-                        'courses' => $this->courses,
-                        'advisingNotes' => $this->advisingNotes,
+                        'studentName' => $this->advising->first_name . ' ' . $this->advising->last_name,
+                        'courses' => $this->advising->advised_course,
+                        'advisingNotes' => $this->advising->advising_notes,
+                        'departmentName' => $this->advising->department_first_name . ' ' . $this->advising->department_last_name,
                     ]);
     }
 }

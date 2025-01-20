@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedOption = dropdown.options[dropdown.selectedIndex];
 
         if (selectedOption) {
-            const courseId = selectedOption.value; // Unique course ID
+            const courseId = selectedOption.value; // Unique course ID  
             const courseTitle = selectedOption.textContent;
             const addedCoursesList = document.getElementById('addedCourses');
 
