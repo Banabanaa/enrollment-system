@@ -1,4 +1,5 @@
-@extends('layouts.registrar.navbar')
+@extends('layouts.registrar')
+
 
 
 @section('content')

@@ -13,8 +13,14 @@ class DashboardController extends Controller
         $studentCount = Student::count(); // Total number of students
 
         // Get counts for students based on program_id
-        $bscsCount = Student::where('program_id', 'Bachelor of Science in Computer Science')->count();
-        $bsitCount = Student::where('program_id', 'Bachelor of Science in Information Technology')->count();
+        $bscsCount = Student::where('program_id', 'BSIT')
+        ->orWhere('program_id', 'Bachelor of Science in Computer Science')
+        ->orWhere('program_id', 'Computer Science')
+        ->count();
+        $bsitCount = Student::where('program_id', 'BSIT')
+        ->orWhere('program_id', 'Bachelor of Science in Information Technology')
+        ->orWhere('program_id', 'Information Technology')
+        ->count();
 
         return view('department.dashboard', compact(
             'students',
