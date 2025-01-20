@@ -236,154 +236,149 @@
     </style>
     
     <script>
-        // Function to open modal
-        function openModal() {
-            var modal = document.getElementById('photoModal');
-            modal.style.display = "flex"; // Use flexbox for centering modal
-            var modalImage = document.getElementById('modalImage');
-            modalImage.src = "{{ $student->photo_url }}"; // Set image source in modal
+    // Function to open modal
+    function openModal() {
+        var modal = document.getElementById('photoModal');
+        modal.style.display = "flex"; // Use flexbox for centering modal
+        var modalImage = document.getElementById('modalImage');
+        modalImage.src = "{{ $student->photo_url }}"; // Set image source in modal
+    }
+
+    // Function to close modal
+    function closeModal() {
+        var modal = document.getElementById('photoModal');
+        modal.style.display = "none"; // Hide the modal
+    }
+
+    // Close modal when clicking anywhere outside of the modal content
+    window.onclick = function(event) {
+        var modal = document.getElementById('photoModal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Function to preview selected image before upload
+    function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('preview');
+        const imagePreview = document.getElementById('imagePreview');
+
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function() {
+            preview.src = reader.result;
+            imagePreview.style.display = 'block';
         }
 
-        // Function to close modal
-        function closeModal() {
-            var modal = document.getElementById('photoModal');
-            modal.style.display = "none"; // Hide the modal
+        if (file) {
+            reader.readAsDataURL(file);
         }
+    }
 
-        // Close modal when clicking anywhere outside of the modal content
-        window.onclick = function(event) {
-            var modal = document.getElementById('photoModal');
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-        // Function to preview selected image before upload
-        function previewImage(event) {
-            const input = event.target;
-            const preview = document.getElementById('preview');
-            const imagePreview = document.getElementById('imagePreview');
-
-            const file = input.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function() {
-                preview.src = reader.result;
-                imagePreview.style.display = 'block';
-            }
-
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // Zoom Functionality
-        function zoomImage(event) {
-            const img = document.getElementById('modalImage');
-            const zoomWrapper = document.querySelector('.zoom-wrapper');
-            
-            const rect = zoomWrapper.getBoundingClientRect();
-            
-            const x = event.clientX - rect.left;  // X position within the wrapper
-            const y = event.clientY - rect.top;   // Y position within the wrapper
-            const zoomFactor = 2;  // Factor by which the image zooms
-            
-            // Change background position to zoom into the right place
-            const backgroundX = (x / rect.width) * 100;
-            const backgroundY = (y / rect.height) * 100;
-            
-            img.style.transform = `scale(${zoomFactor})`; // Zoom in on the image
-            img.style.transformOrigin = `${backgroundX}% ${backgroundY}%`; // Set where to zoom (focus point)
-        }
+    // Zoom Functionality
+    function zoomImage(event) {
+        const img = document.getElementById('modalImage');
+        const zoomWrapper = document.querySelector('.zoom-wrapper');
         
-        // Reset zoom when leaving the image area
-        function resetZoom() {
-            const img = document.getElementById('modalImage');
-            img.style.transform = "scale(1)";  // Reset zoom
-            img.style.transformOrigin = "center";  // Center the image
-        }
-    </script>
+        const rect = zoomWrapper.getBoundingClientRect();
+        
+        const x = event.clientX - rect.left;  // X position within the wrapper
+        const y = event.clientY - rect.top;   // Y position within the wrapper
+        const zoomFactor = 2;  // Factor by which the image zooms
+        
+        // Change background position to zoom into the right place
+        const backgroundX = (x / rect.width) * 100;
+        const backgroundY = (y / rect.height) * 100;
+        
+        img.style.transform = `scale(${zoomFactor})`; // Zoom in on the image
+        img.style.transformOrigin = `${backgroundX}% ${backgroundY}%`; // Set where to zoom (focus point)
+    }
+    
+    // Reset zoom when leaving the image area
+    function resetZoom() {
+        const img = document.getElementById('modalImage');
+        img.style.transform = "scale(1)";  // Reset zoom
+        img.style.transformOrigin = "center";  // Center the image
+    }
+</script>
 
-{{-- BSCS Checklist --}}
+    {{-- BSCS Checklist --}}
     <div id="bscs-checklist" class="checklist">
-        @foreach ($studentCourseChecklist as $semester => $courses)
-            <div class="card mb-4">
-                <div class="card-header bg-success text-white">
-                    <i class="fas fa-table me-1"></i>
-                    {{ $semester }}
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered text-center">
-                            <thead class="bg-success text-white" style="font-size: 0.9rem;">
-                                <tr>
-                                    <th>COURSE CODE</th>
-                                    <th>TITLE</th>
-                                    <th>PRE-REQUISITE</th>
-                                    <th>SY TAKEN</th>
-                                    <th>FINAL GRADE</th>
-                                    <th>INSTRUCTOR</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($courses as $course)
+        <form method="POST" action="{{ route('student.manage.student-course-checklist.store') }}">
+            @csrf
+            @foreach ($studentCourseChecklist as $semester => $courses)
+                <div class="card mb-4">
+                    <div class="card-header bg-success text-white">
+                        <i class="fas fa-table me-1"></i>
+                        {{ $semester }}
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered text-center">
+                                <thead class="bg-success text-white" style="font-size: 0.9rem;">
                                     <tr>
-                                        <td>{{ $course->course_code }}</td>
-                                        <td>{{ $course->course_title }}</td>
-                                        <td>{{ $course->pre_requisite }}</td>
-                                        <td>
-    <input type="text" name="sy_taken" class="form-control" value="{{ $course->sy_taken }}" placeholder="Enter SY Taken" />
-</td>
-                                       <!-- Add this in your Blade view (resources/views/student/grades.blade.php) -->
-
-                                        <!-- Below this, you can still use $instructors as needed if it's correctly passed -->
-                                        
-
-                                        <td>
-                                            <select name="final_grade" class="form-control">
-                                                <option value="">Select Grade</option>
-                                                <option value="{{ $course->final_grade }}">{{ $course->final_grade }}</option>
-                                                <option value="A">1.00</option>
-                                                <option value="B">1.25</option>
-                                                <option value="C">1.50</option>
-                                                <option value="D">1.75</option>
-                                                <option value="F">2.00</option>
-                                                <option value="A">2.25</option>
-                                                <option value="B">2.50</option>
-                                                <option value="C">2.75</option>
-                                                <option value="D">3</option>
-                                                <option value="F">4</option>
-                                                <option value="F">5</option>
-                                                <option value="F">INC</option>
-                                                <option value="F">S</option>
-                                            </select>
-                                        </td>
-
-                                        <td>
-                                            <select name="instructor_id" class="form-control">
-                                                <option value="">Select Instructor</option>
-                                                @foreach ($instructors as $instructor)
-                                                <option value="{{ $instructor->id }}" 
-                                                    @if(optional($course->instructor)->id == $instructor->id) selected @endif>
-                                                    {{ $instructor->first_name }} {{ $instructor->last_name }}
-                                                </option>
-
-                                                @endforeach
-                                            </select>
-                                        </td>
+                                        <th>COURSE CODE</th>
+                                        <th>TITLE</th>
+                                        <th>PRE-REQUISITE</th>
+                                        <th>SY TAKEN</th>
+                                        <th>FINAL GRADE</th>
+                                        <th>INSTRUCTOR</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach ($courses as $course)
+                                        <tr>
+                                            <td>{{ $course->course_code }}</td>
+                                            <td>{{ $course->course_title }}</td>
+                                            <td>{{ $course->pre_requisite }}</td>
+                                            <td>
+                                                <input type="text" name="courses[{{ $course->course_code }}][sy_taken]" class="form-control" value="{{ $course->sy_taken }}" placeholder="Enter SY Taken" />
+                                            </td>
+                                            <td>
+                                                <select name="courses[{{ $course->course_code }}][final_grade]" class="form-control">
+                                                    <option value="">Select Grade</option>
+                                                    <option value="{{ $course->final_grade }}" selected>{{ $course->final_grade }}</option>
+                                                    <option value="A">1.00</option>
+                                                    <option value="B">1.25</option>
+                                                    <option value="C">1.50</option>
+                                                    <option value="D">1.75</option>
+                                                    <option value="F">2.00</option>
+                                                    <option value="A">2.25</option>
+                                                    <option value="B">2.50</option>
+                                                    <option value="C">2.75</option>
+                                                    <option value="D">3</option>
+                                                    <option value="F">4</option>
+                                                    <option value="F">5</option>
+                                                    <option value="F">INC</option>
+                                                    <option value="F">S</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="courses[{{ $course->course_code }}][instructor_id]" class="form-control">
+                                                    <option value="">Select Instructor</option>
+                                                    @foreach ($instructors as $instructor)
+                                                        <option value="{{ $instructor->id }}" 
+                                                            @if(optional($course->instructor)->id == $instructor->id) selected @endif>
+                                                            {{ $instructor->first_name }} {{ $instructor->last_name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+            @endforeach
+            <div class="text-center my-4">
+                <button type="submit" class="btn btn-primary btn-lg custom-button" style="width: 200px; background:rgb(21, 102, 4); border: none;">Save</button>
             </div>
-            
-        @endforeach
-</div>
-<div class="text-center my-4">
-    <button type="submit" class="btn btn-primary btn-lg custom-button" style="width: 200px; background:rgb(21, 102, 4); border: none;">Save</button>
-</div>
+        </form>
+    </div>
 </div>
 
 

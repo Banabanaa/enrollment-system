@@ -146,6 +146,13 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
         Route::view('view/enrollment', 'student.view.enrollment')->name('enrollment');
     });
 
+    //Student Course Checklist Routes
+    Route::resource('manage/student-course-checklist', StudentCourseChecklistController::class)->except(['create', 'show'])->names([
+        'index' => 'student.manage.student-course-checklist',
+        'store' => 'student.manage.student-course-checklist.store',
+        'update' => 'student.manage.student-course-checklist.update',
+    ]);
+
     Route::name('student.addons.')->group(function () {
         Route::view('addons/cor', 'student.addons.cor')->name('cor');
         Route::view('addons/privacy-policy', 'student.addons.privacy-policy')->name('privacy-policy');
@@ -171,6 +178,9 @@ Route::post('/upload-photo', [PhotoUploadController::class, 'upload'])->name('up
 
 
 Route::get('/grades', [StudentController::class, 'showGrades'])->name('grades.show');
+
+
+
 // Include Auth Routes
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin-auth.php';

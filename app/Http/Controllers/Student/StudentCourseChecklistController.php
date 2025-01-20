@@ -29,7 +29,7 @@ class StudentCourseChecklistController extends Controller
                 'courses.semester',
                 'student_course_checklist.instructor',
                 'student_course_checklist.sy_taken',
-                'student_course_checklist.final_grade'
+                'student_course_checklist.final_grade',
             )
             ->orderBy('courses.year')
             ->orderBy('courses.semester')
