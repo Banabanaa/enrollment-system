@@ -20,9 +20,7 @@
                     <span class="text-sm font-semibold font-poppins">Dashboard</span>
                 </li>
             </a>
-            <!-- Student Information -->
-            <a href="#">
-            {{-- <a href="{{ route('student.information') }}"> --}}
+            <a href="{{ route('student.view.information') }}">
                 <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
                     <img src="{{ asset('assets/user.svg') }}" alt="Student Information Icon" class="h-icon w-icon mr-4">
                     <span class="text-sm font-semibold font-poppins">Student Information</span>
