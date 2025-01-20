@@ -2,7 +2,7 @@
     <!-- Logo -->
     <div class="mb-12 text-center">
         <img src="{{ asset('assets/cvsu.svg') }}" alt="Bacoor Logo" class="h-logo w-logo mx-auto">
-        <p class="text-md mt-2 font-semibold font-poppins">Cavite State University Bacoor Campus</p>
+        <p class="text-md mt-2 font-semibold font-poppins">Cavite State University<br>Bacoor Campus</p>
     </div>
 
            <!-- Navbar Links -->
