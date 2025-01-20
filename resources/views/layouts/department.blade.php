@@ -22,11 +22,6 @@
             <div id="sidebar-nav">
                 @include('layouts.partials.department-sidebar')
             </div>
-
-            <div id="layoutSidenav_content">
-
-                @include('layouts.partials.footer')
-            </div>
         </div>
 
 
