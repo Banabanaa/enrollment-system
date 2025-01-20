@@ -9,7 +9,8 @@
 <div class="bg-primary shadow-small rounded-xl p-6 flex-1 flex items-center justify-between relative">
     <div>
         <h3 class="text-lg text-white font-semibold">Regular</h3>
-        <p class="text-2xl text-white font-bold">753</p>
+        <p class="text-2xl text-white font-bold">{{ $regularCount }}</p>
+
     </div>
     <div class="absolute top-3 right-4 w-4 h-4 rounded-full bg-white"></div>
     <!-- Button with arrow icon -->
@@ -23,7 +24,7 @@
     <div class="bg-primary shadow-small rounded-xl p-6 flex-1 flex items-center justify-between relative">
         <div>
             <h3 class="text-lg text-white font-semibold">Irregular</h3>
-            <p class="text-2xl text-white font-bold ">192</p>
+            <p class="text-2xl text-white font-bold">{{ $irregularCount }}</p>
         </div>
         <div class="absolute top-3 right-4 w-4 h-4 rounded-full bg-white"></div>
     <!-- Button with arrow icon -->
@@ -37,7 +38,7 @@
     <div class="bg-primary shadow-small rounded-xl p-6 flex-1 flex items-center justify-between relative">
         <div>
             <h3 class="text-lg text-white font-semibold">Transferee</h3>
-            <p class="text-2xl text-white font-bold">43</p>
+            <p class="text-2xl text-white font-bold">{{ $transfereeCount }}</p>
         </div>
         <div class="absolute top-3 right-4 w-4 h-4 rounded-full bg-white"></div>
      <!-- Button with arrow icon -->
@@ -51,7 +52,8 @@
     <div class="bg-primary shadow-small rounded-xl p-6 flex-1 flex items-center justify-between relative">
         <div>
             <h3 class="text-lg text-white font-semibold">Returnee</h3>
-            <p class="text-2xl text-white font-bold">29</p>
+            <p class="text-2xl text-white font-bold">{{ $returneeCount }}</p>
+
         </div>
         <div class="absolute top-3 right-4 w-4 h-4 rounded-full bg-white"></div>
  <!-- Button with arrow icon -->
@@ -82,7 +84,7 @@
                     </div>
                     <div class="flex items-center">
                         <div class="h-6 w-px bg-gray-300 mr-4"></div>
-                        <span class="text-lg font-bold">1,522</span>
+                        <span class="text-lg font-bold">{{$studentCount}}</span>
                     </div>
                 </li>
                 <!-- BS Computer Science -->
@@ -98,7 +100,7 @@
                     </div>
                     <div class="flex items-center">
                         <div class="h-6 w-px bg-gray-300 mr-4"></div>
-                        <span class="text-lg font-bold">1,522</span>
+                        <span class="text-lg font-bold">{{$bscsCount}}</span>
                     </div>
                 </li>
                 <!-- BS Information Technology -->
@@ -114,7 +116,7 @@
                     </div>
                     <div class="flex items-center">
                         <div class="h-6 w-px bg-gray-300 mr-4"></div>
-                        <span class="text-lg font-bold">2,751</span>
+                        <span class="text-lg font-bold">{{$bsitCount}}</span>
                     </div>
                 </li>
             </ul>

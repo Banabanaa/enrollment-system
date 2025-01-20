@@ -14,7 +14,10 @@ use App\Http\Controllers\Department\DDepartmentController;
 use App\Http\Controllers\Department\DEnrollmentController;
 use App\Http\Controllers\PhotoUploadController;
 use App\Http\Controllers\StudentChecklistController;
+use App\Http\Controllers\Registrar\DashboardController;
 
+//DASHBOARD CONTROLLER REGISTRAR
+Route::get('/registrar/dashboard', [DashboardController::class, 'registrarDashboard'])->name('registrar.dashboard');
 
 Route::get('/', function () {
     return view('welcome');
