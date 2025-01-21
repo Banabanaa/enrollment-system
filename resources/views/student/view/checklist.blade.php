@@ -2,11 +2,10 @@
 
 @section('content')
 
-<div class="container-fluid px-6 py-6">
-  <h1 class="mt-4">Student Grades</h1>
+<div class="container-fluid px-6 py-6 ">
+  <h3 class="font-bold text-primary text-4xl">Student Grades</h3>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Upload a Copy of your Checklist</li>
-        <li class="breadcrumb-item active">Fill out the Checklist Form Below</li>
+        <li class="text-lg ">Upload Checklist</li>
     </ol>
 
     @if (session('success'))
@@ -14,48 +13,50 @@
             {{ session('success') }}
         </div>
     @endif
+    <div class="text-end mb-4">
+    <form method="POST" action="{{ route('upload.photo') }}" enctype="multipart/form-data">
+        @csrf   
 
-    <div class="upload-container bg-gray-100 border-2 border-green-700 rounded-xl shadow-md p-6 mt-8">  
-                <div class="text-center">
-            <form method="post" action="{{ route('upload.photo') }}" enctype="multipart/form-data">
-                @csrf
-                <!-- First Set: File Input with Label -->
-                <label for="photoInput"  class="custom-file-upload inline-block px-6 py-3 bg-green-700 text-white rounded-md text-lg transition duration-300 ease-in-out transform hover:bg-green-800 hover:scale-105 active:scale-95 cursor-pointer">
-                    <input type="file" name="photo" id="photoInput" accept="image/*" required onchange="previewImage(event, 'preview1')">
-                    Browse Photo 1
-                </label>
+        <!-- First Set: File Input Button -->
+        <label for="photoInput" class="custom-file-upload inline-block bg-green-700 text-white rounded-md text-lg transition duration-300 ease-in-out transform hover:bg-green-600 hover:scale-110 active:scale-95 cursor-pointer">
+            <input type="file" name="photo" id="photoInput" accept="image/*" required onchange="previewImage(event, 'preview1')" class="hidden">
+            Browse Front Checklist
+        </label>
 
-                <!-- Second Set: File Inputs Styled Like the First One -->
-                <label for="photoInput2"  class="custom-file-upload inline-block px-6 py-3 bg-green-700 text-white rounded-md text-lg transition duration-300 ease-in-out transform hover:bg-green-800 hover:scale-105 active:scale-95 cursor-pointer">
-                    <input type="file" name="photo2" id="photoInput2" accept="image/*" onchange="previewImage(event, 'preview2')">
-                    Browse Photo 2
-                </label>
+        <!-- Second Set: File Input Button -->
+        <label for="photoInput2" class="custom-file-upload inline-block bg-green-700 text-white rounded-md text-lg transition duration-300 ease-in-out transform hover:bg-green-600 hover:scale-110 active:scale-95 cursor-pointer">
+            <input type="file" name="photo2" id="photoInput2" accept="image/*" onchange="previewImage(event, 'preview2')" class="hidden">
+            Browse Back Checklist
+        </label>
 
-                <!-- Preview Containers -->
-                <div id="imagePreview1" class="my-4 text-center" style="display: none;">
-                    <img id="preview1" src="#" alt="Selected Image 1" style="max-width: 100%; max-height: 400px;">
-                </div>
+        <button type="submit" class="btn-upload inline-block px-10 py-3 bg-green-700 text-white rounded-md text-lg transition duration-300 ease-in-out transform hover:bg-green-600 hover:scale-110 active:scale-95 cursor-pointer mt-4">
+            Upload Photos
+        </button>
 
-                <div id="imagePreview2" class="my-4 text-center" style="display: none;">
-                    <img id="preview2" src="#" alt="Selected Image 2" style="max-width: 100%; max-height: 400px;">
-                </div>
-                <button type="submit" class="btn-upload">Upload Photos</button>
-            </form>            
+    </form>
+</div>
+
+<div class="upload-container bg-gray-100 border-2 border-green-700 rounded-xl shadow-md p-6 mt-8">
+    <div class="text-center">
+        <!-- Preview Containers -->
+        <div id="imagePreview1" class="my-4 text-center" style="display: none; display: flex; justify-content: center; align-items: center;">
+            <img id="preview1" style="max-width: 300px; max-height: 300px; margin: 0 auto;">
         </div>
-        
-        <div id="imagePreview" class="my-4 text-center" style="display: none;">
-            <img id="preview" src="#" alt="Selected Image">
+
+        <div id="imagePreview2" class="my-4 text-center" style="display: none; display: flex; justify-content: center; align-items: center; height: 200px;">
+            <img id="preview2" style="max-width: 300px; max-height: 300px; margin: 0 auto;">
         </div>
-    
-        <div class="student-photo-container">
-            @if ($student->photo)
-                     <img src="{{ asset('storage/' . $student->photo) }}" alt="First Photo" class="student-photo" onclick="openModal('{{ asset('storage/' . $student->photo) }}')">
-            @endif
-            @if ($student->photo2)
-                    <img src="{{ asset('storage/' . $student->photo2) }}" alt="Second Photo" class="student-photo" onclick="openModal('{{ asset('storage/' . $student->photo2) }}')">
-            @endif
-        </div>
-        
+    </div>
+
+    <div class="student-photo-container">
+        @if ($student->photo)
+            <img src="{{ asset('storage/' . $student->photo) }}" alt="First Photo" class="student-photo" onclick="openModal('{{ asset('storage/' . $student->photo) }}')">
+        @endif
+        @if ($student->photo2)
+            <img src="{{ asset('storage/' . $student->photo2) }}" alt="Second Photo" class="student-photo" onclick="openModal('{{ asset('storage/' . $student->photo2) }}')">
+        @endif
+    </div>
+
     
         <!-- Modal for Viewing Larger Photo -->
         <div id="photoModal" class="modal" style="display: none;">
@@ -135,8 +136,8 @@
         }
     
         #preview {
-            max-width: 100%;
-            max-height: 400px;
+            max-width: 200px;
+            max-height: 200px;
             object-fit: cover;
         }
 
@@ -360,73 +361,71 @@
 </script>
 
 {{-- Student Checklist --}}
-<div id="bscs-checklist" class="checklist">
+<div id="bscs-checklist" class="checklist ">
     <form method="POST" action="{{ route('student.manage.student-course-checklist.store') }}">
         @csrf
         <input type="hidden" name="student_id" value="{{ $student->id }}">
         @foreach ($studentCourseChecklist as $semester => $courses)
             <div class="card mb-4">
-                <div class="card-header bg-success text-white">
-                    <i class="fas fa-table me-1"></i>
+                <div class=" text-primary text-2xl font-semibold text-center mx-auto">
                     {{ $semester }}
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered text-center">
-                            <thead class="bg-success text-white" style="font-size: 0.9rem;">
-                                <tr>
-                                    <th>COURSE CODE</th>
-                                    <th>TITLE</th>
-                                    <th>PRE-REQUISITE</th>
-                                    <th>SY TAKEN</th>
-                                    <th>FINAL GRADE</th>
-                                    <th>INSTRUCTOR</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($courses as $course)
-                                    <tr>
-                                        <td>{{ $course->course_code }}</td>
-                                        <td>{{ $course->course_title }}</td>
-                                        <td>{{ $course->pre_requisite }}</td>
-                                        <td>
-                                            <input type="text" name="courses[{{ $course->course_code }}][sy_taken]" class="form-control" value="{{ $course->sy_taken }}" placeholder="Enter SY Taken" />
-                                        </td>
-                                        <td>
-                                            <select name="courses[{{ $course->course_code }}][final_grade]" class="form-control">
-                                                <option value="">Select Grade</option>
-                                                <option value="1.00" @if($course->final_grade == "1.00") selected @endif>1.00</option>
-                                                <option value="1.25" @if($course->final_grade == "1.25") selected @endif>1.25</option>
-                                                <option value="1.50" @if($course->final_grade == "1.50") selected @endif>1.50</option>
-                                                <option value="1.75" @if($course->final_grade == "1.75") selected @endif>1.75</option>
-                                                <option value="2.00" @if($course->final_grade == "2.00") selected @endif>2.00</option>
-                                                <option value="2.25" @if($course->final_grade == "2.25") selected @endif>2.25</option>
-                                                <option value="2.50" @if($course->final_grade == "2.50") selected @endif>2.50</option>
-                                                <option value="2.75" @if($course->final_grade == "2.75") selected @endif>2.75</option>
-                                                <option value="3.00" @if($course->final_grade == "3.00") selected @endif>3.00</option>
-                                                <option value="4.00" @if($course->final_grade == "4.00") selected @endif>4.00</option>
-                                                <option value="5.00" @if($course->final_grade == "5.00") selected @endif>5.00</option>
-                                                <option value="INC" @if($course->final_grade == "INC") selected @endif>INC</option>
-                                                <option value="S" @if($course->final_grade == "S") selected @endif>S</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <select name="courses[{{ $course->course_code }}][instructor_id]" class="form-control">
-                                                <option value="">Select Instructor</option>
-                                                @foreach ($instructors as $instructor)
-                                                    <option value="{{ $instructor->id }}" 
-                                                        @if($course->instructor_id == $instructor->id) selected @endif>
-                                                        {{ $instructor->first_name }} {{ $instructor->last_name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-                                    </tr>
+    <div class="table-responsive">
+        <table class="min-w-full bg-white shadow-sm rounded-lg">
+            <thead>
+                <tr class="bg-primary">
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Course Code</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Title</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Pre-Requisite</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">SY-Taken</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Final Grade</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Instructor</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($courses as $course)
+                    <tr class="hover:bg-gray-100 border-b border-border-color ">
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $course->course_code }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $course->course_title }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $course->pre_requisite }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">
+                            <input type="text" name="courses[{{ $course->course_code }}][sy_taken]" class="form-control rounded-lg" value="{{ $course->sy_taken }}" placeholder="Enter SY Taken" />
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600 rounded-lg">
+                            <select name="courses[{{ $course->course_code }}][final_grade]" class="form-control rounded-lg">
+                                <option value="">Select Grade</option>
+                                <option value="1.00" @if($course->final_grade == "1.00") selected @endif>1.00</option>
+                                <option value="1.25" @if($course->final_grade == "1.25") selected @endif>1.25</option>
+                                <option value="1.50" @if($course->final_grade == "1.50") selected @endif>1.50</option>
+                                <option value="1.75" @if($course->final_grade == "1.75") selected @endif>1.75</option>
+                                <option value="2.00" @if($course->final_grade == "2.00") selected @endif>2.00</option>
+                                <option value="2.25" @if($course->final_grade == "2.25") selected @endif>2.25</option>
+                                <option value="2.50" @if($course->final_grade == "2.50") selected @endif>2.50</option>
+                                <option value="2.75" @if($course->final_grade == "2.75") selected @endif>2.75</option>
+                                <option value="3.00" @if($course->final_grade == "3.00") selected @endif>3.00</option>
+                                <option value="4.00" @if($course->final_grade == "4.00") selected @endif>4.00</option>
+                                <option value="5.00" @if($course->final_grade == "5.00") selected @endif>5.00</option>
+                                <option value="INC" @if($course->final_grade == "INC") selected @endif>INC</option>
+                                <option value="S" @if($course->final_grade == "S") selected @endif>S</option>
+                            </select>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-gray-600 ">
+                            <select name="courses[{{ $course->course_code }}][instructor_id]" class="form-control rounded-lg">
+                                <option value="">Select Instructor</option>
+                                @foreach ($instructors as $instructor)
+                                    <option value="{{ $instructor->id }}" @if($course->instructor_id == $instructor->id) selected @endif>
+                                        {{ $instructor->first_name }} {{ $instructor->last_name }}
+                                    </option>
                                 @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                            </select>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
             </div>
         @endforeach
         <div class="text-center my-4">
