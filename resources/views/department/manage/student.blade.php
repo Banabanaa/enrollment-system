@@ -1,5 +1,6 @@
 @extends('layouts.department')
 
+@section('title', 'Student Account Management')
 @section('content')
 <div class="container-fluid px-4">
     <h1 class="mt-4">Student Accounts Management</h1>
@@ -48,7 +49,7 @@
                             <td>{{ $student->last_name }}</td>
                             <td>{{ $student->first_name }}</td>
                             <td>{{ $student->email }}</td>
-                            <td>{{ ucfirst($student->classification) }}</td>
+                            <td>{{ $student->classification }}</td>
                             <td>{{ $student->program_id }}</td>
                             <td>
                                 <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editStudentModal-{{ $student->id }}">Edit</button>
@@ -144,6 +145,7 @@
                                                 <div class="col-md-6 mb-3">
                                                     <label for="year" class="form-label">Year</label>
                                                     <select class="form-select" name="year">
+                                                         <option value="">Select Year</option>
                                                         <option value="1st Year" {{ old('year', $student->year) === '1st Year' ? 'selected' : '' }}>1st Year</option>
                                                         <option value="2nd Year" {{ old('year', $student->year) === '2nd Year' ? 'selected' : '' }}>2nd Year</option>
                                                         <option value="3rd Year" {{ old('year', $student->year) === '3rd Year' ? 'selected' : '' }}>3rd Year</option>
@@ -285,6 +287,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="classification" class="form-label">Classification</label>
                             <select class="form-select" name="classification">
+                                <option value="incomplete" {{ old('classification', $student->classification) == 'incomplete' ? 'selected' : '' }}>Incomplete</option>
                                 <option value="under evaluation" {{ old('classification', $student->classification) == 'under evaluation' ? 'selected' : '' }}>Under Evaluation</option>
                                 <option value="pending" {{ old('classification', $student->classification) == 'pending' ? 'selected' : '' }}>Pending</option>
                                 <option value="regular" {{ old('classification') === 'regular' ? 'selected' : '' }}>Regular</option>
@@ -310,6 +313,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="year" class="form-label">Year</label>
                             <select class="form-select" name="year">
+                                <option value="" disabled selected>Select Year</option>
                                 <option value="1st Year" {{ old('year') === '1st Year' ? 'selected' : '' }}>1st Year</option>
                                 <option value="2nd Year" {{ old('year') === '2nd Year' ? 'selected' : '' }}>2nd Year</option>
                                 <option value="3rd Year" {{ old('year') === '3rd Year' ? 'selected' : '' }}>3rd Year</option>
