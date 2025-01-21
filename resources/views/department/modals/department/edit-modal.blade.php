@@ -14,7 +14,7 @@
 
         <!-- Modal Body -->
         <div class="max-h-96 overflow-y-auto">
-            <form action="{{ route('admin.manage.department.update', $department->id) }}" method="POST">
+            <form action="{{ route('department.manage.department.update', $department->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="space-y-6 pr-5 pl-3">

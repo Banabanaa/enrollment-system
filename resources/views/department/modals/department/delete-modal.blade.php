@@ -6,7 +6,7 @@
             <p class="text-gray-800 font-semibold mb-4">Are you sure you want to delete this Registrar?</p>
         </div>
         <div class="flex justify-center space-x-4">
-            <form action="{{ route('admin.manage.department.destroy', $department->id) }}" method="POST">
+            <form action="{{ route('department.manage.department.destroy', $department->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-red-600">Delete</button>

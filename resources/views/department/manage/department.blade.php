@@ -1,9 +1,9 @@
 @extends('layouts.department')
 
 @section('content')
-@include('department.modals.department-edit-modal')
-@include('department.modals.department-add-modal')
-@include('department.modals.department-delete-modal')
+@include('department.modals.department.edit-modal')
+@include('department.modals.department.add-modal')
+@include('department.modals.department.delete-modal')
 <!-- Filter Buttons and Search Bar -->
 <div class="flex justify-between items-center mb-4 pt-4">
     <!-- Search Bar Section -->

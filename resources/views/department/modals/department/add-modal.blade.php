@@ -15,7 +15,7 @@
 
         <!-- Modal Body -->
         <div class="max-h-96 overflow-y-auto">
-            <form action="{{ route('admin.manage.department.store') }}" method="POST">
+            <form action="{{ route('department.manage.department.store') }}" method="POST">
                 @csrf
                 <div class="space-y-6 pr-5 pl-3">
                     <!-- DEPARTMENT INFORMATION -->

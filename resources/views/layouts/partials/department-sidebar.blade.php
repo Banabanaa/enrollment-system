@@ -7,7 +7,7 @@
     <!-- Navbar Links -->
     <ul class="w-full">
         <!-- Dashboard -->
-        <a href="{{ route('admin.dashboard') }}">
+        <a href="{{ route('department.dashboard') }}">
             <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
                 <img src="{{ asset('assets/dashboard.svg') }}" alt="Dashboard Icon" class="h-icon w-icon mr-4">
                 <span class="text-sm font-semibold font-poppins">Dashboard</span>
@@ -40,28 +40,18 @@
         <li class="flex flex-col items-start w-full px-4 py-3">
             <div class="flex items-center w-full hover:bg-green-500 transition duration-200 ease-in-out" onclick="toggleLinks('students-links')">
                 <img src="{{ asset('assets/user.svg') }}" alt="Accounts Icon" class="h-icon w-icon mr-4">
-                <span class="text-sm font-semibold font-poppins">Students</span>
+                <span class="text-sm font-semibold font-poppins">Advising</span>
             </div>
             <!-- Nested Links -->
             <ul id="students-links" class="ml-4 space-y-2 mt-2 hidden">
-                <a href="">
+                <a href="{{ route('department.enrollment.pending') }}">
                     <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
-                        <span class="text-sm font-semibold font-poppins">Regular</span>
+                        <span class="text-sm font-semibold font-poppins">Pending Students</span>
                     </li>
                 </a>
-                <a href="# ">
+                <a href="{{ route('department.enrollment.undereval') }}">
                     <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
-                        <span class="text-sm font-semibold font-poppins">Irregular</span>
-                    </li>
-                </a>
-                <a href="# ">
-                    <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
-                        <span class="text-sm font-semibold font-poppins">Transferee</span>
-                    </li>
-                </a>
-                <a href="# ">
-                    <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
-                        <span class="text-sm font-semibold font-poppins">Returnee</span>
+                        <span class="text-sm font-semibold font-poppins">Under Evaluation</span>
                     </li>
                 </a>
             </ul>
