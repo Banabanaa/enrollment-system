@@ -1,1 +1,1 @@
-web: vendor/bin/heroku-php-Apache -C public/
+web: heroku-php-apache2 public/
