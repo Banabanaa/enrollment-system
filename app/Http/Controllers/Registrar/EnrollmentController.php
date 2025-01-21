@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Registrar;
 
 use App\Http\Controllers\Controller;
-use App\Models\Student; // Make sure you import the Student model
+use App\Models\Student; 
+use Illuminate\Http\Request;
 
 class EnrollmentController extends Controller
 {
@@ -47,8 +48,31 @@ class EnrollmentController extends Controller
     {
         // Fetching students with 'undereval' classification
         $students = Student::where('classification', 'under evaluation')->get();
+
+        foreach ($students as $student) {
+            $student->decoded_courses = json_decode($student->courses, true); // Decode JSON
+        }
         
         // Passing data to the view
         return view('registrar.enrollment.undereval', compact('students'));
     }
+
+    public function enrollStudent(Request $request, $id)
+    {
+        $request->validate([
+            'classification' => 'required|string',
+            'year' => 'required|string|max:20',
+            'section' => 'required|string|max:20', 
+        ]);
+    
+        $student = Student::findOrFail($id);
+        $student->classification = $request->input('classification');
+        $student->year = $request->input('year');
+        $student->section = $request->input('section');
+        $student->save();
+    
+        return redirect()->back()->with('success', 'Student enrolled successfully!');
+    }
+    
+    
 }

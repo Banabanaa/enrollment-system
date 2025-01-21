@@ -10,6 +10,8 @@ use App\Http\Controllers\Registrar\RStudentController;
 use App\Http\Controllers\Registrar\RRegistrarController;
 use App\Http\Controllers\Department\DStudentController;
 use App\Http\Controllers\Registrar\EnrollmentController;
+use App\Http\Controllers\Department\DMasterlistController;
+use App\Http\Controllers\Registrar\MasterlistController;
 use App\Http\Controllers\Department\DDepartmentController;
 use App\Http\Controllers\Department\DEnrollmentController;
 use App\Http\Controllers\Student\PhotoUploadController;
@@ -95,11 +97,11 @@ Route::prefix('registrar')->middleware('auth:registrar')->group(function () {
         Route::get('transferee', [EnrollmentController::class, 'transferee'])->name('transferee');
         Route::get('returnee', [EnrollmentController::class, 'returnee'])->name('returnee');
         Route::get('undereval', [EnrollmentController::class, 'undereval'])->name('undereval');
-    });
-
+        Route::post('enroll-student/{id}', [EnrollmentController::class, 'enrollStudent'])->name('enroll.student');
+    });    
+    
     Route::name('registrar.addons.')->group(function () {
-        Route::view('addons/checklist', 'registrar.addons.checklist')->name('checklist');
-        Route::view('addons/masterlist', 'registrar.addons.masterlist')->name('masterlist');
+        Route::get('masterlist', [MasterlistController::class, 'index'])->name('masterlist');
         Route::view('addons/privacy-policy', 'registrar.addons.privacy-policy')->name('privacy-policy');
         Route::view('addons/terms', 'registrar.addons.terms')->name('terms');
     });
@@ -134,7 +136,7 @@ Route::prefix('department')->middleware('auth:department')->group(function () {
     });
 
     Route::name('department.addons.')->group(function () {
-        Route::view('addons/masterlist', 'department.addons.masterlist')->name('masterlist');
+        Route::get('masterlist', [DMasterlistController::class, 'index'])->name('masterlist');
         Route::view('addons/privacy-policy', 'department.addons.privacy-policy')->name('privacy-policy');
         Route::view('addons/terms', 'department.addons.terms')->name('terms');
     });

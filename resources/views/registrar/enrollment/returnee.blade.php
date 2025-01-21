@@ -24,7 +24,6 @@
                         <th>Program</th>
                         <th>Year</th>
                         <th>Section</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -34,7 +33,6 @@
                         <th>Program</th>
                         <th>Year</th>
                         <th>Section</th>
-                        <th>Action</th>
                     </tr>
                 </tfoot>
                 <tbody>
@@ -45,9 +43,6 @@
                             <td>{{ $student->program_id }}</td>
                             <td>{{ $student->year }}</td>
                             <td>{{ $student->section }}</td>
-                            <td>
-                                <a href="" class="btn btn-primary btn-sm">Enroll</a>
-                            </td>
                         </tr>
                     @endforeach
                 </tbody>

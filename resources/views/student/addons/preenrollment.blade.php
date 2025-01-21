@@ -71,7 +71,7 @@
             </div>
         @endif
     @elseif($student->classification == 'pending' || $student->classification == 'incomplete')
-        <p>You are not eligible to add courses at this time. Please complete your requirements.</p>
+        <p>You are not eligible to view your Pre-Enrollment courses at this time. Please complete your requirements.<br> If you have already accomplished your requirements, wait for a confirmation email and check this page again.</p>
     @endif
 
 @else

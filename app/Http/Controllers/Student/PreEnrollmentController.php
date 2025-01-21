@@ -12,32 +12,38 @@ class PreEnrollmentController extends Controller
     {
         // Get logged-in student
         $student = Auth::user(); 
-
-        // Ensure the student exists and the courses column is populated
-        if (!$student || empty($student->courses)) {
-            return view('student.addons.preenrollment', ['error' => 'No advised courses found.']);
+    
+        // Ensure the student exists
+        if (!$student) {
+            return view('student.addons.preenrollment', ['error' => 'Student data not found.']);
         }
-
+    
         // Decode the JSON column (advised courses)
         $advisedCourses = json_decode($student->courses, true);
-
+    
+        // Handle cases where courses are not set or invalid
+        if (is_null($advisedCourses) || !is_array($advisedCourses) || empty($advisedCourses)) {
+            $advisedCourses = [];
+        }
+    
         // Calculate the total units (lecture + laboratory)
         $totalLectureUnits = 0;
         $totalLabUnits = 0;
         foreach ($advisedCourses as $course) {
-            $totalLectureUnits += $course['credit_unit_lecture'];
-            $totalLabUnits += $course['credit_unit_laboratory'];
+            $totalLectureUnits += $course['credit_unit_lecture'] ?? 0;
+            $totalLabUnits += $course['credit_unit_laboratory'] ?? 0;
         }
-
+    
         // Calculate total units (lecture + laboratory)
         $totalUnits = $totalLectureUnits + $totalLabUnits;
-
+    
         // Check if the student meets the 21 unit requirement
         $meetsRequirement = $totalUnits >= 21;
-
+    
         // Pass the advised courses, calculated totals, and requirement status to the view
         return view('student.addons.preenrollment', compact('student', 'advisedCourses', 'totalLectureUnits', 'totalLabUnits', 'totalUnits', 'meetsRequirement'));
     }
+    
 
     public function removeCourse(Request $request)
     {
