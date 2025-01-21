@@ -1,5 +1,7 @@
 @extends('layouts.student')
-
+@php
+    $title = 'CVSU - Student Dashboard';
+@endphp
 @section('content')
 
 

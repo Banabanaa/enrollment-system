@@ -1,16 +1,18 @@
 @extends('layouts.student')
-
+@php
+    $title = 'CVSU - View Status';
+@endphp
 @section('content')
 
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Enrollment Status</h1>
+    <h1 class="mt-4 font-bold text-2xl text-primary">Enrollment Status</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item active">View Subjects</li>
     </ol>
 
         @if(in_array(Auth::user()->classification, ['pending', 'under evaluation', 'incomplete']))
-            <div class="alert alert-warning">
-                You are not enrolled. Kindly submit your requirements and finish the Enrollment Process.
+            <div class="alert alert-warning text-lg text-black font-semibold"> 
+            You are not enrolled. Please submit your requirements and complete the Enrollment Process.
             </div>
         @elseif(in_array(Auth::user()->classification, ['regular', 'irregular']))
             <!-- Display student and enrollment details -->

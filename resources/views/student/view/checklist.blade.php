@@ -1,5 +1,7 @@
 @extends('layouts.student')
-
+@php
+    $title = 'CVSU - Student Checklist';
+@endphp
 @section('content')
 
 <div class="container-fluid px-6 py-6 ">
