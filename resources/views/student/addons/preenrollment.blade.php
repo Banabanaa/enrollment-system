@@ -10,69 +10,85 @@
 
 @if($student)
 
-    @if($student->classification == 'under evaluation')
+    @switch($student->classification)
+        @case('under evaluation')
+            <!-- Button to confirm disable/remove actions -->
+            @if(!$student->confirmation_action_taken)
+                <button id="confirmButton" class="btn btn-primary mb-3" onclick="confirmAction()">Confirm Action</button>
+            @else
+                <p class="alert alert-success">Removal actions for Subjects/Courses have been permanently disabled.</p>
+            @endif
 
-        <!-- Button to confirm disable/remove actions -->
-        @if(!$student->confirmation_action_taken)
-            <button id="confirmButton" class="btn btn-primary mb-3" onclick="confirmAction()">Confirm Action</button>
-        @else
-            <p class="alert alert-success">Removal actions for Subjects/Courses have been permanently disabled.</p>
-        @endif
-
-        <!-- Table for displaying advised courses -->
-        <table id="datatablesSimple" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Course Code</th>
-                    <th>Course Title</th>
-                    <th>Unit Lecture</th>
-                    <th>Unit Laboratory</th>
-                    <th>Pre-Requisite</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($advisedCourses as $course)
+            <!-- Table for displaying advised courses -->
+            <table id="datatablesSimple" class="table table-striped">
+                <thead>
                     <tr>
-                        <td>{{ $course['course_code'] }}</td>
-                        <td>{{ $course['course_title'] }}</td>
-                        <td>{{ $course['credit_unit_lecture'] }}</td>
-                        <td>{{ $course['credit_unit_laboratory'] }}</td>
-                        <td>{{ $course['pre_requisite'] }}</td>
-                        <td>
-                            <!-- Form for removing course from the advised list with confirmation -->
-                            <form id="removeForm_{{ $course['course_code'] }}" action="{{ route('student.addons.remove_course') }}" method="POST" style="display: inline-block;" onsubmit="return confirmRemove()" 
-                                  @if($student->confirmation_action_taken) disabled @endif>
-                                @csrf
-                                <input type="hidden" name="course_code" value="{{ $course['course_code'] }}">
-                                <button type="submit" class="btn btn-danger removeButton" data-course="{{ $course['course_code'] }}" @if($student->confirmation_action_taken) disabled @endif>Remove</button>
-                            </form>
-                        </td>
+                        <th>Course Code</th>
+                        <th>Course Title</th>
+                        <th>Unit Lecture</th>
+                        <th>Unit Laboratory</th>
+                        <th>Pre-Requisite</th>
+                        <th>Actions</th>
                     </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="2"><strong>Total Units</strong></td>
-                    <td>{{ $totalLectureUnits }}</td>
-                    <td>{{ $totalLabUnits }}</td>
-                    <td colspan="2"></td> <!-- Empty cells for styling -->
-                </tr>
-            </tfoot>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($advisedCourses as $course)
+                        <tr>
+                            <td>{{ $course['course_code'] }}</td>
+                            <td>{{ $course['course_title'] }}</td>
+                            <td>{{ $course['credit_unit_lecture'] }}</td>
+                            <td>{{ $course['credit_unit_laboratory'] }}</td>
+                            <td>{{ $course['pre_requisite'] }}</td>
+                            <td>
+                                <!-- Form for removing course from the advised list with confirmation -->
+                                <form id="removeForm_{{ $course['course_code'] }}" action="{{ route('student.addons.remove_course') }}" method="POST" style="display: inline-block;" onsubmit="return confirmRemove()" 
+                                      @if($student->confirmation_action_taken) disabled @endif>
+                                    @csrf
+                                    <input type="hidden" name="course_code" value="{{ $course['course_code'] }}">
+                                    <button type="submit" class="btn btn-danger removeButton" data-course="{{ $course['course_code'] }}" @if($student->confirmation_action_taken) disabled @endif>Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2"><strong>Total Units</strong></td>
+                        <td>{{ $totalLectureUnits }}</td>
+                        <td>{{ $totalLabUnits }}</td>
+                        <td colspan="2"></td> <!-- Empty cells for styling -->
+                    </tr>
+                </tfoot>
+            </table>
 
-        @if(!$meetsRequirement)
-            <div class="alert alert-warning mt-4">
-                <strong>Warning:</strong> You have not reached the required 21 units to stay as a regular student. You currently have a total of {{ $totalUnits }} units.
-            </div>
-        @else
-            <div class="alert alert-success mt-4">
-                <strong>Success:</strong> You have met the 21-unit requirement for Regular Students.
-            </div>
-        @endif
-    @elseif($student->classification == 'pending' || $student->classification == 'incomplete')
-        <p>You are not eligible to view your Pre-Enrollment courses at this time. Please complete your requirements.<br> If you have already accomplished your requirements, wait for a confirmation email and check this page again.</p>
-    @endif
+            @if(!$meetsRequirement)
+                <div class="alert alert-warning mt-4">
+                    <strong>Warning:</strong> You have not reached the required 21 units to stay as a regular student. You currently have a total of {{ $totalUnits }} units.
+                </div>
+            @else
+                <div class="alert alert-success mt-4">
+                    <strong>Success:</strong> You have met the 21-unit requirement for Regular Students.
+                </div>
+            @endif
+            @break
+
+        @case('pending')
+        @case('incomplete')
+        <div class="alert alert-warning">
+            You are not eligible to view your Pre-Enrollment courses at this time. Please complete your requirements.<br> If you have already accomplished your requirements, wait for a confirmation email and check this page again.
+        </div>
+            @break
+
+        @case('regular')
+        @case('irregular')
+        <div class="alert alert-success">
+            You have already accomplished this. Check your Enrollment Status
+        </div>
+            @break
+
+        @default
+            <p>Error: Invalid student classification.</p>
+    @endswitch
 
 @else
     <p>Error: Student data not found. Please log in again.</p>

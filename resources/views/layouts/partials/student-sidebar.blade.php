@@ -30,10 +30,6 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-table-list"></i></div>
                     Pre-Enrollment Form
                 </a>
-                <a class="nav-link" href="{{ route('student.addons.cor') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
-                    Registration Form
-                </a>
             </div>
         </div>
 

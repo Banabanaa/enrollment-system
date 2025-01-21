@@ -46,8 +46,6 @@
                     <nav class="sb-sidenav-menu-nested nav">
                         <a class="nav-link" href="{{ route('registrar.enrollment.regular') }}">Regular</a>
                         <a class="nav-link" href="{{ route('registrar.enrollment.irregular') }}">Irregular</a>
-                        <a class="nav-link" href="{{ route('registrar.enrollment.transferee') }}">Transferee</a>
-                        <a class="nav-link" href="{{ route('registrar.enrollment.returnee') }}">Returnee</a>
                     </nav>
                 </div>
 

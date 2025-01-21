@@ -142,8 +142,6 @@
                                                         <select class="form-select" name="classification" id="classification" required>
                                                             <option value="regular" {{ $student->classification === 'regular' ? 'selected' : '' }}>Regular</option>
                                                             <option value="irregular" {{ $student->classification === 'irregular' ? 'selected' : '' }}>Irregular</option>
-                                                            <option value="transferee" {{ $student->classification === 'transferee' ? 'selected' : '' }}>Transferee</option>
-                                                            <option value="returnee" {{ $student->classification === 'returnee' ? 'selected' : '' }}>Returnee</option>
                                                             <option value="under evaluation" {{ $student->classification === 'under evaluation' ? 'selected' : '' }}>Under Evaluation</option>
                                                         </select>
                                                     </div>
@@ -183,5 +181,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    const existingSections = {!! json_encode($existingSections) !!};
+
+    document.querySelectorAll('.btn-primary').forEach((button) => {
+        button.addEventListener('click', function() {
+            const sectionInput = this.closest('.modal').querySelector('#section');
+            const sectionValue = sectionInput.value;
+
+            if (existingSections.includes(sectionValue)) {
+                const sectionWarning = confirm("This section is already full of students enrolled. Please select another section.");
+                if (!sectionWarning) {
+                    sectionInput.focus();
+                }
+            }
+        });
+    });
+</script>
 
 @endsection

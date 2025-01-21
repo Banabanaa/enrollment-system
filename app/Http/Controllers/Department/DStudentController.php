@@ -60,9 +60,9 @@ class DStudentController extends Controller
              'sex' => $validated['sex'], 
              'classification' => $validated['classification'], 
              'program_id' => $validated['program_id'],  
-             'birthday' => $validated['birthday'], 
-             'year' => $validated['year'],
-             'section' => $validated['section'],
+             'birthday' => $validated['birthday'] ?? null,
+             'year' => $validated['year'] ?? null,
+             'section' => $validated['section'] ?? null,
          ]);
  
          return redirect()->route('department.manage.student')->with('success', 'Student added successfully.');

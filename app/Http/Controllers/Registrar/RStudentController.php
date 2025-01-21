@@ -35,7 +35,7 @@ class RStudentController extends Controller
             'province' => 'nullable|string|max:255',
             'zip_code' => 'nullable|string|max:10',
             'sex' => 'required|in:male,female,other',
-            'classification' => 'required|in:under evaluation,pending,regular,irregular,transferee,returnee', 
+            'classification' => 'required|in:incomplete,under evaluation,pending,regular,irregular,transferee,returnee', 
             'program_id' => 'required|in:Bachelor of Science in Computer Science,Bachelor of Science in Information Technology',
             'birthday' => 'nullable|date',  // Validation for birthday (ensure it's a valid date)
             'year' => 'nullable|string|max:20',
@@ -60,9 +60,9 @@ class RStudentController extends Controller
             'sex' => $validated['sex'], 
             'classification' => $validated['classification'], 
             'program_id' => $validated['program_id'],  
-            'birthday' => $validated['birthday'], 
-            'year' => $validated['year'],
-            'section' => $validated['section'],
+            'birthday' => $validated['birthday'] ?? null,
+            'year' => $validated['year'] ?? null,
+            'section' => $validated['section'] ?? null,
         ]);
 
         return redirect()->route('registrar.manage.student')->with('success', 'Student added successfully.');
@@ -89,7 +89,7 @@ class RStudentController extends Controller
             'province' => 'nullable|string|max:255',
             'zip_code' => 'nullable|string|max:10',
             'sex' => 'required|in:male,female,other',  
-            'classification' => 'required|in:under evaluation,pending,regular,irregular,transferee,returnee',
+            'classification' => 'required|in:incomplete,under evaluation,pending,regular,irregular,transferee,returnee',
             'program_id' => 'required|in:Bachelor of Science in Computer Science,Bachelor of Science in Information Technology', 
             'birthday' => 'nullable|date',
             'year' => 'nullable|string|max:20',

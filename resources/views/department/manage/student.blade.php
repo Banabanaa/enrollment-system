@@ -309,7 +309,7 @@
                         <h5 class="col-12 mb-3 text-center">-------- Year & Section --------</h5>
                         <div class="col-md-6 mb-3">
                             <label for="year" class="form-label">Year</label>
-                            <select class="form-select" name="year" required>
+                            <select class="form-select" name="year">
                                 <option value="1st Year" {{ old('year') === '1st Year' ? 'selected' : '' }}>1st Year</option>
                                 <option value="2nd Year" {{ old('year') === '2nd Year' ? 'selected' : '' }}>2nd Year</option>
                                 <option value="3rd Year" {{ old('year') === '3rd Year' ? 'selected' : '' }}>3rd Year</option>
@@ -319,7 +319,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="section" class="form-label">Section</label>
-                            <input type="text" class="form-control" name="section" value="{{ old('section') }}" required>
+                            <input type="text" class="form-control" name="section" value="{{ old('section') }}">
                         </div>
 
                         {{-- ADDRESS --}}

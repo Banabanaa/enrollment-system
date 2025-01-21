@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Registrar\RStudentController;
 use App\Http\Controllers\Registrar\RRegistrarController;
 use App\Http\Controllers\Department\DStudentController;
+use App\Http\Controllers\Student\SEnrollmentController;
 use App\Http\Controllers\Registrar\EnrollmentController;
 use App\Http\Controllers\Department\DMasterlistController;
 use App\Http\Controllers\Registrar\MasterlistController;
@@ -94,8 +95,6 @@ Route::prefix('registrar')->middleware('auth:registrar')->group(function () {
     Route::prefix('enrollment')->name('registrar.enrollment.')->group(function () {
         Route::get('regular', [EnrollmentController::class, 'regular'])->name('regular');
         Route::get('irregular', [EnrollmentController::class, 'irregular'])->name('irregular');
-        Route::get('transferee', [EnrollmentController::class, 'transferee'])->name('transferee');
-        Route::get('returnee', [EnrollmentController::class, 'returnee'])->name('returnee');
         Route::get('undereval', [EnrollmentController::class, 'undereval'])->name('undereval');
         Route::post('enroll-student/{id}', [EnrollmentController::class, 'enrollStudent'])->name('enroll.student');
     });    
@@ -146,7 +145,7 @@ Route::prefix('department')->middleware('auth:department')->group(function () {
 Route::prefix('student')->middleware('auth:student')->group(function () {
     Route::name('student.view.')->group(function () {
         Route::get('view/checklist', [StudentCourseChecklistController::class, 'index'])->name('checklist');
-        Route::view('view/enrollment', 'student.view.enrollment')->name('enrollment');
+        Route::get('/view/enrollment', [SEnrollmentController::class, 'showEnrollmentStatus'])->name('enrollment');
     });
 
     //Student Course Checklist Routes
@@ -158,7 +157,6 @@ Route::prefix('student')->middleware('auth:student')->group(function () {
     ]);
     
     Route::name('student.addons.')->group(function () {
-        Route::view('addons/cor', 'student.addons.cor')->name('cor');
         Route::middleware('auth')->get('addons/preenrollment', [PreEnrollmentController::class, 'showPreEnrollmentForm'])->name('preenrollment');
         
         // This should use the controller method for showing preenrollment form

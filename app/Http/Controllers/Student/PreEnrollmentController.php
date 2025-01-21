@@ -11,15 +11,20 @@ class PreEnrollmentController extends Controller
     public function showPreEnrollmentForm()
     {
         // Get logged-in student
-        $student = Auth::user(); 
+        $student = Auth::user();
     
         // Ensure the student exists
         if (!$student) {
             return view('student.addons.preenrollment', ['error' => 'Student data not found.']);
         }
     
-        // Decode the JSON column (advised courses)
-        $advisedCourses = json_decode($student->courses, true);
+        // Check if courses are already in array format
+        if (is_array($student->courses)) {
+            $advisedCourses = $student->courses;  // No need to decode
+        } else {
+            // Decode the JSON column (advised courses) if it's a string
+            $advisedCourses = json_decode($student->courses, true);
+        }
     
         // Handle cases where courses are not set or invalid
         if (is_null($advisedCourses) || !is_array($advisedCourses) || empty($advisedCourses)) {
