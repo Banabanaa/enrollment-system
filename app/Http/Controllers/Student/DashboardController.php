@@ -43,4 +43,5 @@ class DashboardController extends Controller
         // Redirect back to the dashboard with a success message
         return redirect()->route('student.dashboard')->with('success', 'Password updated successfully.');
     }
+    
 }
