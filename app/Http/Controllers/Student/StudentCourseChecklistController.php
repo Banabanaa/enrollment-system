@@ -105,6 +105,6 @@ class StudentCourseChecklistController extends Controller
         $student->update(['classification' => 'pending']);
     
         // Redirect back with success message
-        return redirect()->back()->with('success', 'Checklist saved and classification updated to pending.');
+        return redirect()->back()->with('success', 'Checklist Saved and you are now pending / under evalutation.');
     }
 }

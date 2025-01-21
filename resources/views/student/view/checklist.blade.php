@@ -22,7 +22,7 @@
         </div>
     @elseif ($student->classification === 'pending' || 'under evaluation')
         <div class="alert alert-info">
-            Your requirements are <strong>Pending</strong>. Wait for a confirmation email about the advising of subjects.
+            Your requirements are <strong>Pending</strong> / <strong>Under Evaluation</strong> . Wait for a confirmation email about the advising of subjects.
         </div>
     @elseif (in_array($student->classification, ['regular', 'irregular']))
         <div class="alert alert-success">
