@@ -9,8 +9,8 @@
             <form action="{{ route('admin.manage.admin.destroy', $admin->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-red-600">Delete</button>
-                <button type="button" class="btn btn-primary" onclick="document.getElementById('deleteAdminModal-{{ $admin->id }}').classList.add('hidden')">Cancel</button>
+                <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Delete</button>
+                <button type="button" class="btn btn-primary hover:bg-gray-600" onclick="document.getElementById('deleteAdminModal-{{ $admin->id }}').classList.add('hidden')">Cancel</button>
             </form>
 
         </div>
