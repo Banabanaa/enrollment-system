@@ -30,7 +30,7 @@
                     <span class="text-xs text-gray-600 font-medium">Login to your account</span>
                 </h1>
             </div>
-            <form method="POST" action="{{ route('password.email') }}">
+            <form method="POST" action="{{ route('department.login') }}">
                 @csrf
 
                <!-- Email Address -->

@@ -71,7 +71,17 @@ class StudentCourseChecklistController extends Controller
             'instructors' => $instructors,
         ]);
     }
+  
 
+    public function showEnrollmentStatus(Request $request)
+    {
+        // Retrieve the logged-in student based on authentication or custom logic
+        $student = Student::where('id', auth()->id())->firstOrFail(); // Adjust this based on your database schema and login logic
+    
+        // Pass the student data to the view
+        return view('student.enrollment-status', compact('student'));
+    }
+    
     public function store(Request $request)
     {
         // Get the logged-in student's ID
@@ -105,6 +115,6 @@ class StudentCourseChecklistController extends Controller
         $student->update(['classification' => 'pending']);
     
         // Redirect back with success message
-        return redirect()->back()->with('success', 'Checklist saved and classification updated to pending.');
+        return redirect()->back()->with('success', 'Checklist Saved and you are now pending / under evalutation.');
     }
 }

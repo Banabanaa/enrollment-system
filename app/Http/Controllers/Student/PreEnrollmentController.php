@@ -66,7 +66,15 @@ class PreEnrollmentController extends Controller
         return back()->with('success', 'Course removed successfully!');
     }
 
-    public function confirmAction(Request $request)
+    public function showEnrollmentStatus()
+    {
+        // Fetch students from the database
+        $students = Student::where('id', auth()->id())->get(); // Example query for authenticated student
+    
+        // Pass the $students variable to the view
+        return view('enrollment', compact('students'));
+    }
+        public function confirmAction(Request $request)
     {
         $student = Auth::user();
 
