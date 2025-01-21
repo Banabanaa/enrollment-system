@@ -21,7 +21,7 @@ use App\Http\Controllers\InstructorController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('student/auth/login');
 });
 
 Route::get('/admin/manage/students/search', [StudentController::class, 'search'])->name('admin.manage.students.search');
