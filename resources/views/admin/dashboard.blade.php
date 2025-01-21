@@ -1,7 +1,9 @@
 @extends('layouts.admin')
-
+@php
+    $title = 'CVSU - Admin Dashboard';
+@endphp
 @section('content')
-
+@include('admin.modals.admin.edit-profile')
 <!-- Student Count Per Status -->
 <div class="flex flex-wrap gap-4 mb-5 p-2 bg-light-gray rounded-2xl mx-auto mt-1">
 
@@ -62,19 +64,17 @@
         <table class="min-w-full bg-white shadow-sm rounded-lg">
             <thead>
                 <tr class="bg-primary">
-                    <th class="px-6 py-3 text-left text-sm font-bold text-white">User Id</th>
                     <th class="px-6 py-3 text-left text-sm font-bold text-white">Name</th>
                     <th class="px-6 py-3 text-left text-sm font-bold text-white">Email</th>
-                    <th class="px-6 py-3 text-left text-sm font-bold text-white">User Type</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Created At</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($admins as $admin)
                     <tr class="hover:bg-gray-100 border-b border-border-color">
-                        <td class="px-6 py-4 text-sm text-gray-600">{{ $admin->id }}</td>
                         <td class="px-6 py-4 text-sm text-gray-600">{{ $admin->name }}</td>
                         <td class="px-6 py-4 text-sm text-gray-600">{{ $admin->email }}</td>
-                        <td class="px-6 py-4 text-sm text-gray-600">{{ $admin->user_type }}</td> <!-- Assuming user_type is a column in your users table -->
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $admin->created_at }}</td> <!-- Assuming user_type is a column in your users table -->
                     </tr>
                 @endforeach
             </tbody>

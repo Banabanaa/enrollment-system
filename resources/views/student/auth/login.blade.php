@@ -35,7 +35,7 @@
 
                <!-- Email Address -->
                 <div>
-                    <x-input-label for="email_or_student_number" :value="__('Email or Registrar ID')" />
+                    <x-input-label for="email_or_student_number" :value="__('Email')" />
                     <x-text-input id="email_or_student_number" class="block mt-1 w-full h-9" type="email" name="email_or_student_number" :value="old('email')" required autofocus autocomplete="username" />
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>

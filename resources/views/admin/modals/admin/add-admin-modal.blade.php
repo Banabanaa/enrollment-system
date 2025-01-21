@@ -36,16 +36,7 @@
         <label for="password" class="form-label text-sm text-dark">Password</label>
         <input type="password" class="form-control w-full px-3 py-2 bg-input rounded-lg text-sm border-0 focus:outline-none focus:ring-2 focus:ring-primary" name="password" placeholder="Enter Password" required>
     </div>
-<<<<<<< HEAD
-=======
-    <div>
-
-    <input type="created_at" name="created_at" value="{{ now() }}">
-
-    </div>
->>>>>>> 10f46b9b14345c0f8fbcfaf87883f1770a3174a3
 </div>
-
 </div>
 
                 <!-- Modal Footer -->

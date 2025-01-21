@@ -1,25 +1,25 @@
 @extends('layouts.admin')
-
+@php
+    $title = 'CVSU - Students Accounts';
+@endphp
 @section('content')
 @include('admin.modals.student.add-student-modal')
 @include('admin.modals.student.edit-student-modal')
 @include('admin.modals.student.delete-student-modal')
+@include('admin.modals.admin.edit-profile')
 
 <!-- Filter Buttons and Search Bar -->
-<div class="flex justify-between items-center mb-4 pt-4">
+<div class="flex justify-end items-center mb-4 pt-4">
     <!-- Search Bar Section -->
     <div class="relative">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-            <img src="{{ asset('assets/search-icon.svg') }}" alt="Search Icon"
-                class="h-6 w-6 group-hover:scale-110 transition-transform duration-200 ease-in-out">
-            <span
-                class="ml-2 text-xs text-gray-600 font-semibold font-poppins group-hover:scale-125 transition-all duration-200 ease-in-out"></span>
-        </div>
-        <input type="text"
-            class="text-sm border-hidden px-4 py-2 rounded-lg focus:outline-none focus:ring-0 focus:ring-light focus:border-transparent pl-12 shadow-lg"
-            placeholder="Search users..." />
+    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+        <img src="{{ asset('assets/search-icon.svg') }}" alt="Search Icon"
+            class="h-6 w-6 group-hover:scale-110 transition-transform duration-200 ease-in-out">
     </div>
-
+    <input type="text" id="searchInput" 
+        class="text-sm border-hidden px-4 py-2 rounded-lg focus:outline-none focus:ring-0 focus:ring-light focus:border-transparent pl-12 shadow-lg"
+        placeholder="Search users..." onkeyup="filterTable()" />
+</div>
 </div>
 
 <!-- Table Section -->
@@ -31,9 +31,6 @@
             <h2 class="font-table-header text-xl font-semibold text-primary">Students Table</h2>
         </div>
         <div class="flex space-x-2">
-            <button
-                class="text-sm text-light bg-primary font-semibold px-4 py-2 rounded-lg hover:bg-primary hover:text-white">Export
-                as Excel</button>
                 <button class="text-sm text-light bg-primary font-semibold px-4 py-2 rounded-lg hover:bg-primary hover:text-white"
                 onclick="toggleModal('addStudentModal')">
                 <img src="{{ asset('assets/plus.svg') }}" alt="Plus Icon" class="h-5 w-5 inline-block mr-2">
@@ -54,7 +51,8 @@
                     <th class="px-6 py-3 text-left text-sm font-bold text-white">First Name</th>
                     <th class="px-6 py-3 text-left text-sm font-bold text-white">Last Name</th>
                     <th class="px-6 py-3 text-left text-sm font-bold text-white">Email</th>
-                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Student Type</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Program</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Created At</th>
                     <th class="px-6 py-3 text-left text-sm font-bold text-white">Actions</th>
                 </tr>
             </thead>
@@ -65,7 +63,8 @@
                         <td class="px-6 py-4 text-sm text-gray-600">{{ $student->first_name }}</td>
                         <td class="px-6 py-4 text-sm text-gray-600">{{ $student->last_name }}</td>
                         <td class="px-6 py-4 text-sm text-gray-600">{{ $student->email }}</td>
-                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->classification }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->program_id }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->created_at }}</td>
 
                         <td class="px-6 py-4 text-sm text-gray-600 text-center">
                             <div class="flex justify-left space-x-4">
@@ -82,19 +81,6 @@
             </tbody>
         </table>
 
-        <!-- Pagination Section -->
-        <div class="flex items-center justify-center space-x-6 mt-4">
-            <button class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-primary hover:text-white">Previous</button>
-            <span class="text-gray-600 hover:bg-primary hover:text-white hover:rounded-full p-2 cursor-pointer">1</span>
-            <span class="text-gray-600 hover:bg-primary hover:text-white hover:rounded-full p-2 cursor-pointer">2</span>
-            <span class="text-gray-600 hover:bg-primary hover:text-white hover:rounded-full p-2 cursor-pointer">3</span>
-            <span class="text-gray-600 hover:bg-primary hover:text-white hover:rounded-full p-2 cursor-pointer">4</span>
-            <span class="text-gray-600 hover:bg-primary hover:text-white hover:rounded-full p-2 cursor-pointer">5</span>
-            <button class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-primary hover:text-light">Next</button>
-        </div>
-    </div>
-
-
 @endsection
 
 
@@ -104,72 +90,23 @@
         modal.classList.toggle('hidden');
         modal.classList.toggle('flex');
     }
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {document.addEventListener('DOMContentLoaded', function () {
-    const searchInput = document.querySelector('#search-input'); // Ensure the ID matches your input field
-    searchInput.addEventListener('input', function () {
-        const query = searchInput.value;
-        if (query.length > 0) {
-            fetchStudents(query);
-        } else {
-            fetchStudents(); // Fetch all students when the input is cleared
-        }
-    });
-});
+    function filterTable() {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toLowerCase();
+        const table = document.querySelector('table');
+        const rows = table.querySelectorAll('tbody tr');
 
-function fetchStudents(query = '') {
-    fetch(`/admin/manage/students/search?query=${query}`)
-        .then(response => response.json())
-        .then(data => {
-            displayStudents(data);
-        })
-        .catch(error => console.error('Error:', error));
-}
+        rows.forEach(row => {
+            const nameCell = row.querySelector('td:nth-child(1)');
+            const emailCell = row.querySelector('td:nth-child(2)');
+            const name = nameCell.textContent.toLowerCase();
+            const email = emailCell.textContent.toLowerCase();
 
-function displayStudents(students) {
-    const tbody = document.querySelector('tbody');
-    tbody.innerHTML = ''; // Clear the existing rows
-
-    students.forEach(student => {
-        const tr = document.createElement('tr');
-        tr.classList.add('hover:bg-gray-100', 'border-b', 'border-border-color');
-
-        tr.innerHTML = `
-            <td class="px-6 py-4 text-sm text-gray-600">${student.student_number}</td>
-            <td class="px-6 py
-
-        const searchInput = document.querySelector('input[placeholder="Search users..."]');
-        const tbody = document.querySelector('tbody');
-
-        searchInput.addEventListener('input', function() {
-            const query = searchInput.value;
-            fetch(`/admin/manage/students/search?query=${query}`)
-                .then(response => response.json())
-                .then(data => {
-                    tbody.innerHTML = ''; // Clear the existing table rows
-                    data.forEach(student => {
-                        tbody.innerHTML += `
-                            <tr class="hover:bg-gray-100 border-b border-border-color">
-                                <td class="px-6 py-4 text-sm text-gray-600">${student.student_number}</td>
-                                <td class="px-6 py-4 text-sm text-gray-600">${student.first_name}</td>
-                                <td class="px-6 py-4 text-sm text-gray-600">${student.last_name}</td>
-                                <td class="px-6 py-4 text-sm text-gray-600">${student.email}</td>
-                                <td class="px-6 py-4 text-sm text-gray-600">${student.classification}</td>
-                                <td class="px-6 py-4 text-sm text-gray-600 text-center">
-                                    <div class="flex justify-left space-x-4">
-                                        <a href="#" class="text-lime-green hover:text-green-500">
-                                            <span class="material-icons text-xl" onclick="toggleModal('editStudentModal-${student.id}')">edit</span>
-                                        </a>
-                                        <a href="#" class="text-lime-green hover:text-red-500">
-                                            <span class="material-icons text-xl" onclick="toggleModal('deleteStudentModal-${student.id}')">delete</span>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        `;
-                    });
-                });
+            if (name.includes(filter) || email.includes(filter)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
         });
-    });
+    }
 </script>

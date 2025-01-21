@@ -19,18 +19,9 @@
 
             <!-- Dropdown Content -->
             <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48" style="z-index: 50; background: white; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); border-radius: 0.5rem;">
-                <a href="#" class="block px-4 py-2 hover:bg-gray-200">
-                    Edit Profile
-                </a>
-                
-                <!-- Logout Form -->
-                <form action="{{ route('logout') }}" method="POST" class="block">
-                    @csrf
-                   <!-- Logout -->
-                <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out" onclick="openLogoutModal(event)">
-                    <img src="{{ asset('assets/signout.svg') }}" alt="Signout Icon" class="h-icon w-icon mr-4">
-                    <span class="text-sm font-semibold font-poppins">Logout</span>
-                </li>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-200" onclick="toggleModal('edit-{{ auth()->user()->id }}')">
+                Edit Profile
+            </a>
                 </form>
             </div>
         </div>
@@ -65,8 +56,6 @@
     dropdownButton.addEventListener('click', () => {
         dropdownMenu.classList.toggle('hidden');
     });
-</script>
-<script>
         // Open logout modal
         function openLogoutModal(event) {
             event.preventDefault(); // Prevent immediate navigation

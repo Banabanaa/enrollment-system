@@ -59,7 +59,7 @@
     </div>
 
     <!-- Logout Modal -->
-    <div id="logoutModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div id="logoutModal" class="hidden fixed inset-0 flex items-center justify-center bg-black">
         <div class="bg-white p-6 rounded-lg shadow-lg w-1/3 text-center">
             <p class="text-gray-800 font-semibold mb-4">Are you sure you want to logout?</p>
             <div class="flex justify-center space-x-4">
