@@ -28,10 +28,10 @@
       </a>
       <!-- Issue COR -->
       {{-- <a href="{{ route('registrar.issue-cor') }}"> --}}
-      <a href="#">
-          <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
+      <a href="{{ route('registrar.enrollment.undereval') }}">
+                  <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
               <img src="{{ asset('assets/file-blank.svg') }}" alt="Issue COR Icon" class="h-icon w-icon mr-4">
-              <span class="text-sm font-semibold font-poppins">Issue COR</span>
+              <span class="text-sm font-semibold font-poppins">Wait List</span>
           </li>
       </a>
    <!-- Logout -->
