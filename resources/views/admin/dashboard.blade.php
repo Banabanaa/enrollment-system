@@ -2,194 +2,86 @@
 
 @section('content')
 
-<div class="container-fluid px-4">
-    <h1 class="mt-4">Dashboard</h1>
-    <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Dashboard</li>
-    </ol>
-    
-    <div class="row">
-        <!-- Number of Students -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-primary text-white mb-4">
-                <div class="card-body">Number of Students</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <span class="total-value text-3xl font-semibold">{{ $studentCount }}</span>
-                    <a class="small text-white stretched-link" href="{{ url('admin/manage/student') }}">View Details</a>
-                    <div class="small text-white"><i class="fas fa-user-graduate"></i></div>
-                </div>
-            </div>
-        </div>
-    
-        <!-- Number of Admins -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-success text-white mb-4">
-                <div class="card-body">Number of Admins</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <span class="total-value text-3xl font-semibold">{{ $adminCount }}</span>
-                    <a class="small text-white stretched-link" href="{{ url('admin/manage/admin') }}">View Details</a>
-                    <div class="small text-white"><i class="fas fa-user-shield"></i></div>
-                </div>
-            </div>
-        </div>
-    
-        <!-- Number of Registrars -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-primary text-white mb-4">
-                <div class="card-body">Number of Registrars</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <span class="total-value text-3xl font-semibold">{{ $registrarCount }}</span>
-                    <a class="small text-white stretched-link" href="{{ url('admin/manage/registrar') }}">View Details</a>
-                    <div class="small text-white"><i class="fas fa-user-edit"></i></div>
-                </div>
-            </div>
-        </div>
-    
-        <!-- Number of Departments -->
-        <div class="col-xl-3 col-md-6">
-            <div class="card bg-success text-white mb-4">
-                <div class="card-body">Number of Departments</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <span class="total-value text-3xl font-semibold">{{ $departmentCount }}</span>
-                    <a class="small text-white stretched-link" href="{{ url('admin/manage/department') }}">View Details</a>
-                    <div class="small text-white"><i class="fas fa-building"></i></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    
+<!-- Student Count Per Status -->
+<div class="flex flex-wrap gap-4 mb-5 p-2 bg-light-gray rounded-2xl mx-auto mt-1">
 
-    {{-- Admins Table --}}
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Admins Table
+    <!-- Regular -->
+    <div class="bg-primary shadow-small rounded-xl p-6 flex-1 flex items-center justify-between relative">
+        <div>
+            <h3 class="text-lg text-white font-semibold">Admin</h3>
+            <span class="total-value text-white text-2xl font-semibold">{{ $adminCount }}</span>
         </div>
-        <div class="card-body">
-            <table id="datatablesSimple1" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Created at</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($admins as $admin)
-                        <tr>
-                            <td>{{ $admin->id }}</td>
-                            <td>{{ $admin->name }}</td>
-                            <td>{{ $admin->email }}</td>
-                            <td>{{ $admin->created_at->format('m/d/Y') }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+        <div class="absolute top-3 right-4 w-2 h-2 rounded-full bg-white"></div>
+        <img src="{{ asset('assets/users.svg') }}" alt="Users Icon" class="h-9 w-9">
     </div>
 
-    {{-- Students Table --}}
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Students Table
+    <!-- Irregular -->
+    <div class="bg-primary shadow-small rounded-xl p-6 flex-1 flex items-center justify-between relative">
+        <div>
+            <h3 class="text-lg text-white font-semibold">Student</h3>
+            <span class="total-value text-white text-2xl font-semibold">{{ $studentCount }}</span>
         </div>
-        <div class="card-body">
-            <table id="datatablesSimple2" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Created at</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($students as $student)
-                        <tr>
-                            <td>{{ $student->id }}</td>
-                            <td>{{ $student->first_name }}</td>
-                            <td>{{ $student->last_name }}</td>
-                            <td>{{ $student->email }}</td>
-                            <td>{{ $student->created_at->format('m/d/Y') }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+        <div class="absolute top-3 right-4 w-2 h-2 rounded-full bg-white"></div>
+        <img src="{{ asset('assets/users.svg') }}" alt="Users Icon" class="h-9 w-9">
     </div>
 
-    {{-- Departments Table --}}
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Departments Table
+    <!-- Transferee -->
+    <div class="bg-primary shadow-small rounded-xl p-6 flex-1 flex items-center justify-between relative">
+        <div>
+            <h3 class="text-lg text-white font-semibold">Department</h3>
+            <span class="total-value text-white text-2xl font-semibold">{{ $departmentCount }}</span>
         </div>
-        <div class="card-body">
-            <table id="datatablesSimple3" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Department Name</th>
-                        <th>Email</th>
-                        <th>Created at</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($departments as $department)
-                        <tr>
-                            <td>{{ $department->id }}</td>
-                            <td>{{ $department->first_name }}</td>
-                            <td>{{ $department->last_name }}</td>
-                            <td>{{ $department->department_name }}</td>
-                            <td>{{ $department->email }}</td>
-                            <td>{{ $department->created_at->format('m/d/Y') }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+        <div class="absolute top-3 right-4 w-2 h-2 rounded-full bg-white"></div>
+        <img src="{{ asset('assets/users.svg') }}" alt="Users Icon" class="h-9 w-9">
     </div>
 
-    {{-- Registrars Table --}}
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Registrars Table
+    <!-- Returnee -->
+    <div class="bg-primary shadow-small rounded-xl p-6 flex-1 flex items-center justify-between relative">
+        <div>
+            <h3 class="text-lg text-white font-semibold">Registrar</h3>
+            <span class="total-value text-white text-2xl font-semibold">{{ $registrarCount }}</span>
         </div>
-        <div class="card-body">
-            <table id="datatablesSimple4" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                        <th>Created at</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($registrars as $registrar)
-                        <tr>
-                            <td>{{ $registrar->id }}</td>
-                            <td>{{ $registrar->first_name }}</td>
-                            <td>{{ $registrar->last_name }}</td>
-                            <td>{{ $registrar->email }}</td>
-                            <td>{{ $registrar->created_at->format('m/d/Y') }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+        <div class="absolute top-3 right-4 w-2 h-2 rounded-full bg-white"></div>
+        <img src="{{ asset('assets/users.svg') }}" alt="Users Icon" class="h-9 w-9">
     </div>
-
 </div>
 
+
+
+<!-- Table Section -->
+<div class="p-5 bg-light rounded-xl shadow-big w-full mx-auto mb-8">
+
+    <!-- Title and View All Button -->
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="font-header text-xl">Recently Added Users</h2>
+
+    </div>
+
+    <!-- Table Container with limited width to the screen -->
+    <div class="overflow-x-auto w-full">
+        <table class="min-w-full bg-white shadow-sm rounded-lg">
+            <thead>
+                <tr class="bg-primary">
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">User Id</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Name</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Email</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">User Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($admins as $admin)
+                    <tr class="hover:bg-gray-100 border-b border-border-color">
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $admin->id }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $admin->name }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $admin->email }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $admin->user_type }}</td> <!-- Assuming user_type is a column in your users table -->
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+    </div>
+</div>
 @endsection
 
 @section('scripts')
@@ -206,5 +98,6 @@
         if (table3) new simpleDatatables.DataTable(table3);
         if (table4) new simpleDatatables.DataTable(table4);
     });
+
 </script>
 @endsection

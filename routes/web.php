@@ -24,6 +24,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/admin/manage/students/search', [StudentController::class, 'search'])->name('admin.manage.students.search');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -34,10 +35,11 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     // Admin Management Routes
     Route::resource('manage/admin', AdminController::class)->except(['create', 'show'])->names([
         'index' => 'admin.manage.admin',
-        'store' => 'admin.manage.store',
-        'update' => 'admin.manage.update',
-        'destroy' => 'admin.manage.destroy',
+        'store' => 'admin.manage.admin.store',
+        'update' => 'admin.manage.admin.update',
+        'destroy' => 'admin.manage.admin.destroy',
     ]);
+    Route::post('/admin/manage/student/store', [AdminController::class, 'store'])->name('admin.manage.student.store');
 
     // Registrar Management Routes
     Route::resource('manage/registrar', RegistrarController::class)->except(['create', 'show'])->names([

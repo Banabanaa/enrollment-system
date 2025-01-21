@@ -58,49 +58,37 @@ class StudentController extends Controller
 
     // Update an existing student
     public function update(Request $request, $id)
-    {
-        $student = Student::findOrFail($id);
+{
+    $request->validate([
+        'student_number' => 'required|string',
+        'last_name' => 'required|string',
+        'first_name' => 'required|string',
+        'middle_name' => 'nullable|string',
+        'email' => 'required|email',
+        'contact_number' => 'nullable|string',
+        'password' => 'nullable|string|min:8',
+        'classification' => 'required|in:regular,irregular,transferee,returnee',
+    ]);
 
-        $request->validate([
-            'student_number' => 'required|string|max:255|unique:students,student_number,' . $id,
-            'last_name' => 'required|string|max:255',
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'extension_name' => 'nullable|string|max:10',
-            'email' => 'required|email|unique:students,email,' . $id,
-            'contact_number' => 'nullable|string|max:15',
-            'password' => 'nullable|min:8', // Password is optional
-            'house_number' => 'nullable|string|max:255',
-            'street' => 'nullable|string|max:255',
-            'barangay' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:255',
-            'province' => 'nullable|string|max:255',
-            'zip_code' => 'nullable|string|max:10',
-        ]);
+    $student = Student::findOrFail($id);
+    $student->update($request->only([
+        'student_number',
+        'last_name',
+        'first_name',
+        'middle_name',
+        'email',
+        'contact_number',
+        'classification',
+    ]));
 
-        $student->student_number = $request->student_number;
-        $student->last_name = $request->last_name;
-        $student->first_name = $request->first_name;
-        $student->middle_name = $request->middle_name;
-        $student->extension_name = $request->extension_name;
-        $student->email = $request->email;
-        $student->contact_number = $request->contact_number;
-        $student->house_number = $request->house_number;
-        $student->street = $request->street;
-        $student->barangay = $request->barangay;
-        $student->city = $request->city;
-        $student->province = $request->province;
-        $student->zip_code = $request->zip_code;
-
-        // Update password only if provided
-        if ($request->filled('password')) {
-            $student->password = Hash::make($request->password);
-        }
-
+    if ($request->filled('password')) {
+        $student->password = bcrypt($request->password);
         $student->save();
-
-        return redirect()->route('admin.manage.student')->with('success', 'Student updated successfully.');
     }
+
+    return redirect()->back()->with('success', 'Student information updated successfully.');
+}
+
 
     // Delete a student
     public function destroy(Student $student)
@@ -108,4 +96,18 @@ class StudentController extends Controller
         $student->delete();
         return redirect()->route('admin.manage.student')->with('success', 'Student deleted successfully.');
     }
+    public function search(Request $request)
+{
+    \Log::info('Search query: ' . $request->input('query'));
+    $students = Student::where('student_number', 'LIKE', "%{$request->input('query')}%")
+        ->orWhere('first_name', 'LIKE', "%{$request->input('query')}%")
+        ->orWhere('last_name', 'LIKE', "%{$request->input('query')}%")
+        ->orWhere('email', 'LIKE', "%{$request->input('query')}%")
+        ->orWhere('classification', 'LIKE', "%{$request->input('query')}%")
+        ->get();
+
+    return response()->json($students);
+}
+
+
 }
