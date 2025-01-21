@@ -1,5 +1,4 @@
 {{-- Edit Modal --}}
-@foreach($admins as $admin)
 <div id="edit-{{ auth()->user()->id }}" class="modal-overlay hidden scrollbar-thin scrollbar-thumb-green-500 scrollbar-track-gray-100">
     <div class="modal-container">
         <!-- Modal Header -->
@@ -22,7 +21,7 @@
                     <div class="grid grid-cols-2 gap-6">
                         <div>
                             <label for="email" class="form-label text-sm text-dark">Email</label>
-                            <input type="email" class="form-control w-full px-3 py-2 bg-input rounded-lg text-sm border-0 focus:outline-none focus:ring-2 focus:ring-primary" name="email" value="{{ $admin->email }}" required>
+                            <input type="email" class="form-control w-full px-3 py-2 bg-input rounded-lg text-sm border-0 focus:outline-none focus:ring-2 focus:ring-primary" name="email" value="{{ auth()->user()->email }}" required>
                         </div>
                         <div>
                             <label for="password" class="form-label text-sm text-dark">Password</label> 
@@ -33,14 +32,13 @@
 
                 <!-- Modal Footer -->
                 <div class="modal-footer mt-8 flex justify-end space-x-4 pr-5">
-                    <button type="button" class="bg-red text-white px-10 h-8 rounded-lg hover:bg-lime-green" onclick="toggleModal('edit-{{ $admin->id }}')">Close</button>
+                    <button type="button" class="bg-red text-white px-10 h-8 rounded-lg hover:bg-lime-green" onclick="toggleModal('edit-{{ auth()->user()->id }}')">Close</button>
                     <button type="submit" class="text-white px-10 h-8 rounded-lg bg-primary hover:bg-lime-green">Save Changes</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-@endforeach
 
 <script>
     function toggleModal(modalId) {
