@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CourseSeeders extends Seeder
+class CourseSeeder extends Seeder
 {
     public function run()
     {
@@ -157,7 +157,7 @@ class CourseSeeders extends Seeder
                 'contact_hours_laboratory' => 0,
                 'pre_requisite' => 'NSTP 1',
             ],
-            
+
 	    // Second Year, First Semester
             [
                 'course_code' => 'GNED 04',
@@ -528,7 +528,7 @@ class CourseSeeders extends Seeder
                 'pre_requisite' => 'COSC 200A',
             ],
 
-           
+
         ];
 
         DB::table('courses')->insert($courses);
