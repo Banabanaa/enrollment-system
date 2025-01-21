@@ -1,6 +1,5 @@
 @extends('layouts.registrar')
 
-@section('title', 'Registrar Account Management')
 @section('content')
 <div class="container-fluid px-4">
     <h1 class="mt-4">Registrar Accounts Management</h1>
