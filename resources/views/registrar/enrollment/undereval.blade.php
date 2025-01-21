@@ -1,15 +1,9 @@
 @extends('layouts.registrar')
-
+@php
+    $title = 'CVSU -  Student Accounts';
+@endphp
 @section('title', 'Under Evaluation for Enrollment')
 @section('content')
-
-<div class="container mx-auto px-4 py-6">
-    <h1 class="text-2xl font-bold mb-4">Enrollment Module</h1>
-    <nav class="mb-6">
-        <ol class="list-reset flex">
-            <li class="text-gray-600">Under Evaluation Students</li>
-        </ol>
-    </nav>
 
     @if(session('success'))
         <div class="bg-green-100 text-green-700 p-4 rounded mb-4">
@@ -26,44 +20,42 @@
             </ul>
         </div>
     @endif
-
-    <div class="bg-white shadow rounded mb-6">
-        <div class="p-4 border-b">
-            <h2 class="text-lg font-semibold flex items-center">
-                <i class="fas fa-table mr-2"></i>
-                Under Evaluation Students
-            </h2>
-        </div>
-        <div class="overflow-x-auto p-4">
-            <table class="table-auto w-full text-left border-collapse">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="border p-2">Student Number</th>
-                        <th class="border p-2">Name</th>
-                        <th class="border p-2">Program</th>
-                        <th class="border p-2">Classification</th>
-                        <th class="border p-2">Action</th>
+    <div class="p-5 bg-light rounded-2xl shadow-big w-full mx-auto mb-8">
+    <!-- Title and View All Button -->
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="font-table-header text-xl font-semibold text-primary">Under Evaluation Students</h2>
+    </div>
+    <!-- Table -->
+    <div class="overflow-x-auto w-full">
+        <table class="min-w-full bg-white shadow-sm rounded-lg">
+            <thead>
+                <tr class="bg-primary">
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Student Number</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Name</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Program</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Classification</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($students as $student)
+                    <tr class="hover:bg-gray-100 border-b border-border-color">
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->student_number }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->first_name }} {{ $student->last_name }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->program_id }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ ucfirst($student->classification) }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600 text-center">
+                            <button type="button" class="bg-primary text-white py-1 px-3 rounded text-sm" data-bs-toggle="modal" data-bs-target="#enrollModal{{ $student->id }}">
+                                Enroll
+                            </button>
+                            @include('registrar.modals.enroll-student', ['student' => $student])
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach($students as $student)
-                        <tr class="odd:bg-white even:bg-gray-50">
-                            <td class="border p-2">{{ $student->student_number }}</td>
-                            <td class="border p-2">{{ $student->first_name }} {{ $student->last_name }}</td>
-                            <td class="border p-2">{{ $student->program_id }}</td>
-                            <td class="border p-2">{{ ucfirst($student->classification) }}</td>
-                            <td class="border p-2">
-                                <button type="button" class="bg-blue-500 text-white py-1 px-3 rounded text-sm" data-bs-toggle="modal" data-bs-target="#enrollModal{{ $student->id }}">
-                                    Enroll
-                                </button>
-                                @include('registrar.modals.enroll-student', ['student' => $student])
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
+
 
 @endsection

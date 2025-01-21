@@ -10,7 +10,7 @@
     <div class="bg-primary shadow-small rounded-2xl p-6 flex-1 flex items-center justify-between relative">
         <div>
             <h3 class="text-lg font-semibold text-white">Status</h3>
-            <p class="text-2xl text-white font-semibold">{{ $student->classification }}</p>
+            <p class="text-2xl text-white font-semibold capitalize">{{ $student->classification }}</p>
         </div>
         <div class="absolute top-3 right-4 w-4 h-4 rounded-full bg-white"></div>
     </div>
@@ -19,7 +19,7 @@
     <div class="bg-primary shadow-small rounded-2xl p-6 flex-1 flex items-center justify-between relative">
         <div>
             <h3 class="text-lg font-semibold text-white">Course</h3>
-            <p class="text-2xl text-white font-semibold">BSCS</p>
+            <p class="text-sm text-white font-semibold">{{ $student->program_id }}</p>
         </div>
         <div class="absolute top-3 right-4 w-4 h-4 rounded-full bg-white"></div>
     </div>
@@ -28,7 +28,7 @@
     <div class="bg-primary shadow-small rounded-2xl p-6 flex-1 flex items-center justify-between relative">
         <div>
             <h3 class="text-lg font-semibold text-white">Section</h3>
-            <p class="text-2xl text-white font-semibold">3-2</p>
+            <p class="text-2xl text-white font-semibold">{{ $student->section }}</p>
         </div>
         <div class="absolute top-3 right-4 w-4 h-4 rounded-full bg-white"></div>
     </div>
@@ -36,8 +36,8 @@
     <!-- Returnee -->
     <div class="bg-primary shadow-small rounded-2xl p-6 flex-1 flex items-center justify-between relative">
         <div>
-            <h3 class="text-lg font-semibold text-white">Enrolled Subjects</h3>
-            <p class="text-2xl text-white font-semibold">9</p>
+            <h3 class="text-lg font-semibold text-white">Year</h3>
+            <p class="text-2xl text-white font-semibold">{{ $student->year }}</p>
         </div>
         <div class="absolute top-3 right-4 w-4 h-4 rounded-full bg-white"></div>
     </div>
@@ -51,9 +51,8 @@
             and campus updates. Stay informed and in control of your academic journey
             at CVSU Bacoor!
         </p>
-        <!-- Enroll Now Button using Route -->
+       
         <div class="mt-4">
-            <a href="#" class="bg-white font-semibold text-white px-4 py-2 rounded-lg text-sm inline-block">Enroll Now</a>
         </div>
     </div>
     <div class="w-1/4 flex justify-center">

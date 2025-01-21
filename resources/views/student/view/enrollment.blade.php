@@ -12,7 +12,7 @@
             <div class="alert alert-warning">
                 You are not enrolled. Kindly submit your requirements and finish the Enrollment Process.
             </div>
-        @elseif(in_array($student->classification, ['regular', 'irregular']))
+        @elseif(in_array(Auth::user()->classification, ['regular', 'irregular']))
             <!-- Display student and enrollment details -->
 
             <!-- Student Information -->
@@ -25,13 +25,13 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="studentNumber" class="form-label">Student Number</label>
-                                <input type="text" id="studentNumber" class="form-control" value="{{ $student->student_number }}" readonly>
+                                <input type="text" id="studentNumber" class="form-control" value="{{ Auth::user()->student_number }}" readonly>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name</label>
-                                <input type="text" id="name" class="form-control" value="{{ $student->first_name }} {{ $student->middle_name }} {{ $student->last_name }} {{ $student->extension_name }}" readonly>
+                                <input type="text" id="name" class="form-control" value="{{ Auth::user()->first_name }} {{ Auth::user()->middle_name }} {{ Auth::user()->last_name }} {{ Auth::user()->extension_name }}" readonly>
                             </div>
                         </div>
                     </div>
@@ -39,13 +39,13 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="birthday" class="form-label">Birthday</label>
-                                <input type="text" id="birthday" class="form-control" value="{{ $student->birthday }}" readonly>
+                                <input type="text" id="birthday" class="form-control" value="{{ Auth::user()->birthday }}" readonly>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="contact" class="form-label">Contact</label>
-                                <input type="text" id="contact" class="form-control" value="{{ $student->contact_number }}" readonly>
+                                <input type="text" id="contact" class="form-control" value="{{ Auth::user()->contact_number }}" readonly>
                             </div>
                         </div>
                     </div>
@@ -62,13 +62,13 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="program" class="form-label">Program</label>
-                                <input type="text" id="program" class="form-control" value="{{ $student->program_id }}" readonly>
+                                <input type="text" id="program" class="form-control" value="{{ Auth::user()->program_id }}" readonly>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="classification" class="form-label">Classification</label>
-                                <input type="text" id="classification" class="form-control" value="{{ ucfirst($student->classification) }}" readonly>
+                                <input type="text" id="classification" class="form-control" value="{{ ucfirst(Auth::user()->classification) }}" readonly>
                             </div>
                         </div>
                     </div>
@@ -76,13 +76,13 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="year" class="form-label">Year</label>
-                                <input type="text" id="year" class="form-control" value="{{ $student->year }}" readonly>
+                                <input type="text" id="year" class="form-control" value="{{ Auth::user()->year }}" readonly>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="section" class="form-label">Section</label>
-                                <input type="text" id="section" class="form-control" value="{{ $student->section }}" readonly>
+                                <input type="text" id="section" class="form-control" value="{{ Auth::user()->section }}" readonly>
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                                 </tr>
                             </thead>
                             <tbody style="font-size: 0.8rem;">
-                                @foreach(json_decode($student->courses) as $course)
+                                @foreach(json_decode(Auth::user()->courses) as $course)
                                 <tr>
                                     <td>{{ $course->course_code }}</td>
                                     <td>{{ $course->course_title }}</td>

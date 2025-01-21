@@ -1,122 +1,111 @@
 @extends('layouts.registrar')
-
-@section('title', 'Student Account Management')
+@php
+    $title = 'CVSU - Student Accounts';
+@endphp
 @section('content')
-<div class="container mx-auto px-4">
-    <h1 class="text-2xl font-bold mt-4">Student Accounts Management</h1>
-    <nav class="bg-gray-100 p-4 rounded my-4">
-        <ol class="list-disc flex space-x-2">
-            <li class="text-gray-700">Account Management</li>
-        </ol>
-    </nav>
+@include('admin.modals.student.add-student-modal')
+@include('admin.modals.student.edit-student-modal')
+@include('admin.modals.student.delete-student-modal')
+@include('admin.modals.admin.edit-profile')
 
-    {{-- Success/Error Messages --}}
-    @if(session('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-            {{ session('success') }}
+<!-- Filter Buttons and Search Bar -->
+<div class="flex justify-end items-center mb-4 pt-4">
+    <!-- Search Bar Section -->
+    <div class="relative">
+    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+        <img src="{{ asset('assets/search-icon.svg') }}" alt="Search Icon"
+            class="h-6 w-6 group-hover:scale-110 transition-transform duration-200 ease-in-out">
+    </div>
+    <input type="text" id="searchInput" 
+        class="text-sm border-hidden px-4 py-2 rounded-lg focus:outline-none focus:ring-0 focus:ring-light focus:border-transparent pl-12 shadow-lg"
+        placeholder="Search users..." onkeyup="filterTable()" />
+</div>
+</div>
+
+<!-- Table Section -->
+<div class="p-5 bg-light rounded-2xl shadow-big w-full mx-auto mb-8">
+
+    <!-- Title, Filter Dropdowns, and View All Button -->
+    <div class="flex justify-between items-center mb-4">
+        <div class="flex items-center space-x-4">
+            <h2 class="font-table-header text-xl font-semibold text-primary">Students Table</h2>
         </div>
-    @endif
+        <div class="flex space-x-2">
+                <button class="text-sm text-light bg-primary font-semibold px-4 py-2 rounded-lg hover:bg-primary hover:text-white"
+                onclick="toggleModal('addStudentModal')">
+                <img src="{{ asset('assets/plus.svg') }}" alt="Plus Icon" class="h-5 w-5 inline-block mr-2">
+                Add Student
+            </button>
 
-    @if ($errors->any())
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-            <ul class="list-disc pl-5">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    {{-- Student CRUD Table --}}
-    <div class="bg-white shadow-md rounded overflow-hidden">
-        <div class="bg-gray-200 p-4 flex justify-between items-center">
-            <span class="font-semibold text-gray-800"><i class="fas fa-table"></i> Students Table</span>
-            <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" data-bs-toggle="modal" data-bs-target="#addStudentModal">Add Student</button>
-        </div>
-        <div class="overflow-x-auto">
-            <table class="min-w-full bg-white border border-gray-200">
-                <thead>
-                    <tr class="bg-gray-200 text-gray-600 text-sm uppercase">
-                        <th class="py-3 px-6 text-left">Student Number</th>
-                        <th class="py-3 px-6 text-left">Last Name</th>
-                        <th class="py-3 px-6 text-left">First Name</th>
-                        <th class="py-3 px-6 text-left">Email</th>
-                        <th class="py-3 px-6 text-left">Classification</th>
-                        <th class="py-3 px-6 text-left">Program</th>
-                        <th class="py-3 px-6 text-left">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($students as $student)
-                        <tr class="border-b hover:bg-gray-100">
-                            <td class="py-3 px-6">{{ $student->student_number }}</td>
-                            <td class="py-3 px-6">{{ $student->last_name }}</td>
-                            <td class="py-3 px-6">{{ $student->first_name }}</td>
-                            <td class="py-3 px-6">{{ $student->email }}</td>
-                            <td class="py-3 px-6">{{ $student->classification }}</td>
-                            <td class="py-3 px-6">{{ $student->program_id }}</td>
-                            <td class="py-3 px-6">
-                                <button class="bg-primary hover:bg-primary text-white py-1 px-3 rounded text-sm" data-bs-toggle="modal" data-bs-target="#editStudentModal-{{ $student->id }}">Edit</button>
-                                <button class="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded text-sm" data-bs-toggle="modal" data-bs-target="#deleteStudentModal-{{ $student->id }}">Delete</button>
-                            </td>
-                        </tr>
-
-                        {{-- Edit Modal --}}
-                        <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="editStudentModal-{{ $student->id }}">
-                            <div class="flex items-center justify-center min-h-screen">
-                                <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl">
-                                    <form action="{{ route('registrar.manage.student.update', $student->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="p-6 border-b  border-gray-200">
-                                            <h5 class="text-lg font-bold ">Edit Student</h5>
-                                            <button type="button" class=" hover:text-gray-700 float-right">&times;</button>
-                                        </div>
-                                        <div class="p-6">
-                                            <label for="student_number" class="block text-sm font-medium text-gray-700">Student Number</label>
-                                            <input type="text" name="student_number" value="{{ old('student_number', $student->student_number) }}" class="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                            <!-- Add other form fields similarly with Tailwind -->
-                                            <label for="classification" class="block text-sm font-medium text-gray-700 mt-4">Classification</label>
-                                            <select name="classification" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                                <option value="under evaluation" {{ old('classification', $student->classification) == 'under evaluation' ? 'selected' : '' }}>Under Evaluation</option>
-                                                <option value="pending" {{ old('classification', $student->classification) == 'pending' ? 'selected' : '' }}>Pending</option>
-                                                <option value="regular" {{ old('classification', $student->classification) === 'regular' ? 'selected' : '' }}>Regular</option>
-                                                <option value="irregular" {{ old('classification', $student->classification) === 'irregular' ? 'selected' : '' }}>Irregular</option>
-                                                <option value="transferee" {{ old('classification', $student->classification) === 'transferee' ? 'selected' : '' }}>Transferee</option>
-                                                <option value="returnee" {{ old('classification', $student->classification) === 'returnee' ? 'selected' : '' }}>Returnee</option>
-                                            </select>
-                                        </div>
-                                        <div class="p-6 border-t border-gray-200 text-right">
-                                            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Save Changes</button>
-                                            <button type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded" data-bs-dismiss="modal">Cancel</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{-- Delete Modal --}}
-                        <div class="fixed z-10 inset-0 overflow-y-auto hidden" id="deleteStudentModal-{{ $student->id }}">
-                            <div class="flex items-center justify-center min-h-screen">
-                                <div class="bg-white rounded-lg shadow-xl w-full max-w-md">
-                                    <div class="p-6 border-b border-gray-200">
-                                        <h5 class="text-lg font-bold">Delete Student</h5>
-                                        <button type="button" class="text-gray-500 hover:text-gray-700 float-right">&times;</button>
-                                    </div>
-                                    <div class="p-6">
-                                        <p>Are you sure you want to delete this student?</p>
-                                    </div>
-                                    <div class="p-6 border-t border-gray-200 text-right">
-                                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Delete</button>
-                                        <button type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded" data-bs-dismiss="modal">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </tbody>
-            </table>
         </div>
     </div>
+
+    <!-- Table Container with limited width to the screen -->
+    <div class="overflow-x-auto w-full">
+        <table class="min-w-full bg-white shadow-sm rounded-lg">
+            <thead>
+                <tr class="bg-primary">
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Student Number</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">First Name</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Last Name</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Email</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Program</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Created At</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($students as $student)
+                    <tr class="hover:bg-gray-100 border-b border-border-color">
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->student_number }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->first_name }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->last_name }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->email }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->program_id }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-600">{{ $student->created_at }}</td>
+
+                        <td class="px-6 py-4 text-sm text-gray-600 text-center">
+                            <div class="flex justify-left space-x-4">
+                                <a href="#" class="text-lime-green hover:text-green-500">
+                                    <span class="material-icons text-xl" onclick="toggleModal('editStudentModal-{{ $student->id }}')">edit</span>
+                                </a>
+                                <a href="#" class="text-lime-green hover:text-red-500">
+                                    <span class="material-icons text-xl" onclick="toggleModal('deleteStudentModal-{{ $student->id }}')">delete</span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
+
 @endsection
+
+<script>
+    function toggleModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.toggle('hidden');
+        modal.classList.toggle('flex');
+    }
+    function filterTable() {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toLowerCase();
+        const table = document.querySelector('table');
+        const rows = table.querySelectorAll('tbody tr');
+
+        rows.forEach(row => {
+            const nameCell = row.querySelector('td:nth-child(1)');
+            const emailCell = row.querySelector('td:nth-child(2)');
+            const name = nameCell.textContent.toLowerCase();
+            const email = emailCell.textContent.toLowerCase();
+
+            if (name.includes(filter) || email.includes(filter)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+</script>

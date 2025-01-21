@@ -1,5 +1,7 @@
 @extends('layouts.department')
-
+@php
+    $title = 'CVSU - Department Dashboard';
+@endphp
 @section('content')
 <!-- Dashboard Stats Section -->
 <div class="flex gap-4 mb-5 p-2 bg-light-gray rounded-2xl mx-auto mt-1">

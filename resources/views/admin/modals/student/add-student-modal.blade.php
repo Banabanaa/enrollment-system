@@ -111,7 +111,6 @@
 
                 <!-- Modal Footer -->
                 <div class="modal-footer mt-8 flex justify-end space-x-4 pr-5">
-                    <button type="button" onclick="clearAllInputs()" class="bg-red text-white px-10 h-8 rounded-lg hover:bg-lime-green" data-bs-dismiss="modal">Clear All</button>
                     <button type="submit" class="text-white px-10 h-8 rounded-lg bg-primary hover:bg-lime-green" data-bs-dismiss="modal">Add Student</button>
                 </div>
             </form>

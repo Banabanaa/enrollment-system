@@ -3,7 +3,7 @@
     <header class="bg-light-gray shadow-big p-4 flex items-center justify-between">
         <!-- Greeting -->
         <h1 class="text-lg font-semibold text-primary ">
-            Good day, <span id="username">{{ auth()->user()->name }}</span>!
+            Good day, <span id="username">{{ auth()->user()->department_name }}</span>!
         </h1>
 
         <!-- Dropdown Menu -->
