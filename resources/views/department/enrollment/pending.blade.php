@@ -73,36 +73,91 @@
                                             </div>
                                             <form method="POST" action="{{ route('department.enrollment.advise.student', $student->id) }}">
                                                 @csrf <!-- Add CSRF token for security -->
-                                                <div class="modal-body ">
-                                                    <!-- First Photo -->
+                                                <div class="modal-body">
+                                                    <!-- Student Photos -->
                                                     <div class="text-center mb-4">
                                                         <img 
                                                             src="{{ $student->photo ? asset('storage/' . $student->photo) : asset('default-student-photo.jpg') }}" 
-                                                            alt="Student Photo 1" 
+                                                            alt="Student Photo" 
                                                             class="img-thumbnail" 
                                                             style="max-width: 100%; height: auto; object-fit: cover;">
                                                     </div>
-
-                                                    <!-- Second Photo -->
                                                     <div class="text-center mb-4">
                                                         <img 
                                                             src="{{ $student->photo2 ? asset('storage/' . $student->photo2) : asset('default-student-photo2.jpg') }}" 
-                                                            alt="No Second Photo Upload" 
+                                                            alt="Additional Student Photo" 
                                                             class="img-thumbnail" 
                                                             style="max-width: 100%; height: auto; object-fit: cover;">
                                                     </div>
 
-                                                    <div class="mb-2">
-                                                        <label for="studentNumber" class="form-label fs-5 fw-bold">Student Number</label>
-                                                        <input type="text" class="form-control" id="studentNumber" value="{{ $student->student_number }}" readonly>
+                                                    <!-- Student Information -->
+                                                    <div class="mb-3">
+                                                        <label for="studentNumber{{ $student->id }}" class="form-label fs-5 fw-bold">Student Number</label>
+                                                        <input type="text" class="form-control" id="studentNumber{{ $student->id }}" value="{{ $student->student_number }}" readonly>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="studentNumber" class="form-label fs-5 fw-bold">Program</label>
-                                                        <input type="text" class="form-control" id="program" value="{{ $student->program_id }}" readonly>
+                                                        <label for="program{{ $student->id }}" class="form-label fs-5 fw-bold">Program</label>
+                                                        <input type="text" class="form-control" id="program{{ $student->id }}" value="{{ $student->program_id }}" readonly>
                                                     </div>
+
+                                                    <!-- Course Checklist -->
+                                                    @php
+                                                        $studentChecklists = $courseChecklists->where('student_id', $student->id);
+                                                    @endphp
+                                                    
+                                                    @if ($studentChecklists->isEmpty())
+                                                        <p class="text-center">No course checklist submitted yet.</p>
+                                                    @else
+                                                        <div class="card mb-4">
+                                                            <div class="card-header bg-success text-white">
+                                                                <i class="fas fa-table me-1"></i>
+                                                                Submitted Course Checklist
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-bordered text-center">
+                                                                        <thead class="bg-success text-white" style="font-size: 0.9rem;">
+                                                                            <tr>
+                                                                                <th>COURSE CODE</th>
+                                                                                <th>TITLE</th>
+                                                                                <th>PRE-REQUISITE</th>
+                                                                                <th>SY TAKEN</th>
+                                                                                <th>FINAL GRADE</th>
+                                                                                <th>INSTRUCTOR</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach ($studentChecklists as $course)
+                                                                                <tr>
+                                                                                    <td>{{ $course->course_code }}</td>
+                                                                                    <td>{{ $course->course_title }}</td>
+                                                                                    <td>{{ $course->pre_requisite }}</td>
+                                                                                    <td>{{ $course->sy_taken ?? 'N/A' }}</td>
+                                                                                    <td>{{ $course->final_grade ?? 'N/A' }}</td>
+                                                                                    <td>
+                                                                                        @if ($course->instructor_id)
+                                                                                            {{ $instructors->firstWhere('id', $course->instructor_id)->first_name ?? 'N/A' }}
+                                                                                            {{ $instructors->firstWhere('id', $course->instructor_id)->last_name ?? '' }}
+                                                                                        @else
+                                                                                            N/A
+                                                                                        @endif
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+
+                                                    <!-- Course Selection -->
                                                     <div class="mb-3">
-                                                        <label for="studentNumber" class="form-label fs-5 fw-bold">Select Courses <small> (Select multiple courses using Ctrl/Command key.)</small></label>
-                                                        <select id="courses" name="courses[]" class="form-select" multiple>
+                                                        <label for="courses{{ $student->id }}" class="form-label fs-5 fw-bold">
+                                                            Select Courses 
+                                                            <small>(Select multiple courses using Ctrl/Command key)</small>
+                                                        </label>
+                                                        <select id="courses{{ $student->id }}" name="courses[]" class="form-select" multiple>
                                                             @foreach ($courses as $course)
                                                                 @if ($course->program_id == $student->program_id || $course->program_id == 3)
                                                                     <option value="{{ $course->course_code }}">
@@ -111,19 +166,22 @@
                                                                     </option>
                                                                 @endif
                                                             @endforeach
-                                                        </select>                                                        
-                                                        
+                                                        </select>
                                                     </div>
+
+                                                    <!-- Classification -->
                                                     <div class="mb-3">
-                                                        <label for="studentNumber" class="form-label fs-5 fw-bold">Classification</label>
-                                                        <select class="form-select" name="classification">
+                                                        <label for="classification{{ $student->id }}" class="form-label fs-5 fw-bold">Classification</label>
+                                                        <select id="classification{{ $student->id }}" class="form-select" name="classification">
                                                             <option value="under evaluation" {{ old('classification', $student->classification) == 'under evaluation' ? 'selected' : '' }}>Under Evaluation</option>
                                                             <option value="pending" {{ old('classification', $student->classification) == 'pending' ? 'selected' : '' }}>Pending</option>
                                                         </select>
                                                     </div>
+
+                                                    <!-- Advising Notes -->
                                                     <div class="mb-3">
-                                                        <label for="studentNumber" class="form-label fs-5 fw-bold">Advising Notes</label>
-                                                        <textarea name="advising_notes" id="advisingNotes" class="form-control">{{ old('advising_notes', $student->advising_notes) }}</textarea>
+                                                        <label for="advisingNotes{{ $student->id }}" class="form-label fs-5 fw-bold">Advising Notes</label>
+                                                        <textarea name="advising_notes" id="advisingNotes{{ $student->id }}" class="form-control">{{ old('advising_notes', $student->advising_notes) }}</textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
