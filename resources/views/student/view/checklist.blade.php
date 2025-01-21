@@ -141,223 +141,223 @@
             object-fit: cover;
         }
 
-        .btn-danger {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    .btn-danger {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-        .btn-danger:hover {
-            background-color: #c82333;
-        }
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    /* Styles for Centered and Smaller Student Photo */
+    .student-photo-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .student-photo {
+        width: 350px; /* Image size for larger screens */
+        height: 450px;
+        border-radius: 5%; 
+        object-fit: cover;
+        cursor: pointer; /* Make it clickable */
+        transition: transform 0.3s ease;
+    }
+
+    .student-photo:hover {
+        transform: scale(1.05); /* Slight zoom effect on hover */
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+        display: flex;
+        margin-top: 5px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .zoom-wrapper {
+        position: relative;
+        width: 100%;
+        height: 90%;
+        overflow: hidden; /* Hide the overflowing part of the zoomed image */
+        cursor: zoom-in; /* Cursor style to indicate zoom-in action */
+    }
     
-        /* Styles for Centered and Smaller Student Photo */
-        .student-photo-container {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .zoom-image {
+        transition: transform 0.2s ease; /* Smooth zoom transition */
+        width: 100%; /* Make sure the image scales well */
+        height: auto; 
+        object-fit: cover;
+    }
+
+    .modal-content {
+        position: relative;
+        width: 80%;  /* Adjust size based on your requirement */
+        max-width: 500px; /* Maximum width */
+        background-color: #fff;
+        margin-top: 40px;
+    }
     
+
+    /* The Close Button (X) */
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #fff;
+        font-size: 36px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Media Queries for Mobile Responsiveness */
+    @media (max-width: 768px) {
         .student-photo {
-            width: 350px; /* Image size for larger screens */
-            height: 450px;
-            border-radius: 5%; 
-            object-fit: cover;
-            cursor: pointer; /* Make it clickable */
-            transition: transform 0.3s ease;
-        }
-    
-        .student-photo:hover {
-            transform: scale(1.05); /* Slight zoom effect on hover */
-        }
-    
-        /* Modal Styles */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
-            display: flex;
-            margin-top: 5px;
-            justify-content: center;
-            align-items: center;
-        }
-    
-        .zoom-wrapper {
-            position: relative;
-            width: 100%;
-            height: 90%;
-            overflow: hidden; /* Hide the overflowing part of the zoomed image */
-            cursor: zoom-in; /* Cursor style to indicate zoom-in action */
-        }
-        
-        .zoom-image {
-            transition: transform 0.2s ease; /* Smooth zoom transition */
-            width: 100%; /* Make sure the image scales well */
-            height: auto; 
-            object-fit: cover;
+            width: 250px; /* Smaller student photo for mobile */
+            height: 250px;
         }
 
         .modal-content {
-            position: relative;
-            width: 80%;  /* Adjust size based on your requirement */
-            max-width: 500px; /* Maximum width */
-            background-color: #fff;
-            margin-top: 40px;
+            width: 80%; /* Increase modal width on smaller screens */
+            max-width: 300px; /* Max width for modal */
         }
-        
-    
-        /* The Close Button (X) */
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            color: #fff;
-            font-size: 36px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    
-        .close:hover,
-        .close:focus {
-            color: #bbb;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    
-        /* Media Queries for Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .student-photo {
-                width: 250px; /* Smaller student photo for mobile */
-                height: 250px;
-            }
-    
-            .modal-content {
-                width: 80%; /* Increase modal width on smaller screens */
-                max-width: 300px; /* Max width for modal */
-            }
-    
-            .btn-upload {
-                width:50%; /* Make the upload button full width */
-                padding: 10px; /* Larger padding for touch devices */
-            }
-    
-            .upload-container {
-                padding: 10px; /* Adjust inner padding for small screens */
-                margin: 10px;  /* Adjust margin for small screens */
-            }
-    
-            .student-photo-container {
-                margin-top: 15px; /* Adjust spacing between elements for smaller screens */
-            }
-        }
-    
-        @media (max-width: 480px) {
-            .student-photo {
-                width: 200px; /* Even smaller student photo */
-                height: 200px;
-            }
-    
-            .btn-upload {
-                padding: 8px 0px; /* Adjust upload button padding on very small screens */
-            }
-    
-            .modal-content {
-                width: 90%; /* Even larger modal on very small screens */
-                max-width: 250px;
-            }
-    
-            #imagePreview {
-                margin-top: 15px; /* Adjust margin for smaller viewports */
-            }
-    
-            .custom-file-upload {
-                padding: 8px 15px; /* Smaller file upload button */
-                font-size: 14px; /* Smaller font size */
-            }
-        }
-    </style>
-    
-    <script>
-    // Function to open modal
-    function openModal(imageUrl) {
-        const modal = document.getElementById('photoModal');
-        const modalImage = document.getElementById('modalImage');
-        modalImage.src = imageUrl;
-        modal.style.display = "flex";
-    }
 
+        .btn-upload {
+            width:50%; /* Make the upload button full width */
+            padding: 10px; /* Larger padding for touch devices */
+        }
 
-    // Function to close modal
-    function closeModal() {
-        var modal = document.getElementById('photoModal');
-        modal.style.display = "none"; // Hide the modal
-    }
+        .upload-container {
+            padding: 10px; /* Adjust inner padding for small screens */
+            margin: 10px;  /* Adjust margin for small screens */
+        }
 
-    // Close modal when clicking anywhere outside of the modal content
-    window.onclick = function(event) {
-        var modal = document.getElementById('photoModal');
-        if (event.target == modal) {
-            modal.style.display = "none";
+        .student-photo-container {
+            margin-top: 15px; /* Adjust spacing between elements for smaller screens */
         }
     }
 
-    // Function to preview selected image before upload
-    function previewImage(event, previewId) {
-        const input = event.target;
-        const preview = document.getElementById(previewId); // Get the specific preview container
-        const imagePreview = document.getElementById('imagePreview' + previewId.charAt(previewId.length - 1)); // Dynamically choose the preview container by ID
-
-        const file = input.files[0];
-        const reader = new FileReader();
-
-        reader.onload = function() {
-            preview.src = reader.result;
-            imagePreview.style.display = 'block'; // Show the preview
+    @media (max-width: 480px) {
+        .student-photo {
+            width: 200px; /* Even smaller student photo */
+            height: 200px;
         }
 
-        if (file) {
-            reader.readAsDataURL(file); // Read the file as data URL for preview
+        .btn-upload {
+            padding: 8px 0px; /* Adjust upload button padding on very small screens */
+        }
+
+        .modal-content {
+            width: 90%; /* Even larger modal on very small screens */
+            max-width: 250px;
+        }
+
+        #imagePreview {
+            margin-top: 15px; /* Adjust margin for smaller viewports */
+        }
+
+        .custom-file-upload {
+            padding: 8px 15px; /* Smaller file upload button */
+            font-size: 14px; /* Smaller font size */
         }
     }
+</style>
 
-    // Zoom Functionality
-    function zoomImage(event) {
-        const img = document.getElementById('modalImage');
-        const zoomWrapper = document.querySelector('.zoom-wrapper');
-        
-        const rect = zoomWrapper.getBoundingClientRect();
-        
-        const x = event.clientX - rect.left;  // X position within the wrapper
-        const y = event.clientY - rect.top;   // Y position within the wrapper
-        const zoomFactor = 2;  // Factor by which the image zooms
-        
-        // Change background position to zoom into the right place
-        const backgroundX = (x / rect.width) * 100;
-        const backgroundY = (y / rect.height) * 100;
-        
-        img.style.transform = `scale(${zoomFactor})`; // Zoom in on the image
-        img.style.transformOrigin = `${backgroundX}% ${backgroundY}%`; // Set where to zoom (focus point)
+<script>
+// Function to open modal
+function openModal(imageUrl) {
+    const modal = document.getElementById('photoModal');
+    const modalImage = document.getElementById('modalImage');
+    modalImage.src = imageUrl;
+    modal.style.display = "flex";
+}
+
+
+// Function to close modal
+function closeModal() {
+    var modal = document.getElementById('photoModal');
+    modal.style.display = "none"; // Hide the modal
+}
+
+// Close modal when clicking anywhere outside of the modal content
+window.onclick = function(event) {
+    var modal = document.getElementById('photoModal');
+    if (event.target == modal) {
+        modal.style.display = "none";
     }
+}
+
+// Function to preview selected image before upload
+function previewImage(event, previewId) {
+    const input = event.target;
+    const preview = document.getElementById(previewId); // Get the specific preview container
+    const imagePreview = document.getElementById('imagePreview' + previewId.charAt(previewId.length - 1)); // Dynamically choose the preview container by ID
+
+    const file = input.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function() {
+        preview.src = reader.result;
+        imagePreview.style.display = 'block'; // Show the preview
+    }
+
+    if (file) {
+        reader.readAsDataURL(file); // Read the file as data URL for preview
+    }
+}
+
+// Zoom Functionality
+function zoomImage(event) {
+    const img = document.getElementById('modalImage');
+    const zoomWrapper = document.querySelector('.zoom-wrapper');
     
-    // Reset zoom when leaving the image area
-    function resetZoom() {
-        const img = document.getElementById('modalImage');
-        img.style.transform = "scale(1)";  // Reset zoom
-        img.style.transformOrigin = "center";  // Center the image
-    }
+    const rect = zoomWrapper.getBoundingClientRect();
+    
+    const x = event.clientX - rect.left;  // X position within the wrapper
+    const y = event.clientY - rect.top;   // Y position within the wrapper
+    const zoomFactor = 2;  // Factor by which the image zooms
+    
+    // Change background position to zoom into the right place
+    const backgroundX = (x / rect.width) * 100;
+    const backgroundY = (y / rect.height) * 100;
+    
+    img.style.transform = `scale(${zoomFactor})`; // Zoom in on the image
+    img.style.transformOrigin = `${backgroundX}% ${backgroundY}%`; // Set where to zoom (focus point)
+}
+
+// Reset zoom when leaving the image area
+function resetZoom() {
+    const img = document.getElementById('modalImage');
+    img.style.transform = "scale(1)";  // Reset zoom
+    img.style.transformOrigin = "center";  // Center the image
+}
 </script>
 
 {{-- Student Checklist --}}

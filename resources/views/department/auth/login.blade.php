@@ -31,7 +31,7 @@
                 </h1>
             </div>
             <form method="POST" action="{{ route('department.login') }}">
-                @csrf   
+                @csrf
 
                <!-- Email Address -->
                 <div>

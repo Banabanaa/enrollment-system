@@ -26,7 +26,15 @@ class StudentCourseChecklist extends Model
     {
         return $this->belongsTo(Student::class, 'student_id', 'id');
     }
-
+    public function showEnrollmentStatus(Request $request)
+    {
+        // Fetch student information
+        $student = Student::where('id', auth()->id())->firstOrFail();
+    
+        // Pass data to the view
+        return view('student.enrollment-status', compact('student'));
+    }
+    
     // Relationship with the Instructor model (using 'instructor' as foreign key)
     public function instructor()
     {

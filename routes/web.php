@@ -24,6 +24,9 @@ Route::get('/', function () {
     return view('student/auth/login');
 });
 
+Route::get('/enrollment-status', [PreEnrollmentController::class, 'showEnrollmentStatus'])->name('enrollment.status');
+
+
 Route::get('/admin/manage/students/search', [StudentController::class, 'search'])->name('admin.manage.students.search');
 
 Route::get('/dashboard', function () {
