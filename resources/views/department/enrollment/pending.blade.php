@@ -119,8 +119,6 @@
                                                                         <thead class="bg-success text-white" style="font-size: 0.9rem;">
                                                                             <tr>
                                                                                 <th>COURSE CODE</th>
-                                                                                <th>TITLE</th>
-                                                                                <th>PRE-REQUISITE</th>
                                                                                 <th>SY TAKEN</th>
                                                                                 <th>FINAL GRADE</th>
                                                                                 <th>INSTRUCTOR</th>
@@ -130,8 +128,6 @@
                                                                             @foreach ($studentChecklists as $course)
                                                                                 <tr>
                                                                                     <td>{{ $course->course_code }}</td>
-                                                                                    <td>{{ $course->course_title }}</td>
-                                                                                    <td>{{ $course->pre_requisite }}</td>
                                                                                     <td>{{ $course->sy_taken ?? 'N/A' }}</td>
                                                                                     <td>{{ $course->final_grade ?? 'N/A' }}</td>
                                                                                     <td>
