@@ -20,17 +20,18 @@
         <div class="alert alert-warning">
             Your requirements are <strong>Incomplete</strong>. Please ensure you fulfill the necessary requirements.
         </div>
-    @elseif ($student->classification === 'pending' || 'under evaluation')
+    @elseif ($student->classification === 'pending' || $student->classification === 'under evaluation')
         <div class="alert alert-info">
             Your requirements are <strong>Pending</strong> / <strong>Under Evaluation</strong> . Wait for a confirmation email about the advising of subjects.
         </div>
-    @elseif (in_array($student->classification, ['regular', 'irregular']))
+    @elseif ($student->classification === 'regular' || $student->classification === 'irregular')
         <div class="alert alert-success">
             You have already accomplished this. Check your enrollment status.
         </div>
     @endif
 
-    @if ($student->classification !== 'pending' || 'under evaluation')
+    {{-- Check if classification is neither 'regular' nor 'irregular' --}}
+    @if ($student->classification !== 'regular' && $student->classification !== 'irregular')
         <div class="upload-container">
             <div class="text-center">
                 <form method="post" action="{{ route('upload.photo') }}" enctype="multipart/form-data">
@@ -94,9 +95,7 @@
             </form>
             @endif
         </div>
-    @endif
 
-    @if ($student->classification !== 'pending' || 'under evaluation')
         {{-- Student Checklist --}}
         <div id="bscs-checklist" class="checklist">
             <form method="POST" action="{{ route('student.manage.student-course-checklist.store') }}">
@@ -173,8 +172,8 @@
             </form>
         </div>
     @endif
-    </div>
-    
+</div>
+
 <style>
     .upload-container {
         border: 2px solid #218838; /* Green border */
@@ -454,4 +453,5 @@ function resetZoom() {
     img.style.transformOrigin = "center";  // Center the image
 }
 </script>
+
 @endsection
