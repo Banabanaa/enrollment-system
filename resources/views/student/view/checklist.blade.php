@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="container-fluid px-4">
-    <h1 class="mt-4">Student Grades</h1>
+<div class="container-fluid px-6 py-6">
+  <h1 class="mt-4">Student Grades</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item active">Upload a Copy of your Checklist</li>
         <li class="breadcrumb-item active">Fill out the Checklist Form Below</li>
@@ -15,18 +15,18 @@
         </div>
     @endif
 
-    <div class="upload-container">
-        <div class="text-center">
+    <div class="upload-container bg-gray-100 border-2 border-green-700 rounded-xl shadow-md p-6 mt-8">  
+                <div class="text-center">
             <form method="post" action="{{ route('upload.photo') }}" enctype="multipart/form-data">
                 @csrf
                 <!-- First Set: File Input with Label -->
-                <label for="photoInput" class="custom-file-upload">
+                <label for="photoInput"  class="custom-file-upload inline-block px-6 py-3 bg-green-700 text-white rounded-md text-lg transition duration-300 ease-in-out transform hover:bg-green-800 hover:scale-105 active:scale-95 cursor-pointer">
                     <input type="file" name="photo" id="photoInput" accept="image/*" required onchange="previewImage(event, 'preview1')">
                     Browse Photo 1
                 </label>
 
                 <!-- Second Set: File Inputs Styled Like the First One -->
-                <label for="photoInput2" class="custom-file-upload">
+                <label for="photoInput2"  class="custom-file-upload inline-block px-6 py-3 bg-green-700 text-white rounded-md text-lg transition duration-300 ease-in-out transform hover:bg-green-800 hover:scale-105 active:scale-95 cursor-pointer">
                     <input type="file" name="photo2" id="photoInput2" accept="image/*" onchange="previewImage(event, 'preview2')">
                     Browse Photo 2
                 </label>
