@@ -23,7 +23,7 @@
             <a href="{{ route('student.view.checklist') }}">
                 <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
                     <img src="{{ asset('assets/user.svg') }}" alt="Student Information Icon" class="h-icon w-icon mr-4">
-                    <span class="text-sm font-semibold font-poppins">Student Information</span>
+                    <span class="text-sm font-semibold font-poppins">Student Checklist</span>
                 </li>
             </a>
             <!-- View Status -->
