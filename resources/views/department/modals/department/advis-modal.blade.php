@@ -27,21 +27,7 @@
             <form method="POST" action="{{ route('department.enrollment.advise.student', $student->id) }}">
                 @csrf
                 <div class="modal-body overflow-y-auto max-h-96 space-y-6 pr-5 pl-3 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- First Photo -->
-                    <div class="col-span-1 text-center mb-4">
-                        <img 
-                            src="{{ $student->photo ? asset('storage/' . $student->photo) : asset('default-student-photo.jpg') }}" 
-                            alt="Student Photo 1" 
-                            class="img-thumbnail max-w-full h-auto object-cover">
-                    </div>
-
-                    <!-- Second Photo -->
-                    <div class="col-span-1 text-center mb-4">
-                        <img 
-                            src="{{ $student->photo2 ? asset('storage/' . $student->photo2) : asset('default-student-photo2.jpg') }}" 
-                            alt="No Second Photo Upload" 
-                            class="img-thumbnail max-w-full h-auto object-cover">
-                    </div>
+                    
 
                     <!-- Student Number -->
                     <div class="col-span-1">
