@@ -38,7 +38,7 @@
     <!-- Title, Filter Dropdowns, and View All Button -->
     <div class="flex justify-between items-center mb-4">
         <div class="flex items-center space-x-4">
-            <h2 class="font-table-header text-xl font-bold text-primary">Recently Added Users</h2>
+            <h2 class="font-table-header text-xl font-bold text-primary">Recently Added Students</h2>
         </div>
     </div>
 

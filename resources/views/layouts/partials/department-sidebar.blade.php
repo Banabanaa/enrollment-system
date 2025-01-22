@@ -13,28 +13,15 @@
                 <span class="text-sm font-semibold font-poppins">Dashboard</span>
             </li>
         </a>
-      
-
-        <!-- Administration Section -->
-        <li class="flex flex-col items-start w-full px-4 py-3">
-            <div class="flex items-center w-full hover:bg-green-500 transition duration-200 ease-in-out" onclick="toggleLinks('administration-links')">
-                <img src="{{ asset('assets/settings.svg') }}" alt="Accounts Icon" class="h-icon w-icon mr-4">
-                <span class="text-sm font-semibold font-poppins">Administration</span>
-            </div>
-            <!-- Nested Links -->
-            <ul id="administration-links" class="ml-4 space-y-2 mt-2 hidden">
-                <a href="{{ route('department.manage.department') }}">
+            
+        <!-- Dashboard -->
+        <a href="{{ route('department.manage.student') }}">
                     <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
-                        <span class="text-sm font-semibold font-poppins">Department</span>
+                        <img src="{{ asset('assets/users.svg') }}" alt="Dashboard Icon" class="h-icon w-icon mr-4">
+                        <span class="text-sm font-semibold font-poppins">Students</span>
                     </li>
                 </a>
-                <a href="{{ route('department.manage.student') }}">
-                    <li class="flex items-center w-full px-4 py-3 hover:bg-green-500 transition duration-200 ease-in-out">
-                        <span class="text-sm font-semibold font-poppins">Student</span>
-                    </li>
-                </a>
-            </ul>
-        </li>
+       
 
         <!-- Students Section -->
         <li class="flex flex-col items-start w-full px-4 py-3">

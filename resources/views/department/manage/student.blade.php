@@ -29,9 +29,6 @@
             <h2 class="font-table-header text-xl font-bold text-primary">Students Table</h2>
         </div>
         <div class="flex space-x-2">
-            <button
-                class="text-sm text-light bg-primary font-semibold px-4 py-2 rounded-lg hover:bg-primary hover:text-white">Export
-                as Excel</button>
                 <button class="text-sm text-light bg-primary font-semibold px-4 py-2 rounded-lg hover:bg-primary hover:text-white"
                 onclick="toggleModal('addStudentModal')">
                 <img src="{{ asset('assets/plus.svg') }}" alt="Plus Icon" class="h-5 w-5 inline-block mr-2">

@@ -1,13 +1,11 @@
 @extends('layouts.department')
-@php
-    $title = 'CVSU - Pending Students';
-@endphp
+
 @section('title', 'Advising for Enrollment')
 @section('content')
 @include('department.modals.department.advis-modal')
 
         <div class="container mx-auto px-4">
-            <h1 class="text-2xl text-primary text-center font-semibold mt-6">Advising - Pending Students</h1>
+            <h1 class="text-2xl text-primary text-center font-semibold mt-6">Pending Students</h1>
 
             
         <!-- Table Container with limited width to the screen -->

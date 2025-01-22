@@ -3,7 +3,7 @@
     <header class="bg-light-gray shadow-big p-4 flex items-center justify-between">
         <!-- Greeting -->
         <h1 class="text-lg font-semibold text-primary ">
-            Good day, <span id="username">{{ auth()->user()->name }}</span>!
+            Good day, <span id="username">{{ Auth::user()->department_name }}</span>!
         </h1>
 
         <!-- Dropdown Menu -->
@@ -13,7 +13,7 @@
                 id="dropdownButton"
                 class="flex items-center bg-light-gray text-black border-2 border-black px-2 py-1 rounded-xl text-sm hover:bg-gray-300">
                 <span class="mr-1 text-black font-medium text-sm">
-                    {{ auth()->user()->name }}
+                    {{ auth()->user()->department_name }}
                 </span>
             </button>
 
