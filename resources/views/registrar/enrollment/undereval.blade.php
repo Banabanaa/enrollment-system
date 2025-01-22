@@ -33,7 +33,7 @@
                     <th class="px-6 py-3 text-left text-sm font-bold text-white">Student Number</th>
                     <th class="px-6 py-3 text-left text-sm font-bold text-white">Name</th>
                     <th class="px-6 py-3 text-left text-sm font-bold text-white">Program</th>
-                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Classification</th>
+                    <th class="px-6 py-3 text-left text-sm font-bold text-white">Status</th>
                     <th class="px-6 py-3 text-left text-sm font-bold text-white">Action</th>
                 </tr>
             </thead>
